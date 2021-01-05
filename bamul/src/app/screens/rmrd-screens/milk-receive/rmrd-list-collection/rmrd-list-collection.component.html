@@ -1,0 +1,126 @@
+<h1 class="page-header">Milk Collection Approval</h1>
+
+<div class="row doNotPrint">
+    <div class="col-md-12">
+        <div class="placeholder clearfix pt-20 mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Date</label>
+                    <input (bsValueChange)="onValueChange($event)" [(ngModel)]="filterDate" type="text" class="form-control date-field" placeholder="Date" bsDatepicker>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Shift </label>
+                    <select [(ngModel)]="filterShift" class="form-control">
+                    <option value="M">Morning</option>
+                    <option value="E">Evening</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Receipt Source Code</label>
+                    <select [(ngModel)]="receiptCode" class="form-control">
+                <option  [selected]="receiptCode=='RMRD DOC 1'" value="RMRD DOC 1">RMRD Doc 1</option>
+                <option  value="RMRD DOC 2">RMRD Doc 2</option>
+                <option  value="RMRD DOC 3">RMRD Doc 3</option>
+              </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Route No</label>
+                    <input [(ngModel)]="filterRoute" type="text" class="form-control" placeholder="Enter route">
+                </div>
+            </div>
+            <!-- <div class="form-row mt-10"> -->
+
+            <div class="form-group col-md-3 text-right"><br />
+                <button (click)="reset()" type="button" class="btn btn-secondary">Reset</button>&nbsp;
+                <button (click)="filterData()" type="button" class="btn btn-primary">Apply Filters</button>
+            </div>
+
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder  pt-20">
+
+            <div class="table-responsive">
+                <div class="text-right pb-20">
+                    <button (click)="approveAllData();" type="button" class="btn btn-primary no-border">Approve All</button>
+                </div>
+                <table class="table table-striped">
+                    <thead class="v-center">
+                        <tr>
+                            <th class="header-row" colspan="6"></th>
+                            <th class="header-row" colspan="2">Sent QTY Details </th>
+                            <th class="header-row" colspan=4>Accepted QTY Details</th>
+                            <th class="header-row" colspan="1"></th>
+                        </tr>
+                    </thead>
+                    <thead class="v-center">
+                        <tr>
+                            <th>
+                                <div class=" form-check ">
+                                    <label class="form-check-label ">
+                                              <input type="checkbox" class="form-check-input " [(ngModel)]="isSelectAll " (click)="selectAll($event) ">
+                                            </label>
+                                </div>
+                            </th>
+                            <th>Route No</th>
+                            <th>Date</th>
+                            <th>Shift</th>
+                            <th>Soc No</th>
+                            <th>Soc Name</th>
+
+                            <th>Rec Cans</th>
+                            <th>Acc Cans</th>
+
+                            <th>QTY</th>
+                            <th>CLR </th>
+                            <th>FAT </th>
+                            <th>SNF</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="filteredShippingheaderList">
+                            <tr *ngFor="let shippingheader of filteredShippingheaderList | paginate: { itemsPerPage: 10, currentPage: p };let i = index">
+                                <td>
+                                    <div class="form-check ">
+                                        <label class="form-check-label ">
+                                          <input [disabled]="shippingheader.approvalStatus=='Approved'" type="checkbox" class="form-check-input
+                                " (click)="onChangeSelection($event,i) " [(ngModel)]="shippingheader.isChecked ">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>{{shippingheader.freightCarrierCode}}</td>
+                                <td>{{shippingheader.shippedDate}}</td>
+                                <td>{{shippingheader.shift}}</td>
+                                <td>{{shippingheader.vendorNum}}</td>
+                                <td>{{shippingheader.vendorName}}</td>
+                                <td>{{shippingheader.quantityShipped}}</td>
+                                <td>{{shippingheader.quantityReceived}}</td>
+                                <td>{{shippingheader.netWeight}}</td>
+                                <td>{{shippingheader.avgClr!=null ? shippingheader.avgClr : 0}}</td>
+                                <td>{{shippingheader.avgFat!=null ? shippingheader.avgFat : 0}}</td>
+                                <td>{{shippingheader.avgSnf!=null ? shippingheader.avgSnf : 0}}</td>
+                                <td><button [disabled]="shippingheader.approvalStatus=='Approved'" (click)="approveData(shippingheader)" class="btn btn-xs btn-primary">Approve</button></td>
+
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="filteredShippingheaderList && filteredShippingheaderList.length == 0">
+                            <tr class="text-center">
+                                <td colspan=13>No Data Available</td>
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner>

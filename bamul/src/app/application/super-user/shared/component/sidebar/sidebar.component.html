@@ -1,0 +1,35 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group [isOpen]="true" routerLinkActive="active" heading="Users" class="user btn-icon">
+        <!-- <ul class="parent-list">
+            <li><label>Users</label> -->
+        <ul>
+            <li>
+                <a routerLink="user/create-user" routerLinkActive="active">
+                    <fa name="cog"></fa> Create User
+                </a>
+            </li>
+            <li>
+                <a routerLink="user/list-user" routerLinkActive="active">
+                    <fa name="cog"></fa> List Users
+                </a>
+            </li>
+        </ul>
+        <!-- </li>
+        </ul> -->
+    </accordion-group>
+
+
+</accordion>
+<!-- <accordion-group heading="Route Sales" class="btn-icon indent">
+    <ul class="parent-list">
+      <li><label>Route Sales</label>
+        <ul>
+          <li><a routerLink="" routerLinkActive="active">
+              <fa name="cog"></fa> List All Route Sales
+            </a></li>
+        
+        </ul>
+      </li>
+     
+    </ul>
+  </accordion-group> -->

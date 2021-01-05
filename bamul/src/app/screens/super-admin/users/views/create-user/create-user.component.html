@@ -1,0 +1,180 @@
+<form [formGroup]="ngFormCreateUser" (ngSubmit)="createUser()">
+    <h1 class="page-header">Add A New User</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="placeholder mt-0 pt-10 clearfix">
+                <div class="form-group mt-10 col-md-12">
+                    <label style="display:block;">User Name
+          </label>
+                    <input [ngClass]="{ 'is-invalid': submitted && userAvailable }" (change)="checkUserExist()" type="text" formControlName="userName" class="form-control input-bl" value="">
+
+                    <span class="error-validate" *ngIf="userAvailable && checked">User Already in use</span>
+                    <!-- <span class="error-validate green" *ngIf="!userAvailable && checked">Username Available</span> -->
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Password</label>
+                    <input [ngClass]="{ 'is-invalid': submitted && f.encryptUserPw.errors }" type="password" formControlName="encryptUserPw" class="form-control input-bl" value="">
+                </div>
+                <div class="form-group pb-10 col-md-6">
+                    <label>Status</label>
+                    <select class="form-control" (change)="statusChange($event.target.value)" formControlName="status">
+            <option *ngFor="let status of statusVal" [value]="status.value">
+              {{status.value}}</option>
+          </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Email</label>
+                    <input [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" type="text" formControlName="emailAddress" class="form-control input-bl" value="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Mobile No.</label>
+                    <input [ngClass]="{ 'is-invalid': submitted && phoneValidate}" type="number" formControlName="phoneNumber" class="form-control input-bl" (keypress)="checkPhoneNumber($event)">
+                    <span class="error-validate" *ngIf="phoneValidate">Enter atleast 10 digits.</span>
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label>Start Date</label>
+                    <input type="text" disabled placeholder="Start Date" class="form-control date-field" value='{{sysDate}}'>
+                </div>
+                <div class="form-group pb-10 col-md-6">
+                    <label>End Date</label>
+                    <input type="text" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" placeholder="End Date" class="form-control date-field" bsDatepicker value='{{endDate}}' formControlName="endDate" [bsConfig]="datePickerConfig">
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="placeholder mt-0  pt-10 clearfix">
+                <div class="form-group mt-10 col-md-12">
+                    <label class="d-block">Employee
+            <span class="pull-right" *ngIf="employeeID!==''">Emp No : {{employeeNumber}}</span>
+          </label>
+                    <div class="ng-autocomplete">
+                        <ng-autocomplete initialValue="" [data]="employeeListItem" [searchKeyword]="employeeKeyword" (selected)='selectEmployeeEvent($event)' (inputChanged)='onChangeEmployeeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateEmployee"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplateEmployee let-item>
+                            <a [innerHTML]="item.empName"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div>No Record Found</div>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="d-block">Customer
+            <span class="pull-right" *ngIf="accountNumber!==''">Customer No : {{accountNumber}}</span>
+          </label>
+                    <div class="ng-autocomplete">
+                        <ng-autocomplete [data]="customerListItem" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.partyName"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div>No Record Found</div>
+                        </ng-template>
+                    </div>
+                    <span class="error-validate" *ngIf="custAvailable">{{validationTextCustomer}}</span>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="d-block">Supplier
+            <span class="pull-right" *ngIf="vendorNum!==''">Supplier No : {{vendorNum}}</span>
+          </label>
+                    <div class="ng-autocomplete">
+                        <ng-autocomplete [data]="supplierListItem" [searchKeyword]="supplierKeyword" (selected)='selectSupplierEvent($event)' (inputChanged)='onChangeSupplierSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateSupplier" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplateSupplier let-item>
+                            <a [innerHTML]="item.vendorName"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div>No Record Found</div>
+                        </ng-template>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label>Contractor</label>
+                    <input [ngClass]="{ 'is-invalid': submitted && f.contractorId.errors }" type="text" formControlName="contractorId" class="form-control input-bl" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- <div class="col-md-6">
+      <div class="placeholder mt-10 pt-10 clearfix">
+        <div class="form-group mt-10 col-md-6">
+          <label>Password Expiration</label>
+          <select class="form-control">
+            <option>Days</option>
+            <option>Accesses</option>
+            <option>None</option>
+          </select>
+        </div>
+        <div class="form-group mt-10 col-md-6">
+          <label>Limit</label>
+          <input type="text" class="form-control input-bl" value="">
+        </div>
+      </div>
+    </div> -->
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="placeholder mt-10  pt-10 clearfix">
+                <div class="form-group col-md-3">
+                    <label>Application</label>
+                    <select class="form-control" (change)="applicationChange($event.target.value)" formControlName="appName">
+            <option selected value="">Select Application</option>
+            <option *ngFor="let application of applicationListItem" [value]="application">{{application}}</option>
+          </select>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label>User Role</label>
+                    <select class="form-control" (change)="roleName($event.target.value)" formControlName="role" [ngClass]="{ 'is-invalid':
+              submitted && f.role.errors }">
+            <option selected value="">Select Role</option>
+            <option *ngFor="let role of roleListItem" [value]="role.roleId">{{role.roleName}}
+            </option>
+            <!-- Employeed Department -->
+            <!-- <option>Super Admin</option> -->
+          </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Select Location</label>
+                    <select class="form-control" formControlName="locationID" [ngClass]="{ 'is-invalid':
+              submitted && f.locationID.errors }">
+            <option selected value="">Select Location</option>
+            <option *ngFor="let locationList of locationListItem"
+              value="{{locationList.locationId}}/{{locationList.locationCode}}">
+              {{locationList.locationCode}}
+            </option>
+          </select>
+                </div>
+                <!-- <div class="form-group col-md-3">
+            <label>Role Path</label>
+            <input [ngClass]="{ 'is-invalid': submitted && f.rolePath.errors }" type="text" formControlName="rolePath"
+              class="form-control input-bl" value="">
+          </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="clearfix mt-10">
+                <button type="button" class="btn btn-secondary pull-right ml-10 cancel-btn" [routerLink]="['/super-admin/user/list-user']">Cancel</button>
+                <button type="submit" class="btn btn-bamul pull-right mr-20">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

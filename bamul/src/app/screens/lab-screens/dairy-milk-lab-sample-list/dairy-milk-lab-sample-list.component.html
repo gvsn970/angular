@@ -1,0 +1,95 @@
+<h1 class="page-header">Dairy QC List</h1>
+<!-- <div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Search</label>
+                    <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix pt-20 mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Date</label>
+                    <input type="text" class="form-control date-field" placeholder="Date" bsDatepicker>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Shift </label>
+                    <select class="form-control">
+            <option>Morning</option>
+            <option>Evening</option>
+          </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Rote No.</label>
+                    <input type="text" class="form-control input-bl" placeholder="Route No">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Vehicle  No </label>
+                    <input type="text" class="form-control input-bl" placeholder="Vehicle Number">
+                </div>
+            </div>
+            <div class="form-row mt-10">
+
+                <div class="form-group col-md-12 text-right"><br />
+                    <button type="button" class="btn btn-secondary">Reset</button>&nbsp;
+                    <button type="button" class="btn btn-primary">Apply Filters</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-10">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped v-middle">
+                    <thead>
+                        <tr>
+                            <th>Route No</th>
+                            <th>Date</th>
+                            <th>QTY</th>
+                            <th>Sent Avg FAT%</th>
+                            <th>Sent Avg SNF%</th>
+                            <th>Received Avg FAT%</th>
+                            <th>Received Avg SNF%</th>
+                            <th>Status</th>
+                            <th width="150" class='text-center'>View/update Detail</th>
+                            <th class="text-center">Actions</th>
+
+                            <!-- <th class='text-center'>Issue</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let labdetails of shippingHeadersBMCList;let k=index">
+                            <td>{{labdetails.routeNo}}</td>
+                            <td>{{labdetails.shippedDate}}</td>
+                            <td>{{labdetails.quantityShipped}}</td>
+                            <td>{{labdetails.overallcustomAvgFat}}</td>
+                            <td>{{labdetails.overallcustomAvgSnf}}</td>
+                            <td>{{labdetails.overallAcceptedAvgFat}}</td>
+                            <td>{{labdetails.overallAcceptedAvgSnf}}</td>
+                            <td>{{labdetails.receiptStatus}}</td>
+                            <td class='text-center'><a (click)="redirectTo('dairy-lab/lab/dairy-sample-detail/'+labdetails.routeNo)">Update</a></td>
+                            <td class="text-center"><button type="button" [disabled]="disableSubmit || labdetails.receiptStatus=='Completed' || labdetails.receiptStatus =='IMPORTED'" (click)="approveAll();" class="btn btn-primary  no-border">Approve
+                        </button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+            </div>
+        </div>
+    </div>
+</div>
+<ng4-loading-spinner>
+</ng4-loading-spinner>

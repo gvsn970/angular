@@ -1,0 +1,186 @@
+.cards {
+  background: #fff;
+  padding: 20px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5px #e2e2e2;
+}
+
+h5.card-title {
+  font-size: 14px;
+  color: #a1a1a1;
+  margin: 0;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+span.card-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 20px;
+}
+
+.placeholder {
+  background: #fff;
+  margin-top: 20px;
+  box-shadow: 0 0 5px #e2e2e2;
+}
+
+h2.sub-header {
+  font-size: 18px;
+  padding: 20px 0 20px 20px;
+  margin: 0;
+}
+
+.table-responsive {
+  padding: 0px 20px;
+}
+
+.mt-0 {
+  margin-top: 0
+}
+
+.pt-20 {
+  padding-top: 20px;
+}
+
+thead {
+  background: #f0f0f7a8;
+  border: 0;
+}
+
+thead th {
+  border: 0 !important;
+  color: #a1a1a1;
+}
+
+table.table {
+  font-size: 12px;
+}
+
+
+
+/*Modal CSS*/
+
+.modal-window {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+
+}
+
+header {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+}
+
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+
+}
+
+
+.modal-window-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 10000 !important;
+}
+
+.middle {
+  position: fixed;
+  background-color: rgba(39, 38, 38, 0.8);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100000 !important;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.middle-inner {
+  width: 60%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: #ffffff;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.close {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.3;
+  border-radius: 20px;
+  border: 1px solid #888;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.close:before,
+.close:after {
+  position: absolute;
+  left: 8px;
+  content: " ";
+  height: 9px;
+  width: 2px;
+  background-color: #333;
+  top: 4px;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}
+
+.pad-view {
+  padding: 0px 10px 0px 10px;
+}

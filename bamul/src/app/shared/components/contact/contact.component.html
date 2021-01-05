@@ -1,0 +1,84 @@
+ <h1 class="page-header">Contact Us</h1>
+
+ <div class="row">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder mt-0">
+       <div class="row contactus">
+         <div class="col-lg-4">
+           <h4>Sales</h4>
+           <p><strong>Email </strong> sales@bamulnandini.coop</p>
+           <p><strong>Contact No. </strong> 080-25536168</p>
+           <p><strong>Toll Free No.</strong> 1800-425-6168</p>
+           <div class="space40"></div>
+           <h4>Support</h4>
+           <p><strong>Email </strong> support@bamulnandini.coop</p>
+           <p><strong>Contact No. </strong> 080-25536168</p>
+           <p><strong>Toll Free No.</strong> 1800-425-6168</p>
+           <div class="space40"></div>
+           <h4>Order</h4>
+           <p><strong>Email </strong> order@bamulnandini.coop</p>
+           <p><strong>Contact No. </strong> 080-25536168</p>
+           <p><strong>Toll Free No.</strong> 1800-425-6168</p>
+         </div>
+
+         <div class="col-lg-4">
+           <h4>Finance</h4>
+           <p><strong>Email </strong> finance@bamulnandini.coop</p>
+           <p><strong>Contact No. </strong> 080-25536168</p>
+           <p><strong>Toll Free No.</strong> 1800-425-6168</p>
+           <div class="space40"></div>
+           <h4>Operation</h4>
+           <p><strong>Email </strong> operation@bamulnandini.coop</p>
+           <p><strong>Contact No. </strong> 080-25536168</p>
+           <p><strong>Toll Free No.</strong> 1800-425-6168</p>
+           <div class="space40"></div>
+           <h4>Societies</h4>
+           <p><strong>Email </strong> societies@bamulnandini.coop</p>
+           <p><strong>Contact No. </strong> 080-25536168</p>
+           <p><strong>Toll Free No.</strong> 1800-425-6168</p>
+         </div>
+         <div class="col-lg-4">
+           <div class="well well-sm">
+             <form class="form-vertical contact_form" [formGroup]="contactEmailForm">
+               <fieldset>
+                 <legend class="text-center pb-10">Contact us</legend>
+
+                 <!-- Name input-->
+                 <div class="form-group">
+                   <label class="col-md-12 control-label text-left" for="name">Department</label>
+                   <div class="col-md-12">
+                     <select [ngClass]="{ 'is-invalid': submitted && fval.department.errors ||fval.department.touched && fval.department.errors }" id="productCategory" class="form-control" formControlName="department">
+                       <option>Sales</option>
+                       <option>Finance</option>
+                       <option>Operation</option>
+                       <option>Support</option>
+                       <option>Order</option>
+                       <option>Societies</option>
+
+                     </select>
+                   </div>
+                 </div>
+
+                 <!-- Message body -->
+                 <div class="form-group">
+                   <label class="col-md-12 control-label" for="message">Your message</label>
+                   <div class="col-md-12">
+                     <textarea [ngClass]="{ 'is-invalid': submitted && fval.message.errors ||fval.message.touched && fval.message.errors }" id="productCategory" class="form-control" id="message" name="message"
+                       placeholder="Please enter your message here..." rows="7" formControlName="message"></textarea>
+                   </div>
+                 </div>
+
+                 <!-- Form actions -->
+                 <div class="form-group">
+                   <div class="col-md-12 text-right">
+                     <button (click)='sendMessage()' type="submit" class="btn btn-bamul">Submit</button>
+                   </div>
+                 </div>
+               </fieldset>
+             </form>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>

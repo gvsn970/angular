@@ -1,0 +1,68 @@
+<h1 class="page-header">List All Users</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Search</label>
+                    <input type="text" [(ngModel)]="filterValue" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- table rows-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-10 mt-10">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="v-center">
+                        <tr>
+                            <!-- <th>User ID</th> -->
+                            <th>User Name</th>
+                            <th class="">Application</th>
+                            <!-- <th class="text-center">Department</th> -->
+                            <th class="">Role</th>
+                            <!-- <th class="text-center">Email</th> -->
+                            <th class="">Contact No.</th>
+                            <th colspan="2" class="" style="width:120px;">Location</th>
+                            <th class="">Status</th>
+                            <th colspan="1" class="text-center">Actions</th>
+                        </tr>
+                        <tr class="sub-head">
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let userList of userListItem?.applicationUsers | LockFilter: search | paginate: { itemsPerPage: 10, currentPage: p , totalItems: userListItem?.totalRecords } let i
+             =index'>
+                            <!-- <td>{{userList.userId}}</td> -->
+                            <td>{{userList.userName}}</td>
+                            <td class="">{{userList.appName}}</td>
+                            <!-- <td class="text-center">-</td> -->
+                            <td class="">{{userList.role}}</td>
+                            <!-- <td class="text-center">{{userList.emailAddress}}</td> -->
+                            <td class="">{{userList.phoneNumber}}</td>
+                            <td class="" *ngIf="userList.locationName==='null'"></td>
+                            <td colspan="2" class="" *ngIf="userList.locationName!=='null'">{{userList.locationName}}</td>
+                            <td class=""><b class="text-success">{{userList.status}}</b></td>
+                            <td colspan="1" class="text-right">
+                                <strong class="cur-pointer" [routerLink]="['../../user/update-user']" (click)="updateUser(userList.userId)"><i class="fa fa-edit"></i>Edit</strong>
+                                <strong class="ml-10 cur-pointer" (click)="deleteUser(userList.userId)"><i
+                    class="fa fa-trash"></i>Del</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pagechange($event)"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10">
+</div>
+<!-- <ng4-loading-spinner>
+</ng4-loading-spinner> -->
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

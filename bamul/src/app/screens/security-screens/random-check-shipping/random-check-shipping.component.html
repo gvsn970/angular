@@ -1,0 +1,136 @@
+<!-- <h2 class="blink_me sub-header page-header"><strong>Random Shipping</strong> </h2> -->
+<h1 class="page-header">Random Shipping</h1>
+<div class="row" *ngIf="dispatch; else notShow">
+  <div class="col-xs-12 col-sm-12">
+    <div class="placeholder pt-20 mt-10">
+      <div class="table-responsive">
+        <div class="form-row mt-10">
+          <div class="form-group col-md-4">
+            <label>Search</label>
+            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText">
+          </div>
+          <div class="form-group col-md-4">
+            <label>Date</label>
+            <input type="text" class="form-control" placeholder="Date" value="{{dateValue}}" disabled=''>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="placeholder pd-10 mt-10">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Route Number</th>
+              <th>Shift</th>
+              <th>Shipping Date</th>
+              <th>Total Crates</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of filterList ">
+              <td><a (click)='redirectTo(i)'>{{i.routeNo}}</a></td>
+              <td>{{i.shift}}</td>
+              <td>{{i.reportDate}}</td>
+              <td>{{i.totalCrates}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notShow>
+  <form>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="placeholder mt-10 clearfix">
+          <div class="form-row mt-10">
+            <div class="form-group col-md-3">
+              <label>Route No</label>
+              <input type="text" class="form-control input-bl" value="{{routesheetList.routeNo}}" readonly>
+            </div>
+            <div class="form-group col-md-3">
+              <label>Shift</label>
+              <input type="text" class="form-control input-bl" value="{{routesheetList.shift}}" readonly>
+            </div>
+            <div class="form-group col-md-3">
+              <label>Date</label>
+              <input type="text" class="form-control input-bl" value="{{routesheetList.reportDate}}" readonly>
+            </div>
+            <div class="form-group col-md-3">
+              <label>Total Crates</label>
+              <input type="text" class="form-control input-bl" value="{{routesheetList.totalCrates}}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-0">
+          <h2 class="sub-header hidden">Reports</h2>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Products</th>
+                  <th>Quantity</th>
+                  <th>UOM</th>
+                  <th>Full Crates</th>
+                  <th>Extra Packets</th>
+                  <th>Partial Crates</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i  of routesheetList.disShipLine let in =index">
+                  <td>{{i.item}}</td>
+                  <td>{{i.quantity}}</td>
+                  <td>{{i.uom}}</td>
+                  <td>{{i.fullCrates}}</td>
+                  <td>{{i.extraCrates}}</td>
+                  <td>{{i.parCrates}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="form-row  reamrks">
+              <div class=" col-sm-12">
+                <label>Remarks</label>
+                <textarea class="form-control" name="dispRemark" [(ngModel)]="randomRemark"
+                  id="exampleFormControlTextarea1" rows="1"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix mt-10">
+      <ng-template #DeleteConfirm>
+        <div class="modal-body text-center">
+          <h4>Do you want to confirm Random Check?</h4>
+          <br />
+          <div class="clearfix">
+            <button type="button" class="btn btn-primary pull-yes" (click)="confirm(in,field)">Yes</button>
+            <button type="button" class="btn btn-default pull-no" (click)="decline()">No</button>
+          </div>
+        </div>
+      </ng-template>
+
+        
+    <div class="clearfix mt-10 pd-10">
+          <button class="btn btn-bamul pull-left"  (click)='navigateBack()'>Back</button>
+          <button type="button" class="btn btn-bamul confirm"click)="openModal(DeleteConfirm,in,field)"> Random Check
+        Confirm</button>
+        
+          <!-- <button class="btn btn-bamul pull-right"  (click)='dispatch()'>Dispatch</button> -->
+        </div>
+    </div>
+  </form>
+</ng-template>
+
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

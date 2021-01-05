@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="">Search Master Indent</h3>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-5">
+            <div class="row flex flex-center"
+            [formGroup]="customerNo">
+                <div class="col-md-2 flex-child flex-col flex-left">
+                    <strong>Customer No.</strong><br />
+                    <div class="ng-autocomplete"  style='width:300px'>
+                        <ng-autocomplete [data]="customerListItem" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'  [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div>No Record Found</div>
+                        </ng-template>
+                    </div>
+                </div>
+           <div *ngIf='masterIndentByCustomerId'  class="col-md-4" style='position: absolute;left: 627px;bottom: 6px;'>
+                    <button (click)='createIndentManger()'
+                    class="btn btn-primary pull-left mt-15">Create Master Indent</button>
+                  </div> 
+            </div>
+
+
+        </div>
+    </div>
+  
+</div>
+
+<div *ngIf="masterIndentByCustomerId">
+    <h1 class="page-header">List Of Master Indent</h1>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="placeholder">
+                <div class="">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Indent No.</th>
+                                <th>Shift</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let masterIndentByCustomer of masterIndentByCustomerId  
+            | paginate: { itemsPerPage: 10, currentPage: p };let i= index">
+                                <td>{{ (p - 1) * 10 + i +1 }}</td>
+                                 <td>{{masterIndentByCustomer.mstHdrId}}</td>
+                            <td>{{masterIndentByCustomer.shiftCode}}</td>
+                            <td>{{masterIndentByCustomer.startDate }}</td>
+                            <td>{{masterIndentByCustomer.endDate}}</td>
+                            <td><span class="text-active"><strong>{{masterIndentByCustomer.status}}</strong></span></td>
+                                <td class=''><a (click)='masterIndentUpdate("edit-master-indent-manager",masterIndentByCustomer)'><i
+                    class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></td>
+                            
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                    <ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+                        <p style="color: white"> Loading... </p>
+                    </ngx-spinner>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

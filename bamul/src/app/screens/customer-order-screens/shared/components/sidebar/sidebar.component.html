@@ -1,0 +1,63 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+  <accordion-group routerLink="dashboard" routerLinkActive="active" [isDisabled]="true" heading="Dashboard"
+    class="dashboard btn-icon">
+  </accordion-group>
+  <accordion-group heading="Master Indent" class="indent btn-icon">
+    <ul>
+      <li><a routerLink="master-indent/list-master-indents" routerLinkActive="active">
+          <fa name="cog"></fa> List of Master Indent
+        </a></li>
+      <li><a routerLink="master-indent/create-master-indent" routerLinkActive="active">
+          <fa name="cog"></fa> Create Master Indent
+        </a></li>
+      <!-- <li><a routerLink="master-indent/edit-master-indent" routerLinkActive="active">
+          <fa name="cog"></fa> Update Master Indent
+        </a></li> -->
+
+    </ul>
+  </accordion-group>
+  <accordion-group heading="Indent" class="indent btn-icon">
+    <ul>
+      <li><a routerLink="indent/list-indents" routerLinkActive="active">
+          <fa name="cog"></fa> List of Indent
+        </a>
+      </li>
+      <li><a routerLink="indent/create-indent" routerLinkActive="active">
+          <fa name="cog"></fa> Create Indent
+        </a></li>
+      <!-- <li><a routerLink="indent/update-indent" routerLinkActive="active">
+          <fa name="cog"></fa> Update Indent
+        </a></li> -->
+
+    </ul>
+  </accordion-group>
+  <accordion-group heading="Report" class="report btn-icon">
+    <ul>
+      <li><a routerLink="reports" routerLinkActive="active">
+          <fa name="cog"></fa> Advanced Reports
+        </a></li>
+    </ul>
+  </accordion-group>
+  <accordion-group heading="Contact" class="contact btn-icon">
+    <ul>
+      <li><a routerLink="contact" routerLinkActive="active">
+          <fa name="cog"></fa> See Contact Details
+        </a></li>
+      <!-- <li><a href="#">
+          <fa name="cog"></fa> Write to us
+        </a></li> -->
+    </ul>
+  </accordion-group>
+  <accordion-group heading="Payment" class="payment btn-icon">
+    <ul>
+      <li><a routerLink="payment" routerLinkActive="active">
+          <fa name="cog"></fa> Payment
+        </a>
+      </li>
+      <li><a routerLink="payment-log" routerLinkActive="active">
+          <fa name="cog"></fa> view payments
+        </a>
+      </li>
+    </ul>
+  </accordion-group>
+</accordion>

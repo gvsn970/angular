@@ -1,0 +1,115 @@
+<h1 class="page-header">MPCS Route Sheet - RMRD</h1>
+<div class="row doNotPrint">
+    <div class="col-md-12">
+        <div class="placeholder clearfix pt-20">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-2">
+                    <label>Date</label>
+                    <input type="text" (bsValueChange)="onChangeDate()" [(ngModel)]="date" placeholder="Date" class="form-control date-field" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label>Route No</label>
+                    <select [(ngModel)]="route" (change)="routeonChange($event.target.value)" class="form-control">
+                            <option [selected]="routePoint==null" value="">Select Route</option>
+             <option  *ngFor="let routepoint of distinctrouteNumber" value="{{routepoint}}">{{routepoint}}</option>
+           </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Shift </label>
+                    <select [(ngModel)]="shift" (change)="onChange($event.target.value)" class="form-control">
+             <option value="M">Morning</option>
+             <option value="E">Evening</option>
+           </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Status </label>
+                    <select [(ngModel)]="approvalStatus" (change)="onChangeStatus($event.target.value)" class="form-control">
+                        <option value="Approved">Approved</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4 text-right"><br />
+                    <button type="button" (click)="generateReport()" class="btn btn-primary">Apply Filters</button>
+                    <button type="button" class="btn btn-secondary" (click)="reset()">Reset</button>&nbsp;
+                    <button type="button" class="btn btn-success" [disabled]="printvalue==false" (click)="onPrint()">Print</button>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix mt-10 doNotPrint"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder mt-10 clearfix">
+            <div class="form-row mt-10">
+                <!-- <div class="form-group col-md-3 mt-15">
+                    <label>Trip Date</label>
+                    <input type="text" class="form-control input-bl" [(ngModel)]="tripDate" readonly>
+                </div> -->
+                <div class="form-group col-md-4 mt-15">
+                    <label>Actual End Time</label>
+                    <input type="text" class="form-control input-bl" [(ngModel)]="arrivalTime" readonly>
+                </div>
+                <div class="form-group col-md-4 mt-15">
+                    <label>Vehicle Number</label>
+                    <input type="text" class="form-control input-bl" [(ngModel)]="vehicleNumber" readonly>
+                </div>
+                <div class="form-group col-md-4 mt-15">
+                    <label>Driver Name</label>
+                    <input type="text" class="form-control input-bl" [(ngModel)]="driverName" readonly>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Rec. No.</th>
+                            <th>Date</th>
+                            <th>Shift</th>
+                            <th>Soc Id</th>
+                            <th>Soc. Name</th>
+                            <th>No of cans</th>
+                            <th>Weight(Kgs)</th>
+                            <th>CLR</th>
+                            <th>FAT%</th>
+                            <th>SNF%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="!routeData">
+                            <td colspan="10" class="text-center">
+                                <p class="warning-text"><strong>No data found</strong></p>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let route of routeData;let i = index">
+                            <td>{{route.receiptNum}}</td>
+                            <td>{{route.shippedDate}}</td>
+                            <td>{{route.shift}}</td>
+                            <td>{{route.vendorNum}}</td>
+                            <td>{{route.vendorName}}</td>
+                            <td>{{route.numOfContainers}}</td>
+                            <td>{{route.netWeight}}</td>
+                            <td>{{route.avgClr}}</td>
+                            <td>{{route.avgFat}}</td>
+                            <td>{{route.avgSnf}}</td>
+                            <!--routeId: 46 vehicleNumber: "KA-38-AH-4457" driverName: "Ajith" tripDate: "28-12-2019" arrTime: "05:10:10" depTime: "05:30:05" shift: "M" noOfCans: 34 totalQty: 96 apxCLR: 4.2 apxFAT: 3.2 apxSNF: 6.12 looseSalesQty: 2 status: "New" remarks: null creationDate:
+                            "28-12-2019" createdBy: 27 lastUpdateDate: "28-12-2019" lastUpdatedBy: 27 lastUpdateLogin: null -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<ng4-loading-spinner [threshold]="0" [timeout]="60000" [zIndex]="100000"> </ng4-loading-spinner>

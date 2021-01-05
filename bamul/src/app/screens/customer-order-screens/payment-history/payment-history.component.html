@@ -1,0 +1,180 @@
+<h1 class="page-header">Payment History</h1>
+<div class="row doNotPrint">
+  <div class="col-xs-12 pr-12">
+    <!-- <div class="shift text-center">
+      <span>Shift</span>
+      <strong>Morning</strong>
+    </div> -->
+    <div class="placeholder mt-0 pd-10">
+      <address>
+        <span>Name : <strong *ngIf="customerBillingDetails"> {{customerBillingDetails.partyName}}</strong></span>
+        <p>
+          Number : <strong *ngIf="customerBillingDetails">{{customerBillingDetails.accountNumber}}</strong>
+        </p>
+      </address>
+    </div>
+  </div>
+  <!-- <div class="col-xs-4 pl-0">
+    <div class="placeholder mt-0 pd-10">
+      <address>
+        <p>
+          <span>Date : <strong>
+              <app-date></app-date>
+            </strong></span>
+        </p>
+        <p><span>Time : </span><strong>
+            <app-clock></app-clock>
+          </strong></p>
+      </address>
+    </div>
+  </div> -->
+</div>
+
+<!-- <div class="row">
+  <div class="col-md-12">
+    <div class="placeholder mt-10 clearfix">
+      <div class="form-row mt-10">
+        <div class="form-group col-md-2">
+          <label>Total Route</label>
+          <input type="text" class="form-control input-bl" Value="5" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Total Vehicle</label>
+          <input type="text" class="form-control input-bl" Value="6" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Total Societies</label>
+          <input type="text" class="form-control input-bl" Value="24" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Total Cans</label>
+          <input type="text" class="form-control input-bl" Value="230" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Accepted Cans</label>
+          <input type="text" class="form-control input-bl" Value=225 readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Quantity (Kg)</label>
+          <input type="text" class="form-control input-bl" Value=5420 readonly>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="row doNotPrint">
+  <div class="col-md-12">
+    <div class="placeholder pd-10 mt-10">
+      <table class="table inwards table-striped">
+        <thead class="v-center">
+          <tr>
+            <th width="100px">Transaction Date</th>
+            <th class="text-center">Process Date</th>
+            <th>Transaction ID</th>
+            <!-- <th class="text-center">Email</th> -->
+            <th class="text-center">Order Number</th>
+            <th class="text-center">Order Amount</th>
+            <th class="text-center">Payment Mode</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Remarks</th>
+            <th class="text-center">Action</th>
+          </tr>
+          <tr class="sub-head">
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of paymentDetailList | paginate: { itemsPerPage: 10, currentPage: p };let i = index">
+            <td>{{list.txnDate}}</td>
+            <td class="text-center">{{list.processDate}}</td>
+            <td>{{list.agrTxnId}}</td>
+            <!-- <td class="text-center">{{list.emailAddress}}</td> -->
+            <td class="text-center">{{list.orderNumber}}</td>
+            <td class="text-center"><i class="fa fa-inr" aria-hidden="true"></i>{{list.amout}}</td>
+            <td class="text-center">{{list.payMode }}</td>
+            <td class="text-center">{{list.statusMessage}}</td>
+            <td class="text-center">
+              <div *ngIf="list.status!=0300">{{list.errorDescription}}</div>
+            </td>
+            <td class="text-center">
+              <!-- <button type="button" class="btn btn-primary btn-small" (click)="getStatus(list.referenceKey,paymentDetail)">Refresh</button> -->
+              <button type="button" class="btn btn-primary btn-small" [disabled]="list.status==0300 || list.status==0399"
+                (click)="getStatus(list.referenceKey,paymentDetail)">Refresh</button>
+              <button type="button btn-small" class="btn btn-primary btn-small" (click)="onPrint(i)">Print</button>
+            </td>
+          </tr>
+          <tr *ngIf="paymentDetailList.length==0">
+            <td class="text-center" colspan="9">No Record Found</td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls class="doNotPrint" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+<div class="visible-print-inline-block">
+  <div class="modal-body">
+    <div class="clearfix">
+      <p *ngIf="customerBillingDetails"> <strong>Name:</strong> {{customerBillingDetails.partyName}}</p>
+    </div>
+    <div class="clearfix">
+      <p *ngIf="customerBillingDetails"> <strong>Number:</strong> {{customerBillingDetails.accountNumber}}</p>
+    </div>
+    <div class="clearfix">
+      <p *ngIf="paymentDetails"> <strong>Transaction Id:</strong> {{paymentDetails.agrTxnId}}</p>
+    </div>
+    <div class="clearfix">
+      <p *ngIf="paymentDetails"><strong>Transaction Date:</strong> {{paymentDetails.txnDate}}</p>
+    </div>
+    <div class="clearfix">
+      <p *ngIf="paymentDetails"><strong>Process Date:</strong> {{paymentDetails.processDate}}</p>
+    </div>
+    <div class="clearfix">
+      <p *ngIf="paymentDetails"><strong>Order Number:</strong> {{paymentDetails.orderNumber}}</p>
+    </div>
+    <div class="clearfix">
+      <p *ngIf="paymentDetails"><strong>Transaction Message:</strong> {{paymentDetails.statusMessage}}</p>
+    </div>
+    <div class="clearfix">
+      <p *ngIf="paymentDetails"><strong>Transaction Amount:</strong> <i class="fa fa-inr" aria-hidden="true"></i>
+        {{paymentDetails.amout}}</p>
+    </div>
+  </div>
+</div>
+<ng-template #paymentDetail>
+  <div class="modal-body text-center">
+    <h4>Payment Transaction Status</h4>
+    <br />
+    <div class="clearfix">
+      <div class="modal-body">
+        <div class="clearfix">
+          <p>Transaction Id: <strong>{{paymentStatus.agrTxnId}}</strong></p>
+        </div>
+        <div class="clearfix">
+          <p>Date: <strong>{{paymentStatus.txnDate}}</strong> </p>
+        </div>
+        <div class="clearfix">
+          <p>Transaction Message: <strong>{{paymentStatus.statusMessage}}</strong> </p>
+        </div>
+        <div class="clearfix">
+          <p>Transaction Amount: <i class="fa fa-inr" aria-hidden="true"></i><strong> {{paymentStatus.amout}}</strong></p>
+        </div>
+        <div class="clearfix" *ngIf="paymentStatus.refundCode!='NA'">
+          <p>Refund status: <strong>{{paymentStatus.refundStatus}}</strong> </p>
+        </div>
+        <div class="clearfix" *ngIf="paymentStatus.refundCode!='NA'">
+          <p>Refund Amount: <i class="fa fa-inr" aria-hidden="true"></i><strong>{{paymentStatus.totalRefundAmt}}</strong> </p>
+        </div>
+        <div class="clearfix" *ngIf="paymentStatus.refundCode!='NA'">
+          <p>Refund Date: <strong>{{paymentStatus.lastRefundDate}}</strong> </p>
+        </div>
+        <div class="clearfix" *ngIf="paymentStatus.refundCode!='NA'">
+          <p>Refund Reference Number: <strong>{{paymentStatus.lastRefundRefNo}}</strong> </p>
+        </div>
+        <div>
+          <a class="btn btn-primary btn-right" (click)="decline()" href="javascript:void(0)" type="button">Ok</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng4-loading-spinner> </ng4-loading-spinner>

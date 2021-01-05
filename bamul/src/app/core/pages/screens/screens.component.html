@@ -1,0 +1,39 @@
+<div class='screen clearfix'>
+  <div class="sidenav">
+    <img class='brand' src='./assets/img/brand.png' />
+    <img class='family hidden' src='./assets/img/family1.png' />
+    <img class="brang-img" src='./assets/img/footer.png' />
+  </div>
+  <div class="main">
+    <div class="col-md-12 col-sm-12">
+      <div class="form-row"><br /><br /><br />
+        <div class="form-group col-md-4"><button (click)='redirectTo("customer")'
+            class="button btn-lg bg-info no-border"><i class="fa fa-user" aria-hidden="true"></i> Customer</button>
+        </div>
+        <div class="form-group col-md-4"><button (click)='redirectTo("transport")'
+            class="button btn-lg bg-info no-border"><i class="fa fa-truck" aria-hidden="true"></i> Transport</button>
+        </div>
+        <div class="form-group col-md-4"><button (click)='redirectTo("rmrd")' class="button btn-lg bg-info no-border"><i
+              class="fa fa-flask" aria-hidden="true"></i> RMRD</button></div>
+        <div class="form-group col-md-4"><button (click)='redirectTo("security")'
+            class="button btn-lg bg-info no-border"><i class="fa fa-shield" aria-hidden="true"></i> Security</button>
+        </div>
+        <div class="form-group col-md-4"><button (click)='redirectTo("sales-order")'
+            class="button btn-lg bg-info no-border"><i class="fa fa-cubes" aria-hidden="true"></i> Sales
+            Order</button></div>
+        <div class="form-group col-md-4"><button (click)='redirectTo("call-desk")'
+            class="button btn-lg bg-info no-border"><i class="fa fa-phone-square" aria-hidden="true"></i> Call
+            Desk</button></div>
+        <div style="opacity: 0.5;pointer-events: none" class="form-group col-md-4"><button
+            (click)='redirectTo("call-desk")' class="button btn-lg bg-info no-border" disabled><i
+              class="fa fa-ambulance" aria-hidden="true"></i>
+            Cattle</button></div>
+        <div class="form-group col-md-4"><button (click)='redirectTo("society")'
+            class="button btn-lg bg-info no-border"><i class="fa fa-users" aria-hidden="true"></i> Society</button>
+        </div>
+        <div class="form-group col-md-4"><button (click)='redirectTo("bmc")' class="button btn-lg bg-info no-border"><i
+              class="fa fa-industry" aria-hidden="true"></i>BMC</button></div>
+      </div>
+    </div>
+  </div>
+</div>

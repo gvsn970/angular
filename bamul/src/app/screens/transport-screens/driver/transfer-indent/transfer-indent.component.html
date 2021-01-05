@@ -1,0 +1,313 @@
+<h1 class="page-header">Transfer Request</h1>
+<form [formGroup]="MilkTransferIndent" >
+<div class="row">
+    
+  <div class="col-md-12">
+  
+    <div class="placeholder clearfix mt-0">
+      
+      <div class="form-row mt-10">
+     
+        <div class="form-group col-md-3">
+          <label>From </label>
+          <select class="form-control input-bl"  formControlName='sourceLocationId'  
+           [ngClass]="{ 'is-invalid': submitted && f.sourceLocationId.errors ||f.sourceLocationId.touched && f.sourceLocationId.errors }"
+        >
+          <option>Select</option>
+          <option  [ngValue]='sourceLocationId.locationId' *ngFor='let sourceLocationId of allLocation' >{{sourceLocationId.locationCode}}</option>
+        </select>
+     
+        </div>
+        <div class="form-group col-md-3">
+          <label>To </label>
+          <select class="form-control input-bl"  formControlName='targetLocationId' 
+          [ngClass]="{ 'is-invalid': submitted && f.targetLocationId.errors ||f.targetLocationId.touched && f.targetLocationId.errors }"
+          >
+            <option>Select</option>
+            <option *ngFor='let targetLocationId of allLocation' [ngValue]='targetLocationId.locationId'>{{targetLocationId.locationCode}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Date</label>
+            <input type="text" class="form-control input-bl" value="{{currenytDate}}" 
+            formControlName='requiredDate' disabled=''>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Time</label>
+            <input type="text"  class="form-control input-bl"   value="{{currenytTm}}"
+             formControlName='requiredTime' disabled='' >
+          </div>
+        <div class="form-group col-md-2">
+          <label>QTY in KGs</label>
+          <input type="number"  min="0" step="0.01"  class="form-control input-bl" placeholder="0.0"  
+           (change)='requiredQty($event)'formControlName='requiredQty'
+          [ngClass]="{ 'is-invalid': submitted && f.requiredQty.errors ||f.requiredQty.touched && f.requiredQty.errors }" >
+        </div>
+        <div class="form-group col-md-2">
+          <label>FAT %</label>
+          <input type="number"   min="0" max="6" class="form-control input-bl" placeholder="0.0"   (change)='requiredFAT($event)'formControlName='requiredFAT'
+          [ngClass]="{ 'is-invalid': submitted && f.requiredFAT.errors ||f.requiredFAT.touched && f.requiredFAT.errors }" >
+        </div>
+        <div class="form-group col-md-2">
+            <label>SNF %</label>
+            <input type="number" min="0" max="11"  class="form-control input-bl" placeholder='0.0'   (change)='requiredSNF($event)'formControlName='requiredSNF' 
+            [ngClass]="{ 'is-invalid': submitted && f.requiredSNF.errors ||f.requiredSNF.touched && f.requiredSNF.errors }" >
+          </div>
+          <div class="form-group col-md-3">
+            <label>FAT in KG</label>
+            <input type="number"  min="0" class="form-control input-bl" placeholder="0.0"   value="{{(totalQTY*totalFat)/100}}"  disabled=''>
+          </div>
+          <div class="form-group col-md-3">
+              <label>SNF in  KG</label>
+              <input type="number" min="0" class="form-control input-bl" placeholder='0.0'    value="{{(totalQT*totalSNF)/100}}" disabled=''>
+            </div>
+          <div class="form-group col-md-12">
+            <label>Remarks</label>
+            <input type="text"  class="form-control input-bl" placeholder='Remarks'  formControlName='requiredRemarks'
+           >
+          </div>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>
+
+<div class="clearfix mt-10">
+
+  <button type="submit" (click)='saveTranferIndent()' class="btn btn-bamul pull-right"  [disabled]='disabled'>Submit</button>
+</div>
+</form>
+
+<h1 class="page-header">Vehicle </h1>
+<form   [formGroup]="MilkTransferIndent"  >
+<div class="row">
+    
+  <div class="col-md-12">
+  
+    <div class="placeholder clearfix mt-0">
+      
+      <div class="form-row mt-10">
+     
+        <div class="form-group col-md-6">
+          <label>Vehicle No</label>
+          <input type="text" class="form-control input-bl" placeholder="Vehicle No"  formControlName='vehicleNumber' >
+        </div>
+        <div class="form-group col-md-6">
+          <label>Driver Name</label>
+          <input type="text" class="form-control input-bl" placeholder="Driver Name" formControlName='driverNames' >
+        </div>
+        <div class="form-group col-md-12">
+            <label>Remarks</label>
+            <input type="text" class="form-control input-bl" placeholder="Remarks" formControlName='transactionRemarks' >
+          </div>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>
+
+<div class="clearfix mt-10">
+
+  <button type="button" [disabled]='disabled1'  (click)='upadteVechile()'  class="btn btn-bamul pull-right">Submit</button>
+</div>
+</form>
+
+<h1 class="page-header">Loading</h1>
+<form  [formGroup]="MilkTransferIndent" >
+<div class="row">
+    
+  <div class="col-md-12">
+  
+    <div class="placeholder clearfix mt-0">
+      
+      <div class="form-row mt-10">
+     
+      
+        <div class="form-group col-md-3">
+          <label>QTY in KGs</label>
+          <input type="number" min="0"  class="form-control input-bl" placeholder="QTY KGs" formControlName='loadedQuantity'>
+        </div>
+        <div class="form-group col-md-3">
+          <label>FAT %</label>
+          <input type="number" min="0" class="form-control input-bl" placeholder="FAT %" formControlName='loadedFat'>
+        </div>
+        <div class="form-group col-md-3">
+            <label>SNF %</label>
+            <input type="number"  min="0"  class="form-control input-bl" placeholder="SNF %" formControlName='loadedSNF'>
+          </div>
+          <div class="form-group col-md-3">
+            <label> Tare Weight</label>
+            <input type="number" min="0"  class="form-control input-bl" placeholder="Tare Weight" formControlName='sourceTareWt'>
+          </div>
+          <div class="form-group col-md-3">
+            <label> Gross Weight</label>
+            <input type="number" min="0"  class="form-control input-bl" placeholder="Gross Weight" formControlName='sourceGrosseWt'>
+          </div>
+
+        <div class="form-group col-md-3">
+            <label>Seal#1</label>
+            <input type="number"min="0" class="form-control input-bl" placeholder='Seal No1' formControlName='firstSealNo'>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Seal#2</label>
+            <input type="number"  min="0"  class="form-control input-bl" placeholder='Seal No2'formControlName='secondSealNo' >
+          </div>
+          <div class="form-group col-md-3">
+            <label>Seal#3</label>
+            <input type="number" min="0" class="form-control input-bl" placeholder='Seal No3' formControlName='thirdSealNo'>
+          </div>
+      
+          <div class="form-group col-md-12">
+            <label>Remarks</label>
+            <input type="text" class="form-control input-bl" placeholder='Remarks' formControlName='loadingRemarks'>
+          </div>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>
+
+<div class="clearfix mt-10">
+ 
+  <button type="button" [disabled]='disabled2' class="btn btn-bamul pull-right"  (click)='upadteLoading()'>Submit</button>
+</div>
+</form>
+<h1 class="page-header">Security(Source Outward)</h1>
+<form   [formGroup]="MilkTransferIndent" >
+<div class="row">
+    
+  <div class="col-md-12">
+  
+    <div class="placeholder clearfix mt-0">
+      
+      <div class="form-row mt-10">
+     
+        <div class="form-group col-md-4">
+          <label>Arrival Date</label>
+          <input type="text" class="form-control input-bl" placeholder="Arrival Date" disabled=''
+           value="{{currenytDate}}"    formControlName='arrivalTime'>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Arrival Time</label>
+            <input type="text" class="form-control input-bl" placeholder="Arrival Time" disabled='' 
+             value="{{currenytTm}}"   formControlName='arrivalTime'>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Verified By</label>
+            <input type="text" class="form-control input-bl" placeholder="Verified By" formControlName='arrivalVerifiedBy'>
+          </div>
+          <div class="form-group col-md-12">
+            <label>Remarks</label>
+            <input type="text" class="form-control input-bl" placeholder="Remarks" formControlName='arrivalSecurityRemarks'>
+            
+          </div>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>
+
+<div class="clearfix mt-10">
+ 
+  <button type="button"  [disabled]='disabled3' (click)='upadteSecurityOutInward()' class="btn btn-bamul pull-right">Submit</button>
+</div>
+</form>
+
+<h1 class="page-header">Security(  Inward  Destination)</h1>
+<form [formGroup]="MilkTransferIndent" >
+<div class="row">
+    
+  <div class="col-md-12">
+  
+    <div class="placeholder clearfix mt-0">
+      
+      <div class="form-row mt-10">
+     
+        <div class="form-group col-md-4">
+          <label>Departure Date</label>
+          <input type="text" class="form-control input-bl" placeholder="Departure Date"  
+             formControlName='depertureDate' value="{{currenytDate}}"  disabled=''>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Departure Time</label>
+            <input type="time" class="form-control input-bl" placeholder="Departure Time" 
+           formControlName='depertureTime' disabled='' value="{{currenytTm}}" >
+          </div>
+          <div class="form-group col-md-4">
+            <label>Verified By</label>
+            <input type="text" class="form-control input-bl" placeholder="Verified By"   formControlName='depertureVerifiedBy'>
+          </div>
+          <div class="form-group col-md-12">
+            <label>Remarks</label>
+            <input type="text" class="form-control input-bl" placeholder="Remarks"   formControlName='depertureSecurityRemarks'>
+          </div>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>
+
+<div class="clearfix mt-10">
+ 
+  <button type="button"  [disabled]='disabled4'  (click)='upadteSecurityInInward()'  class="btn btn-bamul pull-right">Submit</button>
+</div>
+</form>
+
+
+
+<h1 class="page-header">Receiving</h1>
+<form [formGroup]="MilkTransferIndent" >
+<div class="row">
+    
+  <div class="col-md-12">
+  
+    <div class="placeholder clearfix mt-0">
+      
+      <div class="form-row mt-10">
+   
+        <div class="form-group col-md-2">
+          <label>QTY in KGs</label>
+          <input type="number"  min="0" value="0.0" class="form-control input-bl" placeholder="QTY in KGs"  formControlName='receivdQuantity'   >
+        </div>
+        <div class="form-group col-md-2">
+            <label>FAT%</label>
+            <input type="number" min="0" value="0.0" class="form-control input-bl" placeholder="FAT%" formControlName='receivdFat'  >
+          </div>
+          <div class="form-group col-md-2">
+            <label>SNF%</label>
+            <input type="number" min="0" class="form-control input-bl" placeholder="SNF%" formControlName='receivdSNF'>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Tare Weight</label>
+            <input type="number" class="form-control input-bl" placeholder="Tare Weight" formControlName='receivdTareWt'>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Gross Weight</label>
+            <input type="number" class="form-control input-bl" placeholder="Gross Weight" formControlName='targetRecvdGrossWt'>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>Remarks</label>
+            <input type="text" class="form-control input-bl" placeholder="Remarks" formControlName='receivingRemarks'>
+          </div>
+          <div class="form-group col-md-12">
+            <label>Delivery Challan Remarks</label>
+            <input type="text" class="form-control input-bl" placeholder="Delivery Challan Remarks" formControlName='deliveryChallanRemarks'>
+          </div>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>
+
+<div class="clearfix mt-10">
+ 
+  <button type="button"   [disabled]='disabled5' (click)='upadteReciving()'class="btn btn-bamul pull-right">Submit</button>
+</div>
+</form>

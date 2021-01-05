@@ -1,0 +1,103 @@
+ <h1 class="page-header">List Milk & Material Unloading</h1>
+ <div class="row">
+   <div class="col-xs-8 pr-10">
+     <div class="shift text-center">
+       <span>Shift</span>
+       <strong>Morning</strong>
+     </div>
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <span>Location :  <strong>Anekal Chilling Center - Gate 1</strong></span>
+         <p>
+           Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+         </p>
+       </address>
+     </div>
+   </div>
+   <div class="col-xs-4 pl-0">
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <p>
+           <span>Date : <strong>
+               <app-date></app-date>
+             </strong></span>
+         </p>
+         <p><span>Time : </span><strong>
+             <app-clock></app-clock>
+           </strong></p>
+       </address>
+     </div>
+   </div>
+ </div>
+
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder mt-10 clearfix">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-2">
+           <label>Total Route</label>
+           <input type="text" [(ngModel)]="totalRoute" class="form-control input-bl" Value="5" readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Total Vehicle</label>
+           <input type="text" [(ngModel)]="totalVehicle" class="form-control input-bl" Value="6" readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Total Societies</label>
+           <input type="text" [(ngModel)]="totalSociety" class="form-control input-bl" Value="24" readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Total Cans</label>
+           <input type="text" [(ngModel)]="totalCans" class="form-control input-bl" Value="230" readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Accepted Cans</label>
+           <input type="text" [(ngModel)]="acceptedCans" class="form-control input-bl" Value=225 readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Quantity (Kg)</label>
+           <input type="text" [(ngModel)]="quantity" class="form-control input-bl" Value=5420 readonly>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder pd-10 mt-10">
+       <table class="table inwards table-striped">
+         <thead class="v-center">
+           <tr>
+             <th width="120px">Route No.</th>
+             <th>Vehicle No.</th>
+             <th class="text-center">No. of Society</th>
+             <th class="text-center">No. of Cans</th>
+             <th class="text-center">Accepted Time</th>
+             <th class="text-center">Total Milk (Kg)</th>
+             <th class="text-center">Arrival Time</th>
+
+             <th class="text-center">Actions</th>
+           </tr>
+           <tr class="sub-head">
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let list of milkMaterialUnloadingListData | paginate: { itemsPerPage: 10, currentPage: p };let i = index">
+             <td>{{list.routeNumber}}</td>
+             <td>{{list.vehicleNumber}}</td>
+             <td class="text-center">{{list.tripPoints.length}}</td>
+             <td class="text-center">{{list.estimatedtotalQuantity}}</td>
+             <td class="text-center">{{list.actualEndTime}}</td>
+             <td class="text-center">{{list.quantityKgs}}</td>
+             <td class="text-center">{{list.actualStartTime}}</td>
+             <td class="text-center">
+               <a routerLink="../mnm-unloading/{{list.tripTransactionId}}" routerLinkActive="active"><strong><i class='fa fa-search-plus'></i>
+                   View</strong></a>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+   </div>
+ </div>
+ <ng4-loading-spinner> </ng4-loading-spinner>

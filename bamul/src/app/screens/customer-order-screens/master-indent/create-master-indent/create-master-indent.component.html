@@ -1,0 +1,229 @@
+<h1 class="page-header">Create Master Indent</h1>
+<form [formGroup]="MasterIndentHeader">
+  <div class="row f09">
+    <div class="col-xs-12 col-sm-12">
+      <div class="placeholder mt-0 customer-header-info">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 col-md-6">
+            <h2 class="sub-header pl-10"> <span class="accountNumber">
+                {{MasterIndentHeader.value.billToSiteUseId.accountNumber}}</span><span>{{MasterIndentHeader.value.billToSiteUseId.partyName}}</span>
+            </h2>
+            <div class="address pl-20 mb-22"><strong>Bill To : </strong>
+              <select id="shipToSiteUseId" class="form-control" formControlName='billToSiteUseId'>
+                <option [ngValue]='billToSiteUseId' *ngFor='let  billToSiteUseId of custBillingDetailsByAcctNo'>
+                  {{billToSiteUseId.siteAddress}}</option>
+              </select>
+            </div>
+            <div class="address pl-20 mb-22">
+              <strong>Ship To : </strong>
+              <!-- <span >{{custBillingDetailsByAcctNo?.siteAddress}}</span>    -->
+              <select id="shipToSiteUseId" class="form-control" formControlName='shipToSiteUseId'
+                (change)=shipToSiteUseIdDP()>
+                <option [ngValue]='shipToSiteUseId' *ngFor='let  shipToSiteUseId of custShippingDetailsByAcctNu'>
+                  {{shipToSiteUseId.siteAddress}}</option>
+              </select>
+            </div>
+            <div class="address pl-20 mb-22"><strong> Route Inspector Name : </strong>
+              <span>
+                {{MasterIndentHeader.value.billToSiteUseId.salesRepName}}</span>
+
+            </div>
+
+
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-3">
+            <h2 class="sub-header">Schedule Period</h2>
+            <div class="form-group">
+              <label>Start Date</label>
+
+              <input type="text" placeholder="Start Date" class="form-control date-field" bsDatepicker
+                [bsConfig]="datePickerConfig" formControlName='startDate'
+                [ngClass]="{ 'is-invalid': submitted &&  MasterIndentHeader.get('startDate').errors  }">
+
+            </div>
+            <div class="form-group ">
+              <label>End Date</label>
+
+              <input type="text" placeholder="End Date" class="form-control date-field" bsDatepicker [minDate]='minDate'
+                [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" formControlName='endDate'
+                (ngModelChange)="shipToSiteUseIdDP();"
+                [ngClass]="{ 'is-invalid': submitted &&  MasterIndentHeader.get('endDate').errors }">
+
+            </div>
+
+            <div class="form-group">
+              <label>Shift</label>
+
+              <select id="orderType" class="form-control" formControlName='shiftId' (change)=shiftDP()
+                [ngClass]="{ 'is-invalid': submitted &&  MasterIndentHeader.get('shiftId').errors  }">
+                <option value="">Select Shift</option>
+                <option [ngValue]='mIndentShift.shiftId' *ngFor='let  mIndentShift of shift'>
+                  {{mIndentShift.shiftName}}</option>
+              </select>
+
+            </div>
+            <div class="form-group">
+              <label>OrderType</label>
+
+              <select id="orderType" class="form-control" formControlName='orderTypeId'
+                (click)=getroutenumberandsequencebyshiptositeidordertypeidandshift()
+                [ngClass]="{ 'is-invalid': submitted &&  MasterIndentHeader.get('orderTypeId').errors  }">
+                <option value="">Select OrderType</option>
+                <option [ngValue]='orderTypeId' *ngFor='let  orderTypeId of allsalesordertype'>
+                  {{orderTypeId.orderTypeName}}</option>
+              </select>
+
+            </div>
+
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-3 pr-40">
+            <h2 class="sub-header">Status</h2>
+            <!-- <div class="form-group row">
+              <label class="col-sm-5 text-right ">Order No.</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" placeholder="Order No" disabled="">
+              </div>
+            </div> -->
+            <div class="form-group ">
+              <label>Status</label>
+
+              <input type="text" class="form-control" placeholder="Status" value='New' disabled="">
+
+            </div>
+            <div class="form-group">
+              <label>Balance</label>
+
+              <input type="text" class="form-control" placeholder="Balance" value={{balanceNo?.balance}} disabled="">
+
+            </div>
+            <div class="form-group">
+              <label>Route No</label>
+
+
+              <select id="orderType" class="form-control" formControlName='route'
+                (click)="setSequenceNumber($event.target.value)">
+                <option [value]='route.routeNumber' *ngFor='let route of routedetailsbyshiptositeidordertypeidandshift'>
+                  {{route.routeNumber}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Seq</label>
+
+              <input type="text" class="form-control" placeholder="Seq No" value={{seqNo}} disabled="">
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+<div class="row f09 z-index-1">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="placeholder pl-20 pt-10 pb-10">
+      <ul class='list-inline mr-0 flex schduleweek'>
+        <div [formGroup]="schduleList" (ngSubmit)="submit()">
+          <label>
+            <input type="checkbox" formControlName="selectAll">
+            {{selectLabel}}
+          </label>
+          <label formArrayName="Scheduleday"
+            *ngFor="let weekday of schduleList.controls['Scheduleday'].controls; let i = index">
+            <input type="checkbox" [formControlName]="i">
+            {{Scheduleday[i].weekday}}
+          </label>
+          <div *ngIf='submitted'>
+            <div *ngIf="!schduleList.valid" style="    text-align: center;
+            color: red;">At Least One Schedule day is Mandatory</div>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12  col-sm-12">
+    <div class="placeholder">
+      <!-- //upadted code test puproupse -->
+      <form [formGroup]="MasterIndentLineItem" #f="ngForm" novalidate (ngSubmit)="submit(f )  ">
+        <div>
+          <table class="table" formArrayName="mstrIndLItm">
+            <thead>
+              <tr>
+                <th class='col-md-1'>Sr. No.</th>
+                <th class='col-md-2'>Category</th>
+                <th class='col-md-5'>Item Code & Description</th>
+                <th class='col-md-2'>Crates/KGs</th>
+                <th class='col-md-2'>Packets</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let field  of  MasterIndentLineItem.controls.mstrIndLItm.controls; 
+              let in=index" [formGroupName]="in">
+                <td class='text-center counter lh-30 m2'><span>{{in+1}}</span></td>
+                <td data-title='Category' class="m10">
+                  <select
+                    (change)="getItemsByPriceListIdAndCategory($event.target.value,in,MasterIndentLineItem.controls.mstrIndLItm.controls,field)"
+                    class="form-control" name=' ' formControlName='category'
+                    [ngClass]="{ 'is-invalid': submitted && field.controls.category.errors}">
+                    <option value="">Select Category</option>
+                    <option [value]="category" *ngFor="let category of allCatgeriesList">
+                      {{category}}</option>
+                  </select>
+                </td>
+                <td data-title='Item Code & Description' class="m12">
+                  <select class="form-control" type="text" (change)='itemCode(in,field)' name="dp"
+                    formControlName='itemDesc' [ngClass]="{ 'is-invalid':submitted && field.controls.itemDesc.errors}">
+                    <option value="">Select Item Code & Description</option>
+                    <option [ngValue]="dp" *ngFor="let dp of field.value.dp">
+                      {{ dp.itemCode}}-{{dp.description}}
+                    </option>
+                  </select>
+                </td>
+                <td data-title='Crates/KGs' class="m4">
+                  <input (focusout)="checkValidation($event.target.value,in,field)" placeholder="{{craPlaceHolder}}"
+                    class="form-control" formControlName='crt' type="text" autocomplete="off" name="name "
+                    (keypress)="numberOnly($event)" maxlength="4"
+                    [ngClass]="{ 'is-invalid': submitted && field.controls.crt.errors  }" />
+                </td>
+                <td data-title='Packets' class="m4">
+                  <input (focusout)="checkValidation($event.target.value,in,field)" placeholder="{{pktPlaceHolder}}"
+                    class="form-control" formControlName='packets' type="text" autocomplete="off" name="name"
+                    (keypress)="numberOnly($event)" maxlength="4"
+                    [ngClass]="{ 'is-invalid':submitted && field.controls.packets.errors}" />
+                </td>
+                <td class="m4 del-icon">
+                  <i (click)='deleteRow(in)' class="fa fa-trash" aria-hidden="true"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button (click)='addNewRow(in)' [disabled]="addMore || MasterIndentLineItem.invalid" type="button"
+              class="btn btn-bamul mr-10 pull-right">Add New Item</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" [disabled]="addMore || MasterIndentLineItem.invalid"
+              class="btn btn-bamul mr-10 pull-left">Save &
+              Confirm</button>
+            <!-- <button (click)='cancel()' type="button" class="btn btn-secondary mr-10 pull-left">Cancel</button> -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

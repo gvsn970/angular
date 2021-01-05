@@ -1,0 +1,206 @@
+<form [formGroup]="ngForm" (ngSubmit)="saveDispatch()">
+    <h1 class="page-header">Society Milk Dispatch Form</h1>
+    <div class="row">
+        <div class="col-xs-7 pr-10">
+            <div class="shift text-center">
+                <span>Shift</span>
+                <strong>{{shift}}</strong>
+            </div>
+            <div class="placeholder mt-0 pd-10">
+                <address>
+          <span>Location<strong *ngIf="supplierViewVal">{{supplierViewVal.vendorName}}</strong></span>
+          <p>
+            Address : <strong class="dispatch-add" *ngIf="supplierViewVal">{{supplierViewVal.addressLine1}},
+              {{supplierViewVal.addressLine2}}</strong>
+          </p>
+        </address>
+            </div>
+        </div>
+        <div class="col-xs-3 pl-0">
+            <div class="placeholder clearfix mt-0 pd-0">
+                <div class="form-group mr-0 pl-10 pt-10 pr-10 pb-5">
+                    <label>Dispatch Mode</label><br />
+                    <span *ngFor="let dispatchMode of dispatchModeList" class="mr-10">
+            <input type="radio" [checked]="dispatchMode=='Route'" [value]="dispatchMode" name="dispatch"
+              (change)="dispatchVal(dispatchMode)" />{{dispatchMode}}
+          </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 pl-0">
+            <div class="placeholder mt-0 pd-10">
+                <address>
+          <p>
+            <span>Date : <strong>
+                <app-date></app-date>
+              </strong></span>
+          </p>
+          <p><span>Time : </span><strong>
+              <app-clock></app-clock>
+            </strong></p>
+        </address>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 mt-10">
+            <div class="placeholder mt-10">
+                <div class="option-group" *ngIf="selfView">
+                    <div class="form-check form-check-inline" *ngFor="let locationList of locationDetails">
+                        <input class="form-check-input" type="radio" [value]="locationList.locationType" name="location" (change)="getDispatchLocation(locationList.locationType)">
+                        <label class="form-check-label">{{locationList.locationCode}}</label></div>
+                </div>
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="form-row mt-10">
+                            <div class="form-group col-md-2">
+                                <label>Dispatch Location</label>
+                                <input disabled *ngIf="!selfView" class="form-control input-bl" type="text" [value]="societyDispatchDetails.endLocation" name="dispatchlocation">
+                                <!-- <select class="form-control" *ngIf="!selfView">
+                  <option selected value="">Select Location</option>
+                  <option *ngIf="societyDispatchDetails!=null && societyDispatchDetails.endLocation!==undefined"
+                    [value]='societyDispatchDetails.endLocation'>
+                    {{societyDispatchDetails.endLocation}}</option>
+                </select> -->
+                                <select class="form-control" *ngIf="selfView">
+                  <option selected value="">Select Location</option>
+                  <option *ngFor="let dispatchLocationList of dispatchLocationDetails"
+                    value="{{dispatchLocationList.locationCode}}">
+                    {{dispatchLocationList.locationCode}}
+                  </option>
+                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Route No</label>
+                                <input disabled *ngIf="!selfView" class="form-control input-bl" type="text" formControlName="routeNumber" name="routenumber">
+                                <!-- <select *ngIf="!selfView" id="orderType" class="form-control" formControlName="routeNumber" [ngClass]="{ 'is-invalid':
+              submitted && f.routeId.errors }">
+                  
+                  <option selected value="">Select Route</option>
+                  <option *ngIf="societyDispatchDetails!=null && societyDispatchDetails.routeNumber!==undefined"
+                    [value]='societyDispatchDetails.routeNumber'>
+                    {{societyDispatchDetails.routeNumber}}</option>
+                </select> -->
+                                <input *ngIf="selfView" type="text" formControlName="routeId" class="form-control input-bl" placeholder="Route" value="" [ngClass]="{ 'is-invalid': submitted && f.routeId.errors
+                  }">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Vehicle Number</label>
+                                <div *ngIf="!selfView">
+                                    <!-- {{societyDispatchDetails.vehicleNumber}} -->
+                                    <input disabled type="text" [ngClass]="{ 'is-invalid': submitted && f.vehicleNumber.errors }" formControlName="vehicleNumber" class="form-control input-bl" placeholder="Vehicle Number" value="{{societyDispatchDetails && societyDispatchDetails.vehicleNumber ? societyDispatchDetails.vehicleNumber : null}}">
+                                </div>
+                                <div *ngIf="selfView">
+                                    <input type="text" formControlName="vehicleNumber" [ngClass]="{ 'is-invalid': submitted && f.vehicleNumber.errors }" class="form-control input-bl" placeholder="Vehicle Number" value="" formControlName="vehicleNumber">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Driver Name</label>
+                                <div *ngIf="!selfView">
+                                    <input disabled type="text" formControlName="driverName" class="form-control input-bl" placeholder="Driver Name" value="{{societyDispatchDetails && societyDispatchDetails.driverName ? societyDispatchDetails.driverName : null}}">
+                                </div>
+                                <div *ngIf="selfView">
+                                    <input type="text" formControlName="driverName" class="form-control input-bl" placeholder="Driver Name" value="" [ngClass]="{ 'is-invalid': submitted && f.driverName.errors
+                    }">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Arrival Time</label>
+                                <div *ngIf="!selfView">
+                                    <input *ngIf="updateTripDetails" disabled type="text" formControlName="arrTime" class="form-control input-bl" placeholder="Arrival Time" value="{{updateTripDetails.expectedArrivalTime}}">
+                                </div>
+                                <div *ngIf="selfView">
+                                    <input type="time" placeholder="Arrival Time" class="form-control" formControlName="arrTime" [ngClass]="{ 'is-invalid': submitted && f.arrTime.errors
+                    }">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Dispatch Time</label>
+                                <!-- <div *ngIf="routeView">{{societyDispatchDetails.estimatedEndTime}}</div> -->
+                                <div *ngIf="!selfView">
+                                    <input disabled type="text" formControlName="depTime" class="form-control input-bl" placeholder="Dispatch Time" value="{{selfDispatchTime}}">
+                                </div>
+                                <div *ngIf="selfView">
+                                    <input type="time" placeholder="Dispatch Time" class="form-control" formControlName="depTime" [ngClass]="{ 'is-invalid': submitted && f.depTime.errors
+                    }">
+                                </div>
+                            </div>
+                            <!-- <div class="form-group col-md-2">
+                <label>End Location</label>
+                <div>{{societyDispatchDetails.endLocation}}</div>
+              </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-10">
+        <div class="col-md-12">
+            <div class='row raw-milk-text'>Raw Milk Dispatch Details</div>
+            <div class="placeholder pd-10 mt-0">
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="form-row mt-10">
+                            <div class="form-group col-md-2">
+                                <label>Dispatch Qty</label>
+                                <input [ngClass]="{ 'is-invalid': submitted && f.totalQty.errors }" type="number" formControlName="totalQty" class="form-control input-bl" placeholder="Qty in Kg" onkeypress="return (event.charCode ==
+                  8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode
+                  <= 57">
+                            </div>
+                            <div class=" form-group col-md-2">
+                                <label>Local Sale</label>
+                                <input [ngClass]="{ 'is-invalid': submitted && f.looseSalesQty.errors }" type="number" formControlName="looseSalesQty" class="form-control input-bl" placeholder="Qty in Kg" onkeypress="return (event.charCode ==
+                  8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode
+                  <= 57">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Total Cans</label>
+                                <input [ngClass]="{ 'is-invalid': submitted && f.noOfCans.errors }" type="number" formControlName="noOfCans" class="form-control input-bl" placeholder="Count" onkeypress="return
+                  (event.charCode ==
+                  8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode
+                  <= 57">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>CLR</label>
+                                <input (focusout)="updateData()" [ngClass]="{ 'is-invalid': submitted && f.apxCLR.errors }" type="number" formControlName="apxCLR" class="form-control input-bl" placeholder="CLR">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>FAT %</label>
+                                <input (focusout)="updateData()" [ngClass]="{ 'is-invalid': submitted && f.apxFAT.errors }" type="number" formControlName="apxFAT" class="form-control input-bl" placeholder="FAT %">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>SNF %</label>
+                                <input disabled [ngClass]="{ 'is-invalid': submitted && f.apxSNF.errors }" type="number" formControlName="apxSNF" class="form-control input-bl" placeholder="SNF %">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-20">
+        <div class="col-md-12">
+            <div class="placeholder pd-10 mt-0">
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="form-row mt-10">
+                            <div class="form-group col-md-12">
+                                <label>Remarks</label>
+                                <input type="text" class="form-control input-bl" placeholder="Remarks">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix mt-10">
+        <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+        <button type="submit" class="btn btn-bamul pull-right">Dispatch & Print</button>
+        <button type="button" (click)="save();" class="btn btn-bamul pull-right mr-10">Save</button>
+    </div>
+</form>

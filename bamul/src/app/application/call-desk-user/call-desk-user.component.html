@@ -1,0 +1,17 @@
+<app-header class='hide-search'></app-header>
+<div class="dashboard-page container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 main" [ngClass]="status ? 'full' : 'normal'">
+      <div class="dashboard-main">
+        <button class="btn btn-secondary btn-sm exfscreen" (click)="toogleFullScreen()"><i class="fa fa-arrows-alt"
+            aria-hidden="true"></i>&nbsp;Exit
+          Full Screen</button>
+        <button class="btn btn-secondary btn-sm fscreen" (click)="toogleFullScreen()"><i class="fa fa-arrows-alt"
+            aria-hidden="true"></i>&nbsp;Full
+          Screen</button>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+      </div>
+    </div>
+  </div>
+</div>

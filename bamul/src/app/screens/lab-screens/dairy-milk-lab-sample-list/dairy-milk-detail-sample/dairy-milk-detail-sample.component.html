@@ -1,0 +1,232 @@
+<h1 class="page-header">Detail QC List</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder mt-0 pd-10">
+            <div class="row">
+                <div class="col-xs-2 pr-10">
+                    <div class="shift text-center d-none">
+                        <span>Shift</span>
+                        <strong *ngIf="currHour < 14">Morning</strong>
+                        <strong *ngIf="currHour >= 14">Evening</strong>
+                    </div>
+
+                    <address>
+            <p class="pd-10 pl-0">Route Type : <strong>{{tripData && tripData[0] ? tripData[0].routeType:null}}</strong></p>
+            <p>
+              Route No. : <strong>{{triprouteno}}</strong>
+            </p>
+          </address>
+
+                </div>
+                <div class="col-xs-8 pr-10">
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4 mb-0 ">
+                            <label class="pd-y-5">Organization Name</label>
+                            <input type="text" readonly value="{{locatorsubinvDetail && locatorsubinvDetail[0] ? locatorsubinvDetail[0].organizationName:null}}" class="form-control input-bl" />
+                            <!-- <select class="form-control">
+                    <option value="">Select Name</option>
+                    <ng-container >
+                     <option  *ngFor="let invDetail of FilteredinvDetails" value="{{invDetail.organizationName}}">{{invDetail.organizationName}}</option>
+                    </ng-container>
+                    </select> -->
+                        </div>
+                        <div class="form-group col-md-4  mb-0">
+                            <label class="pd-y-5">Sub-Inventory Name</label>
+                            <input type="text" readonly value="{{locatorsubinvDetail && locatorsubinvDetail[0] ? locatorsubinvDetail[0].subInventory:null}}" class="form-control input-bl" />
+                            <!-- <select [(ngModel)]="subInventory" (change)="changeSubInv($event.target.value)" class="form-control">
+                <option value="">Select Name</option>
+                <ng-container>
+                  <option *ngFor="let invDetail of distincttoSubinventory" value="{{invDetail}}">
+                    {{invDetail}}</option>
+                </ng-container>
+              </select> -->
+
+                        </div>
+                        <div class="form-group col-md-4 mb-0">
+                            <label class="pd-y-5">Locator</label>
+                            <input type="text" readonly value="{{locatorsubinvDetail && locatorsubinvDetail[0] ? locatorsubinvDetail[0].invLocCombination:null}}" class="form-control input-bl" />
+                            <!-- <select [(ngModel)]="invLocCombination" (change)="changeInvDetail($event.target.value)" class="form-control">
+                <option value="">Select Locator</option>
+                <ng-container>
+                  <option *ngFor="let invDetail of SubInvBased" value="{{invDetail.invLocCombination}}">
+                    {{invDetail.invLocCombination}}</option>
+                </ng-container>
+              </select> -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-2 pl-0">
+
+                    <address class="text-right">
+            <p class="pd-10 pr-10">
+              <span>Date : <strong>
+                  {{tripData && tripData[0] ? tripData[0].scheduleDate : null}}
+                </strong></span>
+            </p>
+            <p class="pr-10"><span>Status : </span><strong>
+                {{tripData && tripData[0] ? tripData[0].routeStatus : null}}
+              </strong></p>
+          </address>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-10">
+            <h4 class="sub-heading">Weighing Bridge Details</h4>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <table class="table inwards">
+                        <thead class="v-center">
+                            <tr>
+                                <th class="text-left">Gross Weight</th>
+                                <th class="text-left">Tar Weight</th>
+
+                                <th class="text-left">Net Weight</th>
+                                <th class="text-left">Shipped Qty</th>
+                                <th class="text-left">Received Qty</th>
+                                <th class="text-left">Diff Qty</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="number" readonly [value]="result ? result.grossweight : null" min="0" class="form-control input-bl" /></td>
+                                <td><input type="text" readonly [value]="result ? result.tarweight : null" class="form-control input-bl" /></td>
+
+
+                                <td><input type="text" readonly [value]="result ? result.netweight : null" class="form-control input-bl" /></td>
+                                <td><input type="text" readonly [value]="result ? result.totalshippedweight : null" class="form-control input-bl" />
+                                </td>
+                                <td><input type="text" readonly [value]="result ? result.totalreceivedweight : null" class="form-control input-bl" />
+                                </td>
+                                <td><input readonly type="text" [value]="result ? result.diffweight : null" class="form-control input-bl" /></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="placeholder">
+            <!--Loop structure-->
+            <table class="full-width table table-bordered table-striped v-middle">
+                <thead>
+                    <tr>
+                        <th>BMC Name</th>
+                        <th width="80">Ref No.</th>
+                        <th width="80">Comp. No.</th>
+                        <th width="80">Dipstick Reading</th>
+                        <th width="80">Seal Number</th>
+                        <th width="80">Shipped Qty(Kg's)</th>
+                        <th width="80">Received Qty(Kg's)</th>
+                        <th width="80">Sent FAT</th>
+                        <th width="80">Sent SNF</th>
+                        <th width="80">Received FAT</th>
+                        <th width="80">Received SNF</th>
+                        <th width="80">Mbrt</th>
+                        <th width="120">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="pd-x-15" *ngFor="let item of shippingheaderGroup | keyvalue;let i = index;">
+                    <tr>
+                        <td>{{result[item.key] ? result[item.key].bmcName:null}}</td>
+                        <td>{{item.key}}</td>
+                        <td>{{result[item.key] ? result[item.key].compartmentNumber:null}}</td>
+                        <td>{{ result[item.key] ? result[item.key].dipstickReading :null}}</td>
+                        <td>{{result[item.key] ? result[item.key].sealNumber :null}}</td>
+                        <td>{{result[item.key] ? result[item.key].shippedQty :null}}</td>
+                        <td>{{result[item.key] ? result[item.key].TotalNetWeight :null}}</td>
+                        <td>{{result[item.key] ? result[item.key].overallcustomAvgFat :null}}</td>
+                        <td>{{result[item.key] ? result[item.key].overallcustomAvgSnf :null}}</td>
+                        <td>{{result[item.key] ? result[item.key].overallAcceptedAvgFat :null}}</td>
+                        <td>{{result[item.key] ? result[item.key].overallAcceptedAvgSnf :null}}</td>
+                        <td><input type="number " class="form-control input-single " (focusout)="updatembrt($event.target.value,item.value)" [(ngModel)]="item.value[0].mbrt" placeholder="mbrt" /></td>
+                        <!-- <td>{{result[item.value[0].mbrt]}}</td> -->
+                        <td><button type="button" class="btn btn-primary btn-sm" (click)="isCollapsed=i" [attr.aria-expanded]="!isCollapsed" [attr.aria-controls]=item.key>View / Update
+              </button></td>
+                    </tr>
+                    <tr>
+                        <td class="no-padding" colspan="13">
+                            <div [id]=item.key [collapse]="i!==isCollapsed" [isAnimated]="true" class="row">
+                                <div class="col-xs-12">
+                                    <table class="table table-bordered table-striped v-middle">
+                                        <thead>
+                                            <tr>
+                                                <th width="80">Receipt No</th>
+                                                <th width="100">Date</th>
+                                                <th width="80">Shift</th>
+                                                <th width="100">Society No.</th>
+                                                <th>Society Name</th>
+                                                <th width="80">Qty Shipped</th>
+                                                <th width="80">Qty Received</th>
+                                                <th width="80">CLR</th>
+                                                <th width="80">FAT%</th>
+                                                <th width="80">SNF%</th>
+                                                <th width="100">Status</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr *ngFor="let labdetails of item.value;let k=index">
+                                                <td>{{labdetails.receiptNum}}</td>
+                                                <td>{{labdetails.shippedDate}}</td>
+                                                <td>{{labdetails.shift}}</td>
+                                                <td>{{labdetails.vendorNum}}</td>
+                                                <td>{{labdetails.vendorName}}</td>
+                                                <td>
+                                                    <input readonly type="number" class="form-control " [(ngModel)]="labdetails.quantityShipped" placeholder="CLR
+                                                                        " aria-label="Recipient 's username" aria-describedby="basic-addon2">
+                                                </td>
+                                                <td>
+                                                    <input [readonly]="labdetails.receiptStatus =='Completed' || labdetails.receiptStatus =='IMPORTED'" (focusout)="updateData(labdetails , k) " type="number" class="form-control " [(ngModel)]="labdetails.quantityReceived " placeholder="CLR
+                                                                    " aria-label="Recipient 's username" aria-describedby="basic-addon2">
+                                                </td>
+                                                <td>
+                                                    <input [readonly]="labdetails.receiptStatus =='Completed' || labdetails.receiptStatus =='IMPORTED'" (focusout)="updateData(labdetails , k) " appTwoDigitDecimaNumber [allowedDecimal]="2" type="text" class="form-control " [(ngModel)]="labdetails.mshippingLines[0].clrAccepted"
+                                                        placeholder="CLR
+                                                                " aria-label="Recipient 's username" aria-describedby="basic-addon2">
+                                                </td>
+                                                <td class='text-center '>
+                                                    <input [readonly]="labdetails.receiptStatus =='Completed' || labdetails.receiptStatus =='IMPORTED'" (focusout)="updateData(labdetails , k) " appTwoDigitDecimaNumber [allowedDecimal]="1" type="text" class="form-control " [(ngModel)]="labdetails.mshippingLines[0].fatAccepted"
+                                                        placeholder="FAT " aria-label="Recipient 's username " aria-describedby="basic-addon2 ">
+                                                </td>
+                                                <td><input disabled type="number " class="form-control input-single " [(ngModel)]="labdetails.mshippingLines[0].snfAccepted" placeholder="SNF % " /></td>
+                                                <td>{{labdetails.receiptStatus}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10">
+    <button type="button" (click)="submit()" class="btn btn-bamul pull-right ml-10" [disabled]="disableSubmit">Submit</button>
+    <button routerLink="/dairy-lab/lab/dairy-sample" type=" button" class="btn btn-secondary pull-right cancel-btn">Cancel</button>
+</div>

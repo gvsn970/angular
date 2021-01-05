@@ -1,0 +1,276 @@
+<div class="wrapper">
+    <form action="" id="wizard">
+        <!-- SECTION 1 -->
+
+        <div class="container">
+
+            <div id="stepper1" class="bs-stepper">
+
+
+                <section>
+                    <div class="inner">
+
+                        <div class="image-holder">
+                            <div class="logo">
+                                <img class="logo-img" src="../../../../assets/img/logo-white.png" alt="">
+                            </div>
+                            <img src="../../../../assets/img/login_bg.png" alt="">
+                        </div>
+                        <div class="form-content">
+                            <div class="form-header">
+                                <h3>Registration</h3>
+                            </div>
+                            <div class="btn-group row radio-row" ngbRadioGroup name="isRequired" formControlName="isRequired">
+                                <label ngbButtonLabel class="radio-selection">
+                                      <input ngbButton type="radio" name="radio" [value]="true">Individual
+                                    </label>
+                                <label ngbButtonLabel class="radio-selection">
+                                      <input ngbButton type="radio" name="radio" [value]="false">Organisation
+                                    </label>
+                            </div>
+                            <div class="bs-stepper-header">
+                                <div class="step" data-target="#test-l-1">
+                                    <button class="step-trigger">
+                                        <span class="bs-stepper-circle">1</span>
+                                        <span class="bs-stepper-label">Profile</span>
+                                      </button>
+                                </div>
+                                <div class="line"></div>
+                                <div class="step" data-target="#test-l-2">
+                                    <button class="step-trigger">
+                                        <span class="bs-stepper-circle">2</span>
+                                        <span class="bs-stepper-label">Accounts</span>
+                                      </button>
+                                </div>
+                                <div class="line"></div>
+                                <div class="step" data-target="#test-l-3">
+                                    <button class="step-trigger">
+                                        <span class="bs-stepper-circle">3</span>
+                                        <span class="bs-stepper-label">Communication</span>
+                                      </button>
+                                </div>
+                            </div>
+                            <div class="bs-stepper-content">
+                                <!-- <p>Please fill with your details</p> -->
+                                <form (ngSubmit)="onSubmit()">
+                                    <div id="test-l-1" class="content">
+                                        <div class="form-row">
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="First Name" class="form-control-custm">
+                                            </div>
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Last Name" class="form-control-custm">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Your Email" class="form-control-custm">
+                                            </div>
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Phone Number" class="form-control-custm">
+                                            </div>
+                                        </div>
+
+
+                                        <button (click)="next()" class="btn btn-primary float-right next-tab">Next</button>
+                                    </div>
+                                    <div id="test-l-2" class="content">
+                                        <div class="form-row">
+                                            <div class="form-holder w-100">
+                                                <input type="text" placeholder="Address" class="form-control-custm">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="City" class="form-control-custm">
+                                            </div>
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Zip Code" class="form-control-custm">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="select">
+                                                <div class="form-holder">
+                                                    <div class="select-control">Your country</div>
+                                                    <i class="zmdi zmdi-caret-down"></i>
+                                                </div>
+                                                <ul class="dropdown">
+                                                    <li rel="United States">United States</li>
+                                                    <li rel="United Kingdom">United Kingdom</li>
+                                                    <li rel="Viet Nam">Viet Nam</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-holder"></div>
+                                        </div>
+                                        <button (click)="next()" class="btn btn-primary float-right next-tab">Next</button>
+                                    </div>
+                                    <div id="test-l-3" class="content text-center">
+                                        <div class="form-row">
+                                            <div class="form-holder w-100">
+                                                <textarea name="" id="" placeholder="Your messagere here!" class="form-control-custm" style="height: 99px;"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary mt-5 float-right next-tab">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+
+
+
+        <!-- <div class="container">
+
+            <div id="stepper1" class="bs-stepper">
+                <div class="bs-stepper-header">
+                    <div class="step" data-target="#test-l-1">
+                        <button class="step-trigger">
+                    <span class="bs-stepper-circle">1</span>
+                    <span class="bs-stepper-label">Profile</span>
+                  </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#test-l-2">
+                        <button class="step-trigger">
+                    <span class="bs-stepper-circle">2</span>
+                    <span class="bs-stepper-label">Accounts</span>
+                  </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#test-l-3">
+                        <button class="step-trigger">
+                    <span class="bs-stepper-circle">3</span>
+                    <span class="bs-stepper-label">Communication</span>
+                  </button>
+                    </div>
+                </div>
+                <div class="bs-stepper-content">
+                    <form (ngSubmit)="onSubmit()">
+                        <div id="test-l-1" class="content">
+                            <section>
+                                <div class="inner">
+
+                                    <div class="image-holder">
+                                        <div class="logo">
+                                            <img src="../../../../assets/img/logo.png" alt="">
+                                        </div>
+                                        <img src="../../../../assets/img/login_bg.png" alt="">
+                                    </div>
+                                    <div class="form-content">
+                                        <div class="form-header">
+                                            <h3>Registration</h3>
+                                        </div>
+                                        <p>Please fill with your details</p>
+                                        <div class="form-row">
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="First Name" class="form-control-custm">
+                                            </div>
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Last Name" class="form-control-custm">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Your Email" class="form-control-custm">
+                                            </div>
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Phone Number" class="form-control-custm">
+                                            </div>
+                                        </div>
+                         
+
+                                        <button (click)="next()" class="btn btn-primary float-right next-tab">Next</button>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                        <div id="test-l-2" class="content">
+                            <section>
+                                <div class="inner">
+                                    <div class="image-holder">
+                                        <div class="logo">
+                                            <img src="../../../../assets/img/logo.png" alt="">
+                                        </div>
+                                        <img src="../../../../assets/img/login_bg.png" alt="">
+                                    </div>
+                                    <div class="form-content">
+                                        <div class="form-header">
+                                            <h3>Registration</h3>
+                                        </div>
+                                        <p>Please fill with additional info</p>
+                                        <div class="form-row">
+                                            <div class="form-holder w-100">
+                                                <input type="text" placeholder="Address" class="form-control-custm">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="City" class="form-control-custm">
+                                            </div>
+                                            <div class="form-holder">
+                                                <input type="text" placeholder="Zip Code" class="form-control-custm">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="select">
+                                                <div class="form-holder">
+                                                    <div class="select-control">Your country</div>
+                                                    <i class="zmdi zmdi-caret-down"></i>
+                                                </div>
+                                                <ul class="dropdown">
+                                                    <li rel="United States">United States</li>
+                                                    <li rel="United Kingdom">United Kingdom</li>
+                                                    <li rel="Viet Nam">Viet Nam</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-holder"></div>
+                                        </div>
+                                        <button (click)="next()" class="btn btn-primary float-right next-tab">Next</button>
+                                    </div>
+
+                                </div>
+                            </section>
+
+
+                        </div>
+                        <div id="test-l-3" class="content text-center">
+                            <section>
+                                <div class="inner">
+                                    <div class="image-holder">
+                                        <div class="logo">
+                                            <img src="../../../../assets/img/logo.png" alt="">
+                                        </div>
+                                        <img src="../../../../assets/img/login_bg.png" alt="">
+                                    </div>
+                                    <div class="form-content">
+                                        <div class="form-header">
+                                            <h3>Registration</h3>
+                                        </div>
+                                        <p>Send an optional message</p>
+                                        <div class="form-row">
+                                            <div class="form-holder w-100">
+                                                <textarea name="" id="" placeholder="Your messagere here!" class="form-control-custm" style="height: 99px;"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary mt-5 float-right next-tab">Submit</button>
+                                    </div>
+
+                                </div>
+                            </section>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+    </form>
+</div>

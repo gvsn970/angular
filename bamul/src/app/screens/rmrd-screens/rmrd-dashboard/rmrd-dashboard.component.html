@@ -1,0 +1,233 @@
+ <h1 class="page-header">Dashboard</h1>
+ <div class="row clearfix">
+   <div class="col-xs-8 pr-10">
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <span>Location :  <strong>Anekal Chilling Center - Gate 1</strong></span>
+         <p>
+           Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+         </p>
+       </address>
+     </div>
+   </div>
+   <div class="col-xs-4 pl-0">
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <p>
+           <span>Date : <strong>
+               <app-date></app-date>
+             </strong></span>
+         </p>
+         <p><span>Time : </span><strong>
+             <app-clock></app-clock>
+           </strong></p>
+       </address>
+     </div>
+   </div>
+ </div>
+ <div class="row mt-10">
+   <div class="col-xs-6 col-sm-1  pr-0">
+     <div class="cards bg-info">
+       <h5 class="card-title">Shift</h5>
+       <span class="card-value">M</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-2 pr-0 pl-10">
+     <div class="cards">
+       <h5 class="card-title">Opening Bal Qty</h5>
+       <span class="card-value">50,000</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-2 pr-0 pl-10">
+     <div class="cards">
+       <h5 class="card-title">Received Qty</h5>
+       <span class="card-value">3,00,000</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-2 pr-0 pl-10">
+     <div class="cards">
+       <h5 class="card-title">In Transit Qty</h5>
+       <span class="card-value">1,50,000</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-2 pr-0 pl-10">
+     <div class="cards">
+       <h5 class="card-title">Closing Balance Qty</h5>
+       <span class="card-value">2,00,000</span>
+     </div>
+   </div>
+
+   <div class="col-xs-6 col-sm-1 pr-0 pl-10">
+     <div class="cards">
+       <h5 class="card-title">FAT</h5>
+       <span class="card-value">4.5%</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-1 pr-0 pl-10">
+     <div class="cards">
+       <h5 class="card-title">SNF</h5>
+       <span class="card-value">2.5%</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-1 pl-10">
+     <div class="cards">
+       <h5 class="card-title">CLR</h5>
+       <span class="card-value">12</span>
+     </div>
+   </div>
+   <!-- <div class="col-xs-6 col-sm-1 pl-10">
+     <div class="cards">
+       <h5 class="card-title">Damage Milk</h5>
+       <span class="card-value">
+         10 Cans
+       </span>
+     </div>
+   </div> -->
+ </div>
+
+
+ <div class="row">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder mt-10">
+       <h2 class="sub-header">Today Milk Received</h2>
+       <div class="table-responsive">
+         <table class="table">
+           <thead>
+             <tr>
+               <th>Sr. No.</th>
+               <th>Society No.</th>
+               <th>Society Name</th>
+               <th>PO Cans</th>
+               <th>Received Cans</th>
+               <th>Accepted Cans</th>
+               <th>Damage</th>
+               <th>Quantity</th>
+               <th>FAT</th>
+               <th>SNF</th>
+               <th>Status</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>1</td>
+               <td>45832</td>
+               <td>Kannamangala Doddi MPCS</td>
+               <td>30</td>
+               <td>28</td>
+               <td>27</td>
+               <td>1</td>
+               <td>1180</td>
+               <td>4.5%</td>
+               <td>2.1%</td>
+               <td>Completed</td>
+             </tr>
+             <tr>
+               <td>2</td>
+               <td>45832</td>
+               <td>Kannamangala Doddi MPCS</td>
+               <td>30</td>
+               <td>28</td>
+               <td>27</td>
+               <td>1</td>
+               <td>1180</td>
+               <td></td>
+               <td></td>
+               <td>In Lab</td>
+             </tr>
+             <tr>
+               <td>3</td>
+               <td>45832</td>
+               <td>Kannamangala Doddi MPCS</td>
+               <td>30</td>
+               <td>28</td>
+               <td>27</td>
+               <td>1</td>
+               <td>1180</td>
+               <td>4.5%</td>
+               <td>2.1%</td>
+               <td>Completed</td>
+             </tr>
+             <tr>
+               <td>4</td>
+               <td>45832</td>
+               <td>Kannamangala Doddi MPCS</td>
+               <td>30</td>
+               <td>28</td>
+               <td>27</td>
+               <td>1</td>
+               <td>1180</td>
+               <td>4.5%</td>
+               <td>2.1%</td>
+               <td>Completed</td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="row hidden">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder">
+       <h2 class="sub-header">Today Purchase Orders</h2>
+       <div class="table-responsive">
+         <table class="table">
+           <thead>
+             <tr>
+               <th>Sr. No.</th>
+               <th>#Order No.</th>
+               <th>Start Date</th>
+               <th>End Date</th>
+               <th>Total Order Value</th>
+               <th>Received Value</th>
+               <th>Remaining Value</th>
+               <th>Status</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>1</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="text-success"><strong>Running</strong></span></td>
+             </tr>
+             <tr>
+               <td>2</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="success">Running</span></td>
+             </tr>
+             <tr>
+               <td>3</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="text-warning"><strong>Delayed</strong></span></td>
+             </tr>
+             <tr>
+               <td>4</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="success">Running</span></td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+ </div>

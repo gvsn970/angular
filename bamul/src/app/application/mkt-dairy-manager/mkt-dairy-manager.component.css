@@ -1,0 +1,9 @@
+@media(min-width:768px) {
+    .dashboard-page {
+        margin-top: 50px;
+    }
+    .dashboard-main {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}

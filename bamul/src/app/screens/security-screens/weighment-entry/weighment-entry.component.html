@@ -1,0 +1,341 @@
+<h1 class="page-header">Weighment Entry</h1>
+<div class="row">
+    <div class="col-xs-9 pr-10">
+        <!-- <div class="shift text-center">
+      <span>Shift</span>
+      <strong>Morning</strong>
+    </div> -->
+        <div class="placeholder mt-0 pd-10">
+            <address>
+        <span><strong>Location : </strong>{{requestListData  ? requestListData.endLocation : null}}</span>
+        <p><strong>
+            Address :</strong> 
+        </p>
+      </address>
+        </div>
+    </div>
+    <div class="col-xs-3 pl-0">
+        <div class="placeholder mt-0 pd-10">
+            <address>
+        <p>
+          <span>Date : <strong>
+              <app-date></app-date>
+            </strong></span>
+        </p>
+        <p><span>Time : </span><strong>
+            <app-clock></app-clock>
+          </strong></p>
+      </address>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class='row'>
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-10">
+            <div class="form-row mt-10">
+                <form [formGroup]="requestHeaderForm">
+                    <div class="form-group col-md-3">
+                        <label>Receiving Location</label>
+                        <select class="form-control input-sm" disabled>
+              <option>Select</option>
+              <option selected>Bangalore Dairy</option>
+            </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Shipped Date</label>
+                        <input formControlName='scheduleDate' type="text" class="form-control input-bl date-field" placeholder="Date">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Shift</label>
+                        <input formControlName='routeShift' type="text" class="form-control input-bl" placeholder="Shift">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Status</label>
+                        <input formControlName='status' type="text" class="form-control input-bl" placeholder="Status">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='row'>
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-10">
+            <form [formGroup]="RouteDetailForm">
+                <!-- <div class="option-group">
+          <div class="form-check form-check-inline">
+            <input (change)="routeRegister($event.target.value)" formControlName='registered' class="form-check-input"
+              type="radio" value="register">
+            <label class="form-check-label" for="inlineRadio1">Registered</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input (change)="routeRegister($event.target.value)" formControlName='registered' class="form-check-input"
+              type="radio" value="unregistered">
+            <label class="form-check-label" for="inlineRadio2">Unregistered</label>
+          </div>
+        </div> -->
+                <div class="form-row mt-10">
+                    <div class="form-group col-md-2">
+                        <label>Route Type.</label>
+                        <input [ngClass]="{ 'is-invalid':f.routeType.errors && (f.routeType.touched ||submited)}" formControlName='routeType' type="text" class="form-control input-bl" placeholder="Route Number">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Route No.</label>
+                        <input [ngClass]="{ 'is-invalid':f.routeNumber.errors && (f.routeNumber.touched ||submited)}" formControlName='routeNumber' type="text" class="form-control input-bl" placeholder="Route Number">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Vehicle Number</label>
+                        <input [ngClass]="{ 'is-invalid':f.vehicleNumber.errors && (f.vehicleNumber.touched || submited)}" formControlName='vehicleNumber' type="text" class="form-control input-bl" placeholder="Vehicle Number">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Vehicle Type</label>
+                        <input [ngClass]="{ 'is-invalid':f.vehicleType.errors && (f.vehicleType.touched || submited)}" formControlName='vehicleType' type="text" class="form-control input-bl" placeholder="Type">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Capacity KG's</label>
+                        <input [ngClass]="{ 'is-invalid':f.capacityQuantity.errors && (f.capacityQuantity.touched || submited)}" formControlName='capacityQuantity' type="number" class="form-control input-bl" placeholder="Kg's">
+                    </div>
+                    <!-- <div class="form-group col-md-2">
+            <label>Status</label>
+            <input [ngClass]="{ 'is-invalid':f.transporter.errors && (f.transporter.touched || submited)}"
+              formControlName='transporter' type="text" class="form-control input-bl" placeholder="Transporter">
+          </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-10 mt-10">
+            <!-- <h2 class="sub-header hidden">Reports</h2> -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Compartment Number</th>
+                            <th class="text-center">Seal Number</th>
+                            <th class="text-center">Dipstick Reading</th>
+                            <th class="text-center">Temperature</th>
+                            <th class="text-center">Acidity</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let shippingheader of shippingHeadersListUniq'>
+                            <td class="text-center">{{shippingheader.dockNumber}}</td>
+                            <td class="text-center">{{shippingheader.sealNumber}}</td>
+                            <td class="text-center">{{shippingheader.dipStick}}</td>
+                            <td class="text-center">{{shippingheader.temperature}}</td>
+                            <td class="text-center">{{shippingheader.acidity}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-10">
+            <div class="option-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" (change)="changeWeightMode()" [(ngModel)]="weightMode" id="inlineRadio1" value="auto">
+                    <label class="form-check-label" for="inlineRadio1">Auto</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" (change)="changeWeightMode()" [(ngModel)]="weightMode" id="inlineRadio2" value="manual">
+                    <label class="form-check-label" for="inlineRadio2">Manual</label>
+                </div>
+            </div>
+            <div class="form-row mt-10">
+                <div class="form-group wb-com col-md-4">
+                    <input type="text" class="form-control input-bl" value="{{weightBowlData}}">
+                </div>
+                <!-- <div class="form-group col-md-4 col-md-offset-2">
+          <label>Manual Weight</label>
+          <input type="text" class="form-control input-bl" placeholder="Vehicle Number">
+        </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-10 mt-10">
+            <form [formGroup]="loadDetailsForm">
+                <table class="table inwards">
+                    <thead class="v-center">
+                        <tr>
+                            <th>Unload Details</th>
+                            <th>Qty In Kg</th>
+                            <th class="text-center">
+                                <div class="option-group">
+                                    <div class="form-check form-check-inline">
+                                        <input formControlName='leftOrRight' class="form-check-input" type="radio" value="left">
+                                        <label class="form-check-label" for="inlineRadio1">Left</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input formControlName='leftOrRight' class="form-check-input" type="radio" value="right">
+                                        <label class="form-check-label" for="inlineRadio2">Right</label>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="text-center">Date & Time</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Gross Weight</strong>
+                            </td>
+                            <td> <input (keyup)="calculateNetWeight('grossWeight')" [ngClass]="{ 'is-invalid':lf.grossWeight.errors && (lf.grossWeight.touched || submited)}" formControlName='grossWeight' type="text" class="form-control input-bl" value="" /></td>
+
+
+
+                            <td class="text-center">
+                                <button (click)="openModal(ConfirmGross,in,field,'grossWeight')" [disabled]="manualMode" type="button" class="btn btn-primary btn-sm">Get
+                  Weight</button>
+                                <ng-template #ConfirmGross>
+                                    <div class="modal-body text-center">
+                                        <h5>Do you want to calculate Gross weight?</h5>
+                                        <br />
+                                        <div class="clearfix">
+                                            <button type="button" class="btn btn-secondary pull-right cancel-btn  ml-10" (click)="decline()">No</button>
+                                            <button type="button" class="btn btn-bamul pull-right" (click)="confirm(in,field,'grossWeight')">Yes</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <!-- <button (click)='deleteRow(in)' class="btn-sm btn-danger no-border" type="button">Delete</button> -->
+                            </td>
+
+                            <!-- <td class="text-center">
+                <button (click)="getGrossWeight()" class="btn btn-primary btn-sm " [disabled]="manualMode">Get
+                  Weight</button>
+              </td> -->
+                            <td>
+                                <input formControlName='grossWeightDate' type="text" class="form-control input-bl" value="20/02/2020 10:23:12 AM" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>TAR Weight</strong>
+                            </td>
+                            <td>
+                                <input (keyup)="calculateNetWeight('tarWeight')" [ngClass]="{ 'is-invalid' : (isGrossWeightCorrect==false) && lf.tarWeight.touched}" formControlName='tarWeight' type="text" class="form-control input-bl" value="" />
+                            </td>
+                            <!-- <td class="text-center">
+                <button (click)="getTarWeight()" class="btn btn-primary  btn-sm" [disabled]="manualMode">Get
+                  Weight</button>
+              </td> -->
+                            <td class="text-center">
+                                <button (click)="openModal(ConfirmTar,in,field,'tarWeight')" [disabled]="manualMode" type="button" class="btn btn-primary btn-sm">Get
+                  Weight</button>
+                                <ng-template #ConfirmTar>
+                                    <div class="modal-body text-center">
+                                        <h5>Do you want to calculate Tar weight?</h5>
+                                        <br />
+                                        <div class="clearfix">
+                                            <button type="button" class="btn btn-secondary pull-right cancel-btn  ml-10" (click)="decline()">No</button>
+                                            <button type="button" class="btn btn-bamul pull-right" (click)="confirm(in,field,'tarWeight')">Yes</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <!-- <button (click)='deleteRow(in)' class="btn-sm btn-danger no-border" type="button">Delete</button> -->
+                            </td>
+                            <td>
+                                <input formControlName='tarWeightDate' type="text" class="form-control input-bl" value="20/02/2020 09:23:12 AM" />
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th> <strong>Net Weight</strong></th>
+                            <th><input disabled [ngClass]="{ 'is-invalid':lf.netWeight.errors && (lf.netWeight.touched || submited)}" formControlName='netWeight' type="number" class="form-control input-bl" value="" /></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </div>
+    <!-- <div class="col-md-4 pl-0">
+    <div class="placeholder pd-10 mt-10">
+      <form [formGroup]="sealNumberDetailsForm">
+        <table class="table seal_co">
+          <thead class="v-center">
+            <tr>
+              <th colspan="2">Seal Number Details
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="slf.compOne.value" [ngClass]="{ 'bg-danger':compOneSeal==false}" class="bg-success">
+              <td>
+                <strong>COMP 1</strong>
+              </td>
+              <td> <input [ngClass]="{ 'is-invalid':slf.compOne.errors && (slf.compOne.touched || submited)}"
+                  formControlName='compOne' type="text" class="form-control input-bl" placeholder="seal number" /></td>
+            </tr>
+            <tr *ngIf="slf.compTwo.value" [ngClass]="{ 'bg-danger':compTwoSeal==false}" class="bg-success">
+              <td>
+                <strong>COMP 2</strong>
+              </td>
+              <td>
+                <input [ngClass]="{ 'is-invalid':slf.compTwo.errors && (slf.compTwo.touched || submited)}"
+                  formControlName='compTwo' type="text" class="form-control input-bl" placeholder="seal number" /></td>
+            </tr>
+            <tr *ngIf="slf.compThree.value" [ngClass]="{ 'bg-danger':compThreeSeal==false}" class="bg-success">
+              <td>
+                <strong>COMP 3</strong>
+              </td>
+              <td> <input [ngClass]="{ 'is-invalid':slf.compThree.errors && (slf.compThree.touched || submited)}"
+                  formControlName='compThree' type="text" class="form-control input-bl" placeholder="seal number" />
+              </td>
+            </tr>
+            <tr *ngIf="slf.back.value" [ngClass]="{ 'bg-danger':backSeal==false}" class="bg-success">
+              <td>
+                <strong>Back</strong>
+              </td>
+              <td> <input [ngClass]="{ 'is-invalid':slf.back.errors && (slf.back.touched || submited)}"
+                  formControlName='back' type="text" class="form-control input-bl" placeholder="seal number" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div> -->
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-10">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-12">
+                    <label>Remarks</label>
+                    <textarea [(ngModel)]="remark" class="form-control input-bl" placeholder="remarks"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10">
+    <!-- <button type="button" (click)="submit()" class="btn btn-bamul pull-right ml-10" [disabled]="disableSubmit">Submit</button> -->
+    <button type="button" [disabled]="shippingHeadersList && (shippingHeadersList[0].receiptStatus=='Completed' || shippingHeadersList[0].receiptStatus =='IMPORTED')" (click)="submit()" class="btn btn-bamul pull-right ml-10">Submit</button>
+    <button routerLink="/security-operator/request-list" type=" button" class="btn btn-secondary pull-right cancel-btn">Cancel</button>
+</div>

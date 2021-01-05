@@ -1,0 +1,51 @@
+<h1 class="page-header">List All Users</h1>
+<!-- table rows-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder pd-10 mt-10">
+      <div class="table-responsive">
+        <table class="table table-condensed table-striped">
+          <thead class="v-center">
+            <tr>
+              <th>User ID</th>
+              <th>User Name</th>
+              <th class="text-center">Type</th>
+              <!-- <th class="text-center">Department</th> -->
+              <th class="text-center">Role</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Contact No.</th>
+              <th class="text-center">Location</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+            <tr class="sub-head">
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let userList of userListItem | paginate: { itemsPerPage: 5, currentPage: p } let i
+             =index'>
+              <td>{{userList.userId}}</td>
+              <td>{{userList.userName}}</td>
+              <td class="text-center">{{userList.userType}}</td>
+              <!-- <td class="text-center">-</td> -->
+              <td class="text-center">{{userList.role}}</td>
+              <td class="text-center">{{userList.emailAddress}}</td>
+              <td class="text-center">{{userList.phoneNumber}}</td>
+              <td class="text-center">{{userList.locationName}}</td>
+              <td class="text-center"><b class="text-success">{{userList.status}}</b></td>
+              <td>
+                <strong [routerLink]="['admin/user/update-user']" (click)="updateUser(userList.userId)"><i
+                    class="fa fa-edit"></i>Update</strong>
+                <strong class="ml-10" (click)="deleteUser(userList.userId)"><i class="fa fa-remove"></i>Delete</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix mt-10">
+
+</div>

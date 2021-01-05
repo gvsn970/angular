@@ -1,0 +1,42 @@
+<div class='complete-wrapper'>
+  <div class="sidenav">
+    <img class='brand' src='./assets/img/brand.png' />
+    <img class='family hidden' src='./assets/img/family1.png' />
+    <img class="brang-img" src='./assets/img/footer.png' />
+  </div>
+  <div class="main">
+    <div class="col-md-12 col-sm-12">
+      <div class="login-form">
+        <div class="logo"><img src='./assets/img/logo.png' class='brand-logo' />
+        </div>
+        <div class="welcome_msg">Welcome back! Please login to your account.</div>
+        <form [formGroup]="AppUser">
+          <div class="form-group">
+            <!-- <label>User Name</label> -->
+            <input type="text" class="form-control" placeholder="User Name" formControlName='userName'
+              [ngClass]="{ 'is-invalid': (submitted || AppUser.get('userName').touched) && f.userName.errors }">
+            <div *ngIf="submitted &&  AppUser.get('userName').error|| submitted &&  AppUser.get('userName').touched"
+              class="invalid-feedback">
+              <div *ngIf=" submitted &&  AppUser.get('userName').touched">user name is required</div>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <!-- <label>Password</label> -->
+            <input type="password" class="form-control" placeholder="Password" formControlName='encryptUserPw'
+              [ngClass]="{ 'is-invalid': (submitted || AppUser.get('encryptUserPw').touched) && f.encryptUserPw.errors}">
+            <div
+              *ngIf="submitted &&  AppUser.get('encryptUserPw').error|| submitted &&  AppUser.get('encryptUserPw').touched"
+              class="invalid-feedback">
+              <div *ngIf=" submitted &&  AppUser.get('encryptUserPw').touched">Password is required</div>
+            </div>
+          </div>
+
+          <button routerLink='/cs-portal' class="btn btn-bamul float-left" type="submit"
+            (click)="login($event.target.value)">Login</button>
+          <button type="submit" (click)='redirectTo("forget-password")' class="btn btn-secondary pull-right">Forgot Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

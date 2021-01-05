@@ -1,0 +1,178 @@
+address,
+address p {
+  line-height: 25px !important;
+  margin-bottom: 0;
+}
+
+table {
+  table-layout: fixed;
+  border: 1px solid #ccc;
+  margin-bottom: 0px;
+}
+
+
+
+
+th {
+  border: 0 !important;
+  vertical-align: middle !important;
+  border-right: 1px solid #ccc !important;
+}
+
+td {
+  /* border-right: 1px solid #ccc !important; */
+  vertical-align: middle !important;
+}
+
+tr>th:last-child,
+tr>td:last-child {
+  border-right: 0 !important;
+}
+
+tr.sub-head th {
+  background: #f3f3f8;
+}
+
+.stime {
+  width: 150px;
+}
+
+.cans {
+  width: 80px;
+}
+
+.route-no {
+  width: 60px;
+}
+
+.cans {
+  width: 80px !important;
+}
+
+.actions {
+  width: 240px;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.pr-10 {
+  padding-right: 2px;
+}
+
+.mt-10 {
+  margin-top: 12px;
+}
+
+.shift {
+  position: absolute;
+  right: 10px;
+  width: 80px;
+  background: #0099de;
+  top: 0;
+  height: 100%;
+  text-align: center;
+  border-radius: 0 4px 4px 0;
+  color: #fff;
+}
+
+.shift span {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #b6e7fc;
+  margin-bottom: 4px;
+}
+
+.shift strong {
+  text-transform: unset;
+}
+
+tabset {
+  margin-top: 10px !important;
+  display: table;
+  width: 100%;
+}
+
+tabset tab .placeholder {
+  min-height: 150px;
+}
+
+/*
+.inward-actions>.btn-primary {
+  position: absolute;
+  left: 21px;
+  top: 7px;
+}
+
+.inward-actions {
+  position: relative;
+}
+
+.inward-actions>.btn-warning {
+  position: absolute;
+  left: 91px;
+  top: 7px;
+}
+
+.inward-actions>.btn-danger {
+  position: absolute;
+  left: 166px;
+  top: 7px;
+}
+
+*/
+h2.sub-header {
+  font-size: 18px;
+  padding: 0px 20px 23px 7px;
+  /* margin: 0px; */
+
+}
+h3.page-header {
+  font-size: 20px;
+  margin-top: 20px;
+  color: #2b2b2f;
+  padding-bottom: 0;
+  margin-bottom: 15px;
+}
+.sub-header {
+  display: inline-block;
+  margin-left: -20px;
+
+
+}
+
+/* .route-sheet{
+padding-top: 30px;
+} */
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+  color: #3467eb;
+  font-size: 20px;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+input[type=checkbox] {
+    width: 20px;
+    margin: 0px 0 0;
+    margin-top: 1px\9;
+    line-height: normal;
+}
+.mt-10[_ngcontent-aba-c14] {
+    margin-top: 10px;
+}
+
+.table-responsive{
+    margin-top: -15px;
+}
+.btn {
+  padding: 5px 10px;
+}

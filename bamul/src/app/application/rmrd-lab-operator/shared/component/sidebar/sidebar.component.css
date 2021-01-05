@@ -1,0 +1,19 @@
+.placeholder {
+    background: #fff;
+    margin-top: 20px;
+    box-shadow: 0 0 5px #e2e2e2;
+    display: table;
+    width: 100%;
+}
+
+.mt-0 {
+    margin-top: 0px !important
+}
+
+.ml-1 {
+    margin-left: 1px;
+}
+
+.pd-20 {
+    padding: 20px;
+}

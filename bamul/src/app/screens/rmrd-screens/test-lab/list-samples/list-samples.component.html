@@ -1,0 +1,174 @@
+<h1 class="page-header">MPCS Lab Collection List - RMRD</h1>
+<div class="clearfix mt-10"></div>
+<ng-template #template>
+    <div class="modal-body text-center">
+        <h4>Do you want to confirm?</h4>
+        <br />
+        <div class="clearfix">
+            <button type="button" class="btn btn-primary pull-left" (click)="confirm()">Yes</button>
+            <button type="button" class="btn btn-default pull-right" (click)="decline()">No</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #issue>
+    <div class="modal-body text-center">
+        <h4 class="text-left">Remarks</h4>
+        <br />
+        <textarea class="form-control full-width" rows=5 style="resize: none;"></textarea> <br />
+        <div class="clearfix">
+            <button type="button" class="btn btn-primary  pull-left" (click)="confirm()">Submit</button>
+            <button type="button" class="btn btn-default pull-right" (click)="decline()">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix pt-20 mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Date</label>
+                    <input (bsValueChange)="onValueChange($event)" [(ngModel)]="filterDate" type="text" class="form-control date-field" placeholder="Date" bsDatepicker>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Shift </label>
+                    <select [(ngModel)]="filterShift" class="form-control">
+                    <option value="M">Morning</option>
+                    <option value="E">Evening</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Receipt Source Code</label>
+                    <select [(ngModel)]="receiptCode" class="form-control">
+                <option  [selected]="receiptCode=='RMRD DOC 1'" value="RMRD DOC 1">RMRD Doc 1</option>
+                <option  value="RMRD DOC 2">RMRD Doc 2</option>
+                <option  value="RMRD DOC 3">RMRD Doc 3</option>
+              </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Route No</label>
+                    <input [(ngModel)]="filterRoute" type="text" class="form-control" placeholder="Enter route">
+                </div>
+            </div>
+            <!-- <div class="form-row mt-10"> -->
+
+            <div class="form-group col-md-3 text-right"><br />
+                <button (click)="reset()" type="button" class="btn btn-secondary">Reset</button>&nbsp;
+                <button (click)="filterData()" type="button" class="btn btn-primary">Apply Filters</button>
+            </div>
+
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-10">
+            <div class="table-responsive">
+                <div class="text-right pb-20">
+                    <button *ngIf="userRole ==='130010' || userRole ==='130011'" (click)="approveAll();" type="button" class="btn btn-primary no-border">Approve All</button>
+                </div>
+                <table class="table table-bordered table-striped v-middle">
+                    <thead>
+                        <tr>
+                            <th *ngIf="userRole ==='130010' || userRole ==='130011'">
+                                <div class=" form-check ">
+                                    <label class="form-check-label ">
+                                      <input type="checkbox" class="form-check-input " [(ngModel)]="isSelectAll " (click)="selectAll($event) ">
+                                    </label>
+                                </div>
+                            </th>
+                            <th width="80">Date</th>
+
+                            <th width="40">Shift</th>
+                            <th width="80">Route No.</th>
+                            <th width="100">Doc No.</th>
+                            <th width="100">Item Desc</th>
+                            <th>Name</th>
+                            <th width="80">Sample No.</th>
+                            <th>Qty.</th>
+                            <th width="70">CLR</th>
+                            <th width="70">FAT%</th>
+                            <th width="70">SNF%</th>
+                            <th>Remarks</th>
+                            <th width="100" *ngIf="userRole==='130010' || userRole ==='130011'" class='text-center'>Approve</th>
+                            <!-- <th class='text-center'>Issue</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="filteredShippingheaderList">
+                            <ng-container *ngFor="let shippingheader of filteredShippingheaderList;let i=index ">
+                                <tr *ngFor="let labdetails of shippingheader.mshippingLines;let k=index">
+                                    <ng-container *ngIf="labdetails.approvalStatus=='Awaiting For Approval' || labdetails.approvalStatus=='Approved'">
+                                        <td *ngIf="userRole ==='130010' || userRole ==='130011'">
+                                            <div class="form-check ">
+                                                <label class="form-check-label ">
+                                          <input [disabled]="labdetails.approvalStatus=='Awaiting For Approval' && (labdetails.snfAccepted==0 || labdetails.snfAccepted==null) && labdetails.itemDescription!='COB MILK' || shippingheader.approvalStatus=='Completed' " type="checkbox" class="form-check-input
+                                " (click)="onChangeSelection($event,i,k) " [(ngModel)]="labdetails.isChecked ">
+                                        </label>
+                                            </div>
+                                        </td>
+                                        <td>{{shippingheader.shippedDate}}</td>
+                                        <td>{{shippingheader.shift}}</td>
+                                        <td>{{shippingheader.freightCarrierCode}}</td>
+                                        <td>{{shippingheader.receiptSourceCode}}</td>
+                                        <td>{{labdetails.itemDescription}}</td>
+                                        <td>{{shippingheader.vendorName}}</td>
+                                        <td>{{labdetails.sampleNum}}</td>
+                                        <td>{{labdetails.quantityReceived}}</td>
+                                        <td>
+                                            <!-- <div class="input-group d-flex "> -->
+                                            <input (focusout)="updateData(shippingheader , k) " appTwoDigitDecimaNumber [allowedDecimal]="2" [readonly]="(labdetails.itemDescription=='COB MILK') || (labdetails.approvalStatus=='Approved' && userRole ==='130009') || (shippingheader.approvalStatus=='Approved' && userRole ==='130011')"
+                                                type="text" class="form-control " [(ngModel)]="labdetails.clrAccepted " placeholder="CLR
+                                " aria-label="Recipient 's username" aria-describedby="basic-addon2">
+                                            <!-- <div class="input-group-append">
+                                            <button [disabled]="labdetails.approvalStatus === 'Approved ' && userRole =='111011 '" class="btn-sm btn-success custm-button no-border" (click)="updateData(shippingheader , k)" type="button">Update</button>
+                                        </div> -->
+                                            <!-- </div> -->
+                                        </td>
+                                        <td class='text-center '>
+                                            <!-- <div class="input-group d-flex"> -->
+                                            <input (focusout)="updateData(shippingheader , k)" appTwoDigitDecimaNumber [allowedDecimal]="1" [readonly]="(labdetails.itemDescription=='COB MILK') || (labdetails.approvalStatus=='Approved' && userRole ==='130009') || (shippingheader.approvalStatus=='Approved' && userRole ==='130011')"
+                                                type="text" class="form-control" [(ngModel)]="labdetails.fatAccepted" placeholder="FAT" aria-label="Recipient's username " aria-describedby="basic-addon2 ">
+                                            <!-- <div class="input-group-append ">
+                                            <button [disabled]="labdetails.approvalStatus==='Approved' && userRole=='111011' " class="btn-sm btn-success custm-button no-border " (click)="updateData(shippingheader,k) " type="button ">Update</button>
+                                        </div>
+                                    </div> -->
+                                        </td>
+
+                                        <td><input disabled type="number " class="form-control input-single " [(ngModel)]="labdetails.snfAccepted" placeholder="SNF % " /></td>
+                                        <td>
+
+                                            <input (focusout)="updateData(shippingheader , k)" [readonly]="(labdetails.approvalStatus=='Approved' && userRole ==='130009') || (shippingheader.approvalStatus=='Approved' && userRole ==='130011')" type="text" class="form-control" [(ngModel)]="labdetails.comments"
+                                                placeholder="Comments" aria-label="Recipient's username " aria-describedby="basic-addon2">
+                                        </td>
+                                        <td *ngIf="(userRole==='130010' || userRole ==='130011') && ((labdetails.approvalStatus=='Awaiting For Approval' && labdetails.snfAccepted>0) || (labdetails.approvalStatus=='Awaiting For Approval' && labdetails.itemDescription=='COB MILK'))" class='text-center'>
+                                            <button type="button" (click)="approveData(shippingheader , k)" class="btn-sm btn-primary no-border">Approve
+                  </button>
+                                        </td>
+                                        <td *ngIf="(userRole==='130010' || userRole ==='130011') && ((labdetails.approvalStatus =='Approved' && labdetails.snfAccepted>0) || (labdetails.approvalStatus=='Approved' && labdetails.itemDescription=='COB MILK'))" class='text-center'>
+                                            <button type="button" (click)="approveData(shippingheader , k)" [disabled]="'true'" class="btn-sm btn-secondary no-border">Approved
+                  </button>
+                                        </td>
+                                        <td *ngIf="(userRole==='130010' || userRole ==='130011') && labdetails.approvalStatus =='Awaiting For Approval'  && (labdetails.snfAccepted==0 || labdetails.snfAccepted==null) && labdetails.itemDescription !='COB MILK'" class='text-center'>
+                                            <button type="button" (click)="approveData(shippingheader , k)" [disabled]="'true'" class="btn-sm btn-secondary no-border">Approve
+                  </button>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="filteredShippingheaderList && filteredShippingheaderList.length == 0">
+                            <tr class="text-center">
+                                <td colspan=12>No Data Available</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse"></ngx-spinner>

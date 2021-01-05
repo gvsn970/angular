@@ -1,0 +1,183 @@
+<h1 class="page-header">Gate Pass-[{{updatedGatePassList.gatePassId}}]</h1>
+<!-- <div class="row d-flex-align-center">
+  <div class="col-xs-8 pr-10 d-flex">
+    <div class="placeholder mt-0 pd-10 d-flex-align-center flex1-space">
+      <address>
+        <span>Location <br /><strong>Annkel Chilling Center</strong></span>
+      </address>
+      <div class="shift text-center">
+        <span>Shift</span>
+        <strong>Morning</strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-2 pl-0">
+    <div class="placeholder mt-0 pd-10">
+      <div class="form-group mb-0">
+        <label>GatePass Type</label>
+        <select class="form-control">
+          <option value="1">Visitor</option>
+          <option value="2">Employee</option>
+          <option value="3">Services</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+</div> -->
+<form [formGroup]="GatePass">
+  
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder mt-10 clearfix">
+      <div class="form-row mt-10">
+
+        <div class="form-group col-md-2">
+          <label>Issued To</label>
+          <input type="text" class="form-control input-bl" placeholder="Name"  formControlName='issuedTo' maxlength="20"  onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+          [ngClass]="{ 'is-invalid':GatePass.controls.issuedTo.touched && GatePass.controls.issuedTo.errors}">
+      
+        </div>
+        <div class="form-group col-md-4">
+          <label>Address</label>
+          <input type="text" class="form-control input-bl" placeholder="Address"  formControlName='address'
+          maxlength="100"  
+          [ngClass]="{ 'is-invalid':GatePass.controls.address.touched && GatePass.controls.address.errors}"
+        >
+
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Reference Number</label>
+          <input type="text" class="form-control input-bl" placeholder="Ref Number" formControlName='refNo'
+          [ngClass]="{ 'is-invalid':GatePass.controls.refNo.touched && GatePass.controls.refNo.errors}"
+       >
+        </div>
+        
+        <div class="form-group col-md-2">
+          <label>Vehicle Number</label>
+          <input type="text" class="form-control input-bl" placeholder="Vehicle Number" formControlName='vehicleNo'
+          [ngClass]="{ 'is-invalid':GatePass.controls.vehicleNo.touched && GatePass.controls.vehicleNo.errors}"
+        >
+        </div>
+
+        <div class="form-group col-md-2">
+        
+            <address>
+              <p>
+                <span>Date : <strong>
+                   {{updatedGatePassList?.issuedDate}}
+                  </strong></span>
+              </p>
+              <p><span>Time : </span><strong>
+                {{updatedGatePassList?.time}}
+                </strong></p>
+            </address>
+       
+        </div>
+  
+        <!-- <div class="col-xs-12">
+         
+            <label>Remarks</label>
+            <textarea class="form-control input-bl" placeholder="Remarks"></textarea>
+        
+        </div> -->
+
+     
+        <!-- <div class="form-group col-md-2">
+          <label>Status</label>
+          <select class="form-control">
+            <option value="1">IN</option>
+            <option value="2">OUT</option>
+          </select>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row"  >
+  <div class="col-md-12">
+
+
+      <div class="placeholder pd-10 mt-10">
+
+        <table class="table inwards"   formArrayName="gatePassLine">
+          <thead class="v-center">
+            <tr>
+              <th width="50px" value>S.No.</th>
+              <th width="60%">Particulars</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-center">Returnable</th> 
+              <!-- <th class="text-center">Delete</th>  -->
+            </tr>
+            <tr class="sub-head">
+            </tr>
+          </thead>
+          <tbody>
+
+           
+            <tr     
+            *ngFor="let field  of  GatePass.controls.gatePassLine.controls; 
+            let in=index" [formGroupName]="in">
+            <td>{{in+1}}</td>
+
+
+              <td><input type="text" class='form-control input-bl'disabled  
+                [ngClass]="{ 'is-invalid': submitted && field.controls.itemDescription.errors}" value=""  formControlName='itemDescription'  maxlength="50" disabled
+                > 
+                <div *ngIf="submitted && field.controls.itemDescription.errors" class="invalid-feedback">
+               
+
+                </div> 
+              </td>
+              <td><input type="text" class='form-control input-bl'  value=""   maxlength="3"  [ngClass]="{ 'is-invalid': submitted && field.controls.itemQuantity.errors}" disabled formControlName='itemQuantity' (keypress)="numberOnly($event)">
+              
+                <div *ngIf="submitted && field.controls.itemQuantity.errors" class="invalid-feedback">
+               
+
+                </div> 
+              </td>
+              <!-- <td>
+                <input type="text" class='form-control input-bl'  value=""  >
+              </td> -->
+              <td>
+                <input type="checkbox" class='input-sm form-control'  value=""  formControlName='returnable'   name="item-returnable" disabled />
+                <!-- <select class="form-control">
+                  <option>Yes</option>
+                  <option>No</option>
+                </select> -->
+              </td>
+<!-- 
+              <td> <button (click)='deleteRow(in)' class="btn-sm btn-danger no-border" type="button" style="margin-left: 20px;">Delete</button>
+              </td> -->
+            </tr>
+          </tbody>
+
+        </table>
+        <!-- <div class="mt-10 clearfix">
+          <button class="btn btn-bamul pull-right mb-10"  [disabled]='GatePass.invalid' (click)='addNewRow()' >Add More</button>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="placeholder pd-10 mt-10">
+            <label>Remarks</label>
+            <textarea class="form-control input-bl" placeholder="Remarks" formControlName='remarks'  ></textarea>
+          </div>
+        </div>
+
+      </div>
+
+  </div>
+</div>
+<div class="clearfix mt-10">
+  <button type="button" class="btn btn-secondary pull-left cancel-button" (click)='redirectTo(i)'>Ok</button>
+  <!-- <button type="button"  class="btn btn-bamul pull-right">Save & Next</button> -->
+  <!-- <button type="button"  (click)='createGatePass()'class="btn btn-bamul pull-right mr-10" >Save</button> -->
+</div>
+
+</form>
+
+

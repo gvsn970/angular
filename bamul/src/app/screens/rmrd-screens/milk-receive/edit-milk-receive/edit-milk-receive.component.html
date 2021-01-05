@@ -1,0 +1,305 @@
+<div *ngIf="postData">
+    <h1 class="page-header">RMRD Milk Collection</h1>
+    <div class="row d-flex-align-center" *ngIf="postData">
+        <div class="col-xs-5 pr-10 d-flex">
+            <div class="placeholder mt-0 pd-10 d-flex-align-center flex1-space">
+                <address>
+          <span>Location <br /><strong>{{UserData.locationName}}</strong></span>
+        </address>
+            </div>
+        </div>
+        <div class="col-xs-2 pl-0">
+            <div class="placeholder mt-0 pd-10">
+                <div class="form-group mb-0">
+                    <label>Receipt Source Code</label>
+                    <select [disabled]="postData.approvalStatus ==='Approved' || postData.receiptStatus ==='QC Completed'" (selected)="postData.receiptSourceCode" (change)="setrecieptCode($event.target.value)" class="form-control">
+            <option [selected]="postData.receiptSourceCode == 'RMRD DOC 1'" value="RMRD DOC 1">RMRD Doc 1</option>
+            <option [selected]="postData.receiptSourceCode == 'RMRD DOC 2'" value="RMRD DOC 2">RMRD Doc 2</option>
+            <option [selected]="postData.receiptSourceCode == 'RMRD DOC 3'" value="RMRD DOC 3">RMRD Doc 3</option>
+          </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 pl-0">
+            <div class="shift text-center">
+                <span>Shift</span>
+                <strong *ngIf="currHour < 14">Morning</strong>
+                <strong *ngIf="currHour >= 14">Evening</strong>
+            </div>
+            <div class="placeholder mt-0 pd-10">
+                <address>
+          <p class="receipt-details">
+
+            <span class="flex1-space">Receipt No : <strong>
+                {{postData.receiptNum}}
+              </strong></span>
+          </p>
+          <p class="receipt-details">
+            <span class="flex1-space">Receipt Status : <strong>
+                {{postData.receiptStatus}}
+              </strong></span>
+          </p>
+        </address>
+            </div>
+        </div>
+
+        <div class="col-xs-2 pl-0">
+            <div class="placeholder mt-0 pd-10">
+                <address>
+          <p class="receipt-details">
+            <span class="flex1-space">Date : <strong>
+                <app-date></app-date>
+              </strong></span>
+          </p>
+          <p class="receipt-details">
+            <span class="flex1-space">Time : <strong>
+                <app-clock></app-clock>
+              </strong>
+            </span>
+
+          </p>
+        </address>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12  pr-10">
+            <div class="placeholder clearfix pl-10 pt-10 mt-10 mb-10 pr-10">
+                <div class="row">
+                    <div class="col-sm-2 form-group">
+                        <label>Sub-Inventory</label>
+                        <!-- <p></p> -->
+                        <input type="text" [(ngModel)]="subinventoryName" class="form-control input-bl" value="{{subinventoryName}}" readonly>
+                        <!-- <select [(ngModel)]="subinventoryName" class="form-control">
+    <option value="Anekal Chilling Center">Anekal Chilling Center
+    </option>
+    <option value="Byrapatna Chilling Center">Byrapatna Chilling Center
+    </option>
+    <option value="Doddaballapura Chilling Center">Doddaballapura Chilling Center
+    </option>
+
+  </select> -->
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <label>Locator</label>
+                        <input type="text" [(ngModel)]="locatorid" class="form-control input-bl" value="{{locatorid}}" readonly>
+                        <!-- <select [(ngModel)]="locatorid" class="form-control">
+    <option value="706">706
+    </option>
+    <option value="301">301
+    </option>
+    <option value="302">302
+    </option>
+
+  </select> -->
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Vehicle No.</label>
+                        <input type="text" class="form-control input-bl" value="{{vehicleNumber}}" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Driver Name</label>
+                        <input type="text" class="form-control input-bl" value="{{driverName}}" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Arrival Time</label>
+                        <input type="text" class="form-control input-bl" value="{{arrivalTime}}" readonly>
+                    </div>
+
+                    <div class="bg-warning pd-b-0 form-group col-sm-1">
+                        <label>Sample</label>
+                        <input type="text" disabled class="form-control input-bl" (keyup)="sampleStartChange($event.target.value)" value="{{sampleNum}}" placeholder="Sample Start No">
+                    </div>
+
+                    <div class="bg-dark pd-b-0 form-group col-sm-2">
+
+                        <label class="weight-bowl">{{weightBowlData}}</label>
+                        <button type="button" class='accept-weight'>KGS</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-xs-2 pl-0">
+            <div class="placeholder mt-10">
+                <div class="bg-warning br-top-4 mt-0 pd-10">
+                    <label>Sample Start No.</label>
+                    <input type="text" disabled class="form-control input-bl" (keyup)="sampleStartChange($event.target.value)" value="{{sampleNum}}" placeholder="Sample Start No">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 pl-0">
+            <div class="placeholder mt-10">
+                <div class="bg-dark br-top-4 mt-0 pd-10 relative">
+                    
+                    <label class="weight-bowl">{{weightBowlData}}</label>
+                    <button type="button" class='accept-weight'>KGS</button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="placeholder mt-0 clearfix">
+                <div class="form-row mt-10">
+                    <div class="form-group col-md-2">
+                        <label>Route No.</label>
+                        <select [disabled]="postData.approvalStatus ==='Approved' || postData.receiptStatus ==='QC Completed'" (change)="routeonChange($event.target.value)" class="form-control">
+              <option [selected]="routePoint==null" value="">Select Route</option>
+              <option [selected]="routepoint==postData.freightCarrierCode"
+                *ngFor="let routepoint of distinctrouteNumber" value="{{routepoint}}">{{routepoint}}</option>
+            </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Society Number</label>
+                        <input type="text" class="form-control input-bl" value="{{societyNumber}}" readonly>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Society Name</label>
+                        <select [disabled]="postData.approvalStatus ==='Approved' || postData.receiptStatus ==='QC Completed'" [ngClass]="societyNumber === null ? 'invalid' : 'valid'" (change)="onChange($event.target.value)" class="form-control">
+              <option [selected]="societyNumber==''" value="">Select Society</option>
+              <ng-container *ngIf="this.routeNosocietylogs && this.routeNosocietylogs[0]">
+                <option [selected]="postData.vendorNum==society.routePointCode" value="{{society.routePointCode}}"
+                  *ngFor="let society of this.routeNosocietylogs[0].tripPoints">{{society.routePointName}}</option>
+              </ng-container>
+            </select>
+
+                        <div *ngIf="submitted && societyNumber == ''" class="invalid-feedback">
+                            <div *ngIf="societyNumber == ''" style='color:red'>Required </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Accepted Cans</label>
+                        <input type="text" class="form-control input-bl" value="{{acceptedCans}}" readonly>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Quantity (In Kgs)</label>
+                        <input type="text" class="form-control input-bl" value="{{Totalweight}}" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="CreateIndentLineItem" #f="ngForm" novalidate>
+                <div class="placeholder pd-10 mt-10">
+                    <div class="clearfix" *ngIf="this.postData">
+                        <button class="btn btn-bamul pull-right mb-10" [disabled]="this.postData.approvalStatus === 'Approved' || addMoreDisabled" (click)="addNewRow()">Add More</button>
+                    </div>
+                    <table class="table inwards" formArrayName="newIndtLItem">
+                        <thead class="v-center">
+                            <tr>
+                                <th width="120">Sample No.</th>
+                                <th width="200">Milk Type</th>
+                                <th width="120">No. of Cans</th>
+                                <th width="140">Weight (In Kgs)</th>
+                                <th class="text-center">Remarks</th>
+                                <td class="text-center width80">Remove</td>
+                            </tr>
+                            <tr class="sub-head">
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="CreateIndentLineItem">
+                            <tr *ngFor="let field  of  CreateIndentLineItem.controls.newIndtLItem.controls;let in=index" [formGroupName]="in">
+                                <td height="60px"><input [readonly]="field.value.approvalStatus =='Approved'" formControlName='sampleNum' (focusout)="focusOutSampleFunction($event,CreateIndentLineItem.controls.newIndtLItem.controls,in,f)" type="number" min="0" class="form-control input-bl"
+                                    />
+                                    <div *ngIf="submitted && field.controls.sampleNum.errors" class="invalid-feedback">
+                                        <div *ngIf="field.controls.sampleNum.errors.required" style='color:red'>Required </div>
+                                    </div>
+                                    <div *ngIf="submitted && field.controls.sampleNum.value <= 0" class="invalid-feedback">
+                                        <div *ngIf="field.controls.sampleNum.value <= 0" style='color:red'>Enter Value </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select (change)="milkproduct($event.target,in)" formControlName='itemId' class="form-control" [disabled]="postData.approvalStatus ==='Completed'">
+                    <option [value]="item.inventoryItemId" *ngFor="let item of items;">{{item.description}}</option>
+                  </select>
+                                    <div *ngIf="submitted && field.controls.itemId.errors" class="invalid-feedback">
+                                        <div *ngIf="field.controls.inventoryItemId.required" style='color:red'>Required </div>
+                                    </div>
+                                    <div *ngIf="submitted && field.controls.itemId.value <= 0" class="invalid-feedback">
+                                        <div *ngIf="field.controls.inventoryItemId.value <= 0" style='color:red'>Required </div>
+                                    </div>
+                                </td>
+                                <td><input formControlName='containerNum' (focusout)="focusOutFunction($event,CreateIndentLineItem.controls.newIndtLItem.controls,in,f)" type="number" min="0" class="form-control input-bl" />
+                                    <div *ngIf="submitted && field.controls.containerNum.errors" class="invalid-feedback">
+                                        <div *ngIf="field.controls.containerNum.errors.required" style='color:red'>Required </div>
+                                    </div>
+                                    <div *ngIf="submitted && field.controls.containerNum.value <= 0" class="invalid-feedback">
+                                        <div *ngIf="field.controls.containerNum.value <= 0" style='color:red'>Enter Valid Value</div>
+                                    </div>
+
+                                </td>
+                                <td width="250" class="bg-info weight_m_wrapper">
+                                    <div class="input-group mb-3 d-flex weight_m w-100">
+                                        <div [hidden]="UserData.role =='130008'" class="weight_type">
+                                            <div> <input (change)="changeWeightSourceType($event.target.value , CreateIndentLineItem.controls.newIndtLItem.controls,in,f)" formControlName="weightSourceType" type="radio" id="{{'manual'+in}}" name="weightSourceType"
+                                                    value="Manual" [ngClass]="{'activeradio':field.controls.weightSourceType.value=='Manual'}">
+                                                <label [ngClass]="{'activeradiolabel':field.controls.weightSourceType.value=='Manual'}" for="{{'manual'+in}}">Manual</label></div>
+                                            <div><input (change)="changeWeightSourceType($event.target.value  , CreateIndentLineItem.controls.newIndtLItem.controls,in,f)" formControlName="weightSourceType" type="radio" id="{{'auto'+in}}" name="weightSourceType"
+                                                    value="Auto" checked [ngClass]="{'activeradio':field.controls.weightSourceType.value=='Auto'}">
+                                                <label [ngClass]="{'activeradiolabel':field.controls.weightSourceType.value=='Auto'}" for="{{'auto'+in}}">Auto</label></div>
+                                        </div>
+                                        <input [readonly]="field.controls.weightSourceType.value=='Auto'" formControlName='quantityReceived' (keyup)="checkQuantity()" (focusout)="focusOutFunction($event,CreateIndentLineItem.controls.newIndtLItem.controls,in,f)" type="number" min="0" class="form-control input-bl"
+                                        />
+                                        <div *ngIf="submitted && field.controls.quantityReceived.errors" class="invalid-feedback">
+                                            <div *ngIf="field.controls.quantityReceived.errors.required" style='color:red'>Required </div>
+                                        </div>
+                                        <div *ngIf="submitted && field.controls.quantityReceived.value <= 0" class="invalid-feedback">
+                                            <div *ngIf="field.controls.quantityReceived.value <= 0" style='color:red'>Enter Valid Value</div>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <button (click)="appendweighBowlData($event,CreateIndentLineItem.controls.newIndtLItem.controls,in,f)" class="btn btn-success weigh-button" type="submit"><i class="fa fa-arrow-down"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- <td><input formControlName='quantityReceived' (focusout)="focusOutFunction($event,CreateIndentLineItem.controls.newIndtLItem.controls,in,f)" type="number" min="0" class="form-control input-bl" />
+                                    <div *ngIf="submitted && field.controls.quantityReceived.errors" class="invalid-feedback">
+                                        <div *ngIf="field.controls.quantityReceived.errors.required" style='color:red'>Required </div>
+                                    </div>
+                                    <div *ngIf="submitted && field.controls.quantityReceived.value <= 0" class="invalid-feedback">
+                                        <div *ngIf="field.controls.quantityReceived.value <= 0" style='color:red'>Enter Valid Value</div>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <!-- <input formControlName='comments' type="text" class="form-control input-bl" /> -->
+                                    <select formControlName='comments' class="form-control">
+                                            <!-- <option [selected]="true">Good Raw Milk</option> -->
+                                            <option [value]="remark.value"
+                                              *ngFor="let remark of remarkValues;">{{remark.value}}</option>
+                                          </select>
+                                </td>
+                                <td class="text-center" [ngClass]="in === 0 || field.value.approvalStatus =='Approved' ? 'disabled' : 'cursor-pointer'"><i (click)='deleteRow(in)' class="fa fa-trash" aria-hidden="true"></i></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Total Cans: <strong>{{Totalcans}}</strong></th>
+                                <th colspan="3"><strong class="pull-left">Total Weight:</strong> <strong class="pull-right">{{Totalweight}}</strong>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="placeholder pd-10 mt-10">
+                            <textarea [value]="postData.comments" (change)="doTextareaValueChange($event.target.value)" class="form-control input-bl" placeholder="Comments"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="clearfix mt-10" *ngIf="this.postData">
+        <button type="button" routerLink='/rmrd-operator/milk-receive/milk-summary/{{postData.freightCarrierCode}}' class="btn btn-secondary pull-left cancel-button">Cancel</button>
+        <button type="button" *ngIf="this.postData.approvalStatus != 'Approved'" (click)="nextCollectionData()" class="btn btn-bamul pull-right">Save & Next</button>
+        <button type="button" *ngIf="this.postData.approvalStatus != 'Approved'" (click)="postCollectionData()" class="btn btn-bamul pull-right mr-10">Save</button>
+    </div>
+    <ng4-loading-spinner> </ng4-loading-spinner>
+</div>

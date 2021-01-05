@@ -1,0 +1,53 @@
+.blink_me {
+    animation: blinker 1s linear infinite;
+    color: #3467eb;
+    font-size: 20px;
+    margin-top: 60px;
+    padding-left: 0;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.placeholder {
+    background: #fff;
+    margin-top: 5px;
+    box-shadow: 0 0 5px #e2e2e2;
+    border-radius: 4px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.pull-no {
+    position: relative;
+    top: 0px;
+    right: 65px;
+}
+
+.pull-yes {
+    position: relative;
+    left: 60px;
+    top: 20ppx;
+}
+
+.reamrks {
+    position: relative;
+    bottom: 17px !important;
+}
+
+.shipping {
+    position: relative;
+    top: 10px !important;
+}
+
+.confirm {
+    position: relative;
+    top: 15px;
+    left: 826px;
+}

@@ -1,0 +1,269 @@
+ <h1 class="page-header">Payment</h1>
+
+ <div class="row">
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Current Profile Status</h5>
+       <span class="card-value">Active</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Today's Order Amount</h5>
+       <span class="card-value"><i class="fa fa-inr" aria-hidden="true"></i>{{orderAmount}}</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Total Credit limit</h5>
+       <span *ngIf="customerBillingDetails" class="card-value"><i class="fa fa-inr" aria-hidden="true"></i>{{customerBillingDetails.creditLimit}}</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Payable Amount</h5>
+       <span *ngIf="customerBillingDetails" class="card-value">
+         <i class="fa fa-inr" aria-hidden="true"></i>{{customerBillingDetails.balance}} 
+       </span>
+     </div>
+   </div>
+ </div>
+
+ <div class="row">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder pd-20">
+       <!-- <h2 class="sub-header">Make Payment Now</h2> -->
+       <div class="row">
+         <div class="col-xs-12 col-md-12">
+           <!-- CREDIT CARD FORM STARTS HERE -->
+           <div class="panel panel-default credit-card-box">
+             <div class="panel-body">
+              <form role="form" id="payment-form" [formGroup]="customerPaymentForm" method="POST" action="javascript:void(0);">
+                <div class="row">
+                  <div class="col-md-6 col-md-6">
+                    <div class="form-group">
+                      <label for="customername"><span class="hidden-md">Customer Code</span></label>
+                      <input formControlName='customercode' type="text" class="form-control" name="customercode" required />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-md-6">
+                      <div class="form-group">
+                        <label for="customername"><span class="hidden-md">Customer Name</span></label>
+                        <input formControlName='customername' type="text" class="form-control" name="customername" required />
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-md-6">
+                    <div class="form-group">
+                      <label for="mobilenumber">Mobile Number</label>
+                      <input formControlName='mobilenumber' type="number" class="form-control" name="mobilenumber"
+                        required />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="emailid">Email ID</label>
+                        <input formControlName='emailid' type="email" class="form-control" name="emailid" placeholder="example@gmail.com"
+                          required />
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ordernumber">Order Number*</label>
+                      <input formControlName='ordernumber' [ngClass]="{ 'is-invalid': submitted && customerPaymentForm.controls.ordernumber.errors }" type="text" class="form-control" name="ordernumber" required />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="amount">Amount*</label>
+                        <input formControlName='amount' type="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && customerPaymentForm.controls.amount.errors }" name="amount" required />
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="amount">
+                        <input formControlName='terms' [ngClass]="{ 'is-invalid': submitted && customerPaymentForm.controls.terms.errors }" type="checkbox" class="checkbox" name="amount" required /> I agree
+                        all terms & conditions</label>
+                      <a href="javascript:void(0)" (click)="openModal(template)" type="button">Click
+                        here for Conditions / Refunds / Cancellation Policy</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 float-right">
+                    <!-- <a class="subscribe btn btn-success btn-lg btn-block" routerLink="../success"
+                      routerLinkActive="active" type="button">Make Payment</a> -->
+                    <a class="subscribe btn btn-success btn-lg btn-block" (click)="makePayment(paymentTemplate)" href="javascript:void(0)"
+                      routerLinkActive="active" type="button">Make Payment</a>
+                  </div>
+                </div>
+                <!-- <div>
+                  <button class="btn btn-success btn-sm mt-4" (click)="redirectTo('dashboard')">Return to Home</button>
+                </div> -->
+                <div class="row" style="display:none;">
+                  <div class="col-md-12">
+                    <p class="payment-errors"></p>
+                  </div>
+                </div>
+              </form>
+             </div>
+           </div>
+           <!-- CREDIT CARD FORM ENDS HERE -->
+         </div>
+        <ng-template #template>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left"></h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <b>Terms & Conditions</b>
+            <p>Please read these terms carefully before using the online payment facility. Using the online payment
+              facility on this website indicates that you accept these terms. If you do not accept these terms do not
+              use this facility.</p>
+            <p>All payments are subject to the following conditions:- </p>
+            <p>The description of courses are specific to you (i.e. Programme Name, start and end date etc.) when you
+              log in with your unique password. Normally payment is required in advance (i.e. before you commence
+              your programme).
+              All Fees quoted are in Indian Rupees. The MERCHANT reserves the right to change the fees at any time.</p>
+            <ul>
+              <li>Your payment will normally reach the MERCHANT account to which you are making a payment within two
+                working days.</li>
+              <li>We cannot accept liability for a payment not reaching the correct MERCHANT account due to you
+                quoting an incorrect account number or incorrect personal details. Neither can we accept liability if
+                payment is refused or declined by the credit/debit card supplier for any reason.</li>
+              <li>If the card supplier declines payment the MERCHANT is under no obligation to bring this fact to
+                your attention. You should check with your bank/credit/debit card supplier that payment has been
+                deducted from your account.</li>
+              <li>In no event will the MERCHANT be liable for any damages whatsoever arising out of the use,
+                inability to use, or the results of use of this site, any websites linked to this site, or the
+                materials or information contained at any or all such sites, whether based on warranty, contract,
+                tort or any other legal theory and whether or not advised of the possibility of such damages. </li>
+            </ul>
+            <b>Refund Policy</b>
+            <ul>
+              <li>If the Customer leaves the MERCHANT before they complete their Programme, there shall be no
+                entitlement to a refund of payment. </li>
+              <li>Refunds, if applicable, at the discretion of the Management, will only be made to the debit/credit
+                card used for the original transaction. For the avoidance of doubt nothing in this Policy shall
+                require the MERCHANT to refund the Fees (or part thereof) unless such Fees (or part thereof) have
+                previously been paid. </li>
+            </ul>
+            <b>Security</b>
+            <p>All payment details which are entered through this payment gateway are encrypted when the Customer, or
+              third party making payment, enters them. Communications to and from the Service Provider's site are
+              encrypted. </p>
+            <p>The MERCHANT shall not be liable for any failure by the Customer or third party making payment of Fees
+              to properly protect data from being seen on their screen by other persons or otherwise obtained by such
+              persons, during the online payment process or in respect of any omission to provide accurate
+              information in the course of the online payment process.</p>
+            <b>Service Provider </b>
+            <p>Online Payments of Fees can be made by Credit / Debit card or Netbanking. These payments are not
+              collected by the MERCHANT directly but by the Service Provider.
+              <br />
+              Once payment is received by the Service Provider in cleared funds, the Service Provider will contact
+              the MERCHANT to confirm the details of the successful payment made by the Customer, or third party
+              making payment. On receipt of this confirmation the MERCHANT will confirm to the Customer that the
+              payment has been received and accepted by the MERCHANT. In the event that the Customer does not receive
+              confirmation within 14 days of making the payment it is the responsibility of the Customer to check
+              with the MERCHANT that the payment has been accepted. The Customer shall remain responsible for the
+              payment until such time as the confirmation as referred to above is received from the MERCHANT in
+              relation to each of these and any outstanding amounts owed to the MERCHANT. </p>
+            <b>Privacy Policy</b>
+            <p>This Privacy Policy applies to all of the products, services and websites offered by MERCHANT.
+              Sometimes, we may post product specific privacy notices or Help Centre materials to explain our
+              products in more detail. </p>
+            <p>If you have any questions about this Privacy Policy, please feel free to contact us through our
+              website or write to us at </p>
+            <p>Information we collect and how we use it for our MERCHANT.</p>
+            <b>Website Detail:</b>
+            <p>Entire content of the website has been gathered to the best of our knowledge and belief, and the
+              company endeavours to keep it up to date. In particular, we reserve the entire right to update and/or
+              modify and/or remove this data anytime and without any prior notice. Please note that the MERCHANT
+              holds no responsibility for incorrect or no longer correct statements, quotes or descriptions and
+              thereby excludes liability for any losses resulting from such wrong information. </p>
+            <p>Further, MERCHANT has every right to bring about legal action on customers who misuse/alter/reproduce
+              the content/ information available on the website </p>
+            <b>Data Privacy Policy</b>
+            <p>Our data privacy policy strictly conforms as per the regulations set down in accordance to the
+              protection of data collected from people visiting our website. MERCHANT treats all personal data
+              obtained via internet and our website carefully and confidentially so that no physical/mental harm is
+              instilled up on the person, with regard to the collected data . Personal data that has possibly been
+              known to us will be kept secret, privacy will be respected and information will be used exclusively for
+              the purpose for which it was made known to us. Without seeking approval of the respective person, this
+              data will neither be made accessible to third parties, nor transferred to them in any form or manner.</p>
+            <b>Changes to our Privacy Policy</b>
+            <p>MERCHANT reserves the entire right to modify/amend/remove this privacy statement anytime and without
+              any reason. Nothing contained herein creates or is intended to create a contract/agreement between
+              MERCHANT and any user visiting the MERCHANT website or providing identifying information of any kind.</p>
+            <b>DND Policy</b>
+            <p>If you wish to stop any further sms/email alerts/contacts from our side, all you need to do is to send
+              an email:- bamulerp@gmail.com with your mobile numbers and you will be excluded from the alerts list.
+            </p>
+            <b>Contact Details:</b>
+            Email:<a href="mailto:bamulerp@gmail.com">bamulerp@gmail.com</a><br /><br />
+            <b>
+              BAMUL (Bengalore Dairy)<br />
+              Dr. M. H Marigowda Road, D.R College Post<br />
+              Bengaluru - 560029 <br />
+              Karnataka <br />
+              Ph : - 080-26096298 / 080-26096267<br />
+            </b>
+          </div>
+        </ng-template>
+        <ng-template #paymentTemplate>
+          <div class="modal-body text-center">
+              <h4>Do you want to proceed for payment?</h4>
+              <br />
+              <div class="clearfix">
+                <form  #form name="billdesk_pg" method="POST" action="{{billDeskPaymentUrl}}" enctype="application/x-www-form-urlencoded">
+                  <input type="hidden" name="msg" value="{{paymentPostData}}">
+                  <button type="button" class="btn btn-primary pull-left" (click)="form.submit()">Yes</button>
+                  <button type="button" class="btn btn-default pull-right" (click)="decline()">No</button>
+                </form>
+              </div>
+            </div>
+        </ng-template>
+        <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+            class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 id="dialog-auto-name" class="modal-title pull-left">{{paymentMessage}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="clearfix">
+                  <p>Transaction Id: <strong>{{paymentTransactionId}}</strong></p>
+                </div>
+                <div class="clearfix">
+                  <p>Transaction Message: <strong>{{paymentMessage}}</strong> </p>
+                </div>
+                <div class="clearfix">
+                  <p>Transaction Amount: <i class="fa fa-inr" aria-hidden="true"></i><strong> {{paymentAmount}}</strong></p>
+                </div>
+                <div class="clearfix">
+                  <p>Date: <strong>{{paymentDate}}</strong> </p>
+                </div>
+                <div>
+                  <a class="btn btn-primary btn-right" (click)="redirectTo('/customer/payment-log')" href="javascript:void(0)"
+                      routerLinkActive="active" type="button">Ok</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+
+     </div>
+   </div>
+ </div>
+ <ng4-loading-spinner> </ng4-loading-spinner>

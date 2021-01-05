@@ -1,0 +1,196 @@
+address,
+address p {
+  line-height: 30px !important;
+  margin-bottom: 0;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.shift {
+  position: absolute;
+  right: 10px;
+  width: 80px;
+  background: #0099de;
+  top: 0;
+  height: 100%;
+  text-align: center;
+  border-radius: 0 4px 4px 0;
+  color: #fff;
+  z-index: 1;
+}
+
+.shift span {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #b6e7fc;
+  margin-bottom: 4px;
+}
+
+.shift strong {
+  text-transform: unset;
+}
+
+
+.pr-10 {
+  padding-right: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.pb-10 {
+  padding-bottom: 10px;
+}
+
+.pt-10 {
+  padding-top: 10px;
+}
+
+.pl-10 {
+  padding-left: 10px;
+}
+
+.cards {
+  background: #fff;
+  padding: 20px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5px #e2e2e2;
+}
+
+h5.card-title {
+  font-size: 14px;
+  color: #a1a1a1;
+  margin: 0;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+span.card-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 20px;
+}
+
+.placeholder {
+  background: #fff;
+  margin-top: 20px;
+  box-shadow: 0 0 5px #e2e2e2;
+}
+
+h2.sub-header {
+  font-size: 18px;
+  padding: 20px 0 20px 20px;
+  margin: 0;
+}
+
+.table-responsive {
+  padding: 0px 20px;
+}
+
+.mt-0 {
+  margin-top: 0
+}
+
+.pt-20 {
+  padding-top: 20px;
+}
+
+thead {
+  background: #f0f0f7a8;
+  border: 0;
+}
+
+thead th {
+  border: 0 !important;
+  color: #333;
+
+  font-weight: 40px;
+  font-size: 12px;
+  border-right: 1px solid #ccc !important;
+}
+
+
+table.table {
+  font-size: 10px;
+}
+
+table th {
+  height: 50px;
+  vertical-align: middle !important;
+}
+
+.v-middle td {
+  vertical-align: middle !important;
+}
+
+.input-single {
+  width: 70px;
+}
+
+.combo-button {
+  width: 60px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.custm-button {
+  padding: 8px 6px;
+  border-radius: 0;
+}
+
+.pb-20 {
+  padding-bottom: 20px;
+}
+
+.btn {
+  font-size: 10px;
+  padding: 6px 7px;
+}
+
+.model-bg {
+  background-color: #ccc;
+}
+
+.dropdown {
+  background-color: #e8e879;
+  border-color: #999;
+}
+
+.pull-left {
+  position: relative;
+  left: 231px
+}
+
+.pull-right {
+  position: relative;
+  right: 217px;
+
+}
+
+th {
+  border: 0 !important;
+  vertical-align: middle !important;
+  border-right: 1px solid #ccc !important;
+
+}
+
+.all {
+
+  position: relative;
+  top: 30px
+}

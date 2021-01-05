@@ -1,0 +1,403 @@
+<h1 class="page-header">P & I Counter Sales</h1>
+<form [formGroup]="addMoreSales" #f="ngForm" novalidate>
+    <div class="row f09">
+        <div class="col-xs-12 col-sm-12">
+            <div class="placeholder mt-0">
+                <div class="option-group">
+                    <div class="form-check form-check-inline mr-10" *ngFor="let indentList of indentType">
+                        <input type="radio" [checked]="indentList=='Registered'" [value]="indentList" name="dispatch" (change)="indentVal(indentList)" />{{indentList}}
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-4 col-md-5">
+                        <label class="custmaccnum d-block">Customer
+                            <span class="pull-right" *ngIf="accountNumber!==''">Customer ID : {{accountNumber}}</span>
+                          </label>
+                        <!-- <div class="pl-20 mb-22 mt-20" *ngIf="registeredView">
+                            <select id="orderType" class="form-control" [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.accountNumber.errors?.required }" formControlName='accountNumber' (change)="getCustBillingDetailsByAcctNo($event.target.value)">
+                 <option value="">Select Account Number</option>
+                 <option [value]="customerInitialList.accountNumber"
+                   *ngFor='let customerInitialList of customerInitialData'> {{customerInitialList.partyName}}</option>
+               </select>
+                        </div> -->
+                        <div class="form-group col-xs-12 col-sm-4 col-md-12" *ngIf="registeredView">
+
+                            <div class="ng-autocomplete">
+                                <ng-autocomplete [data]="customerListItem" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item.partyName"></a>
+                                </ng-template>
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div>No Record Found</div>
+                                </ng-template>
+                            </div>
+                            <span class="error-validate" *ngIf="custAvailable">{{validationTextCustomer}}</span>
+                        </div>
+                        <h2 class="sub-header" *ngIf="!registeredView">{{customerBillingDetails?.partyName}}</h2>
+                        <div class="address pl-20 mb-22"><strong>Bill To : </strong>
+                            <span>{{customerBillingDetails?.partyAddress}}
+               </span>
+                        </div>
+                        <!-- <div class="address pl-20 mb-22"><strong>Ship To : </strong>
+               <span>{{customerBillingDetails?.siteAddress}}
+               </span>
+             </div> -->
+                        <div class="address pl-20 mb-22"><strong>Order Type : </strong>
+                            <span>{{orderTypeName}}</span>
+                        </div>
+                        <div class="clearfix row mt-10 pl-20" *ngIf="!registeredView">
+                            <div class="col-xs-5 pr-0">
+                                <div>
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" placeholder="Name" formControlName='name' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.name.errors?.required }" />
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div>
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" placeholder="Address" formControlName='address' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.address.errors?.required }" />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div>
+                        </div>
+                        <div class="pl-20">
+                            <div class="form-group row">
+                                <!-- <label class="col-sm-4 text-left">Order Type</label> -->
+                                <div class="col-sm-8">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h2 class="sub-header">Indent Details</h2>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Booking Date</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" placeholder="End Date" class="form-control date-field" bsDatepicker formControlName='requestDate' [bsConfig]="datePickerConfig" [ngClass]="{ 'is-invalid': submitted && addMoreSales.controls.requestDate.errors }">
+
+                                <div *ngIf="submitted && addMoreSales.controls.requestDate.errors
+              " class="invalid-feedback">
+                                    <div *ngIf="addMoreSales.controls.requestDate.errors.required" style="color:red;">Field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Delivery Date</label>
+                            <div class="col-sm-7">
+                                <input type="text" placeholder="Start Date" class="form-control date-field" bsDatepicker formControlName='promiseDate' [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [minDate]='minDate' [ngClass]="{ 'is-invalid': submitted && addMoreSales.controls.promiseDate.errors }">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Shift</label>
+                            <div class="col-sm-7">
+                                <select id="orderType" class="form-control" formControlName='shift' [ngClass]="{ 'is-invalid': submitted && addMoreSales.controls.shift.errors }">
+                   <option value="">Select Shift</option>
+                   <option [ngValue]="shift" *ngFor='let shift of shiftVal'>{{shift}}</option>
+                 </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row" *ngIf="!registeredView">
+               <label class="col-sm-5 text-right">Name</label>
+               <div class="col-sm-7">
+                 <input type="text" class="form-control" value='' placeholder="Balance" value="">
+               </div>
+             </div> -->
+
+
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 pr-40">
+                        <h2 class="sub-header">Indent Status</h2>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right pl-0">Order No.</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" value='' placeholder="Order No" disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <label class="col-sm-5 text-right">Status</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" value='' placeholder="Status" value='New' disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Balance</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" value='' placeholder="Balance" value="{{balanceVal?.balance}}" disabled="">
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row" *ngIf="!registeredView">
+               <label class="col-sm-5 text-right">Address</label>
+               <div class="col-sm-7">
+                 <input type="text" class="form-control" value='' placeholder="Balance" value="{{balanceVal?.balance}}">
+               </div>
+             </div> -->
+
+                    </div>
+                </div>
+
+
+                <!-- <div class="clearfix row mb-10">
+
+           <div class="col-xs-3 pr-0">
+             <div class="mt-0 pl-20">
+               <label>Name :</label>
+               <input type="text" class="form-control" placeholder="Customer No" formControlName='custNumber' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.custNumber.errors?.required }" />
+             </div>
+           </div>
+           <div class="col-xs-3 pr-0">
+             <div class="mt-0 pl-20">
+               <label>Address :</label>
+               <input type="text" class="form-control" placeholder="Name" formControlName='name' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.name.errors?.required }" />
+             </div>
+           </div>
+         </div> -->
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- <div class="clearfix row mb-10">
+     <div class="col-xs-2 pr-0">
+       <div class="placeholder mt-0 pd-10 bg-bamul">
+         <label>Customer Type</label>
+         <select class="form-control">
+           <option value="R">Registered</option>
+           <option value="U">Un-Registered</option>
+         </select>
+       </div>
+     </div>
+     <div class="col-xs-3 pr-0">
+       <div class="placeholder mt-0 pd-15">
+         <label>Customer Number :</label>
+         <input type="text" class="form-control" placeholder="Customer No" formControlName='custNumber' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.custNumber.errors?.required }" />
+       </div>
+     </div>
+     <div class="col-xs-3 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>Name :</label>
+         <input type="text" class="form-control" placeholder="Name" formControlName='name' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.name.errors?.required }" />
+       </div>
+     </div>
+     <div class="col-xs-2 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>Contact No.</label>
+         <input type="text" class="form-control" placeholder="Contact No." formControlName='contactno' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.contactno.errors?.required }" />
+       </div>
+     </div>
+     <div class="col-xs-2 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>GST No.</label>
+         <input type="text" class="form-control" placeholder="GST Number" formControlName='gstno' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.gstno.errors?.required }" />
+       </div>
+     </div>
+
+   </div> -->
+
+    <!-- <div class="clearfix row mt-10">
+     <div class="col-xs-2 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>State</label>
+         <input type="text" class="form-control" placeholder="State" formControlName='state' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.state.errors?.required }" />
+       </div>
+     </div>
+     <div class="col-xs-2 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>City</label>
+         <input type="text" class="form-control" placeholder="City" formControlName='city' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.city.errors?.required }" />
+       </div>
+     </div>
+     <div class="col-xs-6 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>Address</label>
+         <input type="text" class="form-control" placeholder="Address" formControlName='address' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.address.errors?.required }" />
+       </div>
+     </div>
+     <div class="col-xs-2 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>Pincode</label>
+         <input type="text" class="form-control" placeholder="Pincode" formControlName='pincode' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.pincode.errors?.required }" />
+       </div>
+     </div>
+   </div> -->
+
+    <!-- <div class="clearfix row mt-10" *ngIf="!registeredView">
+     <div class="col-xs-4 pr-0">
+       <div class="placeholder mt-0 pd-10">
+         <label>Name</label>
+         <input type="text" class="form-control" placeholder="Name" formControlName='city' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.city.errors?.required }" />
+       </div>
+     </div>
+     <div class="col-xs-8">
+       <div class="placeholder mt-0 pd-10">
+         <label>Address</label>
+         <input type="text" class="form-control" placeholder="Address" formControlName='address' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreSales.controls.address.errors?.required }" />
+       </div>
+     </div>
+   </div> -->
+
+
+
+
+
+
+    <div class="row mt-10">
+        <div class="col-md-12">
+            <div class="placeholder mt-0">
+                <table class="table inwards" formArrayName="newIndtLItem">
+                    <thead class="v-center">
+                        <tr>
+                            <th class='col-md-2'>Category</th>
+                            <th class='col-md-3'>Item Code & Description</th>
+                            <th class="text-center col-md-1">UOM</th>
+                            <th class="text-center col-md-1">Units</th>
+                            <th class="text-center col-md-1">Price</th>
+                            <th class="text-center col-md-1">Value</th>
+                            <!-- <th class="text-center">Tax percentage</th> -->
+                            <th class="text-center col-md-1">Tax Value</th>
+                            <th class="text-center col-md-1">Amount</th>
+                            <th class="col-md-1">Delete</th>
+                        </tr>
+                        <tr class="sub-head">
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let field  of  addMoreSales.controls.newIndtLItem.controls; 
+            let in=index" [formGroupName]="in">
+                            <td>
+                                <select class="form-control" name='' formControlName='category' [ngClass]="{ 'is-invalid': submitted && field.controls.category.errors}" (change)="getItemsByPriceListIdAndCategory($event.target.value,in,addMoreSales.controls.newIndtLItem.controls,field)">
+                   <option value="">Select Category</option>
+                   <option [value]="category" *ngFor="let category of allCategories">
+                     {{category}}</option>
+                 </select>
+                            </td>
+                            <td>
+
+                                <select class="form-control" name="dp" formControlName='itemDesc' [ngClass]="{ 'is-invalid': submitted && field.controls.itemDesc.errors}" (change)="getItemDetailsByPriceListIdAndItemIdAndOrderTypeIdAndUom($event,in)">
+                   <option value="">Select Item Code & Description</option>
+                   <ng-container *ngIf="field.value.dp">
+                     <option [value]="dp" *ngFor="let dp of field.value.dp">
+                       {{ dp.itemCode}}-{{ dp && dp.description? dp.description: dp.itemDesc}}
+                     </option>
+                   </ng-container>
+                 </select>
+
+                            </td>
+                            <td><input type="text" class="form-control input-bl" formControlName='Uom' disabled [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.Uom.errors?.required }" /></td>
+                            <td><input type="number" min="0" class="form-control input-bl" formControlName='units' [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.units.errors?.required }" (keyup)="calculatePrice();" disabled />
+                            </td>
+
+                            <td><input type="number" class="form-control input-bl" formControlName='price' disabled [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.price.errors?.required }" /></td>
+                            <td><input type="number" class="form-control input-bl" formControlName='itemValue' disabled [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.itemValue.errors?.required }" value="{{((field.value.units) * (field.value.price)).toFixed(2)}}" /></td>
+                            <td style="display: none;"><input type="number" class="form-control input-bl" formControlName='taxPercentage' disabled /></td>
+                            <td><input type="number" class="form-control input-bl" formControlName='tax' disabled [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.tax.errors?.required }" value="{{((field.value.taxPercentage) *((field.value.units) * (field.value.price))).toFixed(2)}}" />
+                            </td>
+                            <td><input type="number" disabled class="form-control input-bl" disabled formControlName='amount' [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.amount.errors?.required }" value="{{(((field.value.units) * (field.value.price))+((field.value.taxPercentage) *((field.value.units) * (field.value.price)))).toFixed(2)}}" />
+                            </td>
+                            <!-- <td> <button (click)='deleteRow(in)' class="btn-sm btn-danger no-border" type="button">Delete</button>
+               </td> -->
+                            <td class="m4 del-icon">
+                                <i (click)="openModal(DeleteConfirm,in,field)" class="fa fa-trash" aria-hidden="true"></i>
+                                <ng-template #DeleteConfirm>
+                                    <div class="modal-body text-center">
+                                        <h4>Do you want to confirm Delete?</h4>
+                                        <br />
+                                        <div class="clearfix">
+                                            <button type="button" class="btn btn-primary pull-left" (click)="confirm(in,field)">Yes</button>
+                                            <button type="button" class="btn btn-default pull-right" (click)="decline()">No</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <!-- <button (click)='deleteRow(in)' class="btn-sm btn-danger no-border" type="button">Delete</button> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th colspan="2" class="bg-info text-normal">Total Value: <strong>{{totalPrice.toFixed(2)}}</strong></th>
+                            <th colspan="2" class="bg-warning text-normal">Total Tax Value: <strong>{{totalTax.toFixed(2)}}</strong>
+                            </th>
+                            <th colspan="2" class="bg-success">Total Amount: <strong>{{(totalPrice + totalTax).toFixed(2)}}</strong>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="clearfix">
+                <!-- <div class="mt-10 pull-left mr-10">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Cans</div>
+           <div class="panel-body">
+             82
+           </div>
+         </div>
+       </div>
+       <div class="mt-10 pull-left">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Milk</div>
+           <div class="panel-body">
+             440
+           </div>
+         </div>
+       </div> -->
+                <button class="btn btn-bamul pull-right mt-10" (click)="addMoreItem()">Add More</button>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-10">
+
+    </div>
+    <div class="clearfix mt-10">
+        <!-- <button type="button" (click)=' redirectTo("list-special-indent")'
+       class="btn btn-danger pull-right">Cancel</button> -->
+        <button type="button" class="btn btn-bamul pull-right" (click)="postSpecialIndentData(f)">Save</button>
+        <!-- 
+     <button type="button" routerLink="../challan" routerLinkActive="active" class="btn btn-bamul pull-left mr-10">Print
+       Challan</button>
+     <button type="button" routerLink="../receipt-form" routerLinkActive="active"
+       class="btn btn-bamul pull-left mr-10">Receipt</button> -->
+    </div>
+</form>

@@ -1,0 +1,48 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group [isOpen]="true" heading="Route Inspector" class="btn-icon rmrd">
+        <ul class="parent-list">
+            <li><label>Manager</label>
+                <ul>
+                    <li>
+                        <a routerLink="hold" routerLinkActive="active">
+                            <fa name="cog"></fa>Hold Information
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="order-release" routerLinkActive="active">
+                            <fa name="cog"></fa> Order Release
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Master Indent" class="indent btn-icon">
+        <ul>
+            <!-- <li>
+                <a routerLink="master-indent/list-master-indents" routerLinkActive="active">
+                    <fa name="cog"></fa> List of Master Indents
+                </a>
+            </li>
+            <li>
+                <a routerLink="master-indent/create-master-indent" routerLinkActive="active">
+                    <fa name="cog"></fa> Create Master Indent
+                </a>
+            </li> -->
+            <li>
+                <a routerLink="master-indent/list-master-indents-manager" routerLinkActive="active">
+                    <fa name="cog"></fa> Search Master Indents
+                </a>
+            </li>
+            <!-- <li>
+                <a routerLink="master-indent/create-master-indent" routerLinkActive="active">
+                    <fa name="cog"></fa> 
+                </a>
+            </li> -->
+            <!-- <li><a routerLink="master-indent/edit-master-indent" routerLinkActive="active">
+                    <fa name="cog"></fa> Update Master Indent
+                  </a></li> -->
+
+        </ul>
+    </accordion-group>
+</accordion>

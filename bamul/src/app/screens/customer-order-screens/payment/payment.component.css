@@ -1,0 +1,132 @@
+.cards {
+  background: #fff;
+  padding: 20px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5px #e2e2e2;
+}
+
+h5.card-title {
+  font-size: 14px;
+  color: #a1a1a1;
+  margin: 0;
+}
+
+span.card-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 20px;
+}
+
+.placeholder {
+  background: #fff;
+  margin-top: 20px;
+  box-shadow: 0 0 5px #e2e2e2;
+}
+
+.pd-20 {
+  padding: 20px;
+}
+
+h2.sub-header {
+  font-size: 18px;
+  padding: 20px 0 20px 20px;
+  margin: 0;
+}
+
+.table-responsive {
+  padding: 0px 20px;
+}
+
+
+thead {
+  background: #f0f0f7a8;
+  border: 0;
+}
+
+thead th {
+  border: 0 !important;
+  color: #a1a1a1;
+}
+
+table.table {
+  font-size: 12px;
+}
+
+
+
+/* payment */
+.payment-instructions li {
+  margin-bottom: 18px;
+}
+
+.payment-instructions {
+  margin-top: 30px;
+  padding-left: 20px;
+}
+
+/* CSS for Credit Card Payment form */
+.credit-card-box .panel-title {
+  display: inline;
+  font-weight: bold;
+}
+
+.credit-card-box .form-control.error {
+  border-color: red;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+.credit-card-box label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+.credit-card-box .payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+.credit-card-box label {
+  display: block;
+}
+
+/* The old "center div vertically" hack */
+.credit-card-box .display-table {
+  display: table;
+}
+
+.credit-card-box .display-tr {
+  display: table-row;
+}
+
+.credit-card-box .display-td {
+  display: table-cell;
+  vertical-align: middle;
+  width: 50%;
+}
+
+/* Just looks nicer */
+.credit-card-box .panel-heading img {
+  min-width: 180px;
+}
+.col-md-3.float-right {
+  float: right;
+}
+input.checkbox {
+  display: inline;
+}
+.is-invalid {
+  border-color: #ff00007a;
+  box-shadow: 0 0 3px #ff00007a;
+  background: #ff00000d;
+}
+a.btn.btn-primary.btn-right {
+  margin-left: 210px;
+}

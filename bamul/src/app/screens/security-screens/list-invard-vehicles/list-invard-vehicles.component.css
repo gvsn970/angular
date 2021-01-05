@@ -1,0 +1,76 @@
+address,
+address p {
+  line-height: 25px !important;
+  margin-bottom: 0;
+}
+
+table {
+  table-layout: fixed;
+}
+
+
+
+th {
+  border: 0 !important;
+  vertical-align: middle !important;
+  border-right: 1px solid #ccc !important;
+}
+
+td {
+  /* border-right: 1px solid #ccc !important; */
+  vertical-align: middle !important;
+}
+
+tr>th:last-child,
+tr>td:last-child {
+  border-right: 0 !important;
+}
+
+tr.sub-head th {
+  background: #f3f3f8;
+}
+
+.stime {
+  width: 150px;
+}
+
+.cans {
+  width: 80px;
+}
+
+.route-no {
+  width: 60px;
+}
+
+.cans {
+  width: 80px !important;
+}
+
+.actions {
+  width: 240px;
+}
+
+/* 
+.inward-actions>.btn-primary {
+  position: absolute;
+  left: 21px;
+  top: 7px;
+}
+
+.inward-actions {
+  position: relative;
+}
+
+.inward-actions>.btn-warning {
+  position: absolute;
+  left: 91px;
+  top: 7px;
+} 
+
+.inward-actions>.btn-danger {
+  position: absolute;
+  left: 166px;
+  top: 7px;
+}
+
+*/

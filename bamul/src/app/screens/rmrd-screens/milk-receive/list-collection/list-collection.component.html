@@ -1,0 +1,100 @@
+<h1 class="page-header">List Collection</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix pt-20 mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Date</label>
+                    <input (bsValueChange)="onValueChange($event)" [(ngModel)]="filterDate" type="text" class="form-control date-field" placeholder="Date" bsDatepicker>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Shift </label>
+                    <select [(ngModel)]="filterShift" class="form-control">
+                <option value="M">Morning</option>
+                <option value="E">Evening</option>
+              </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Receipt Source Code</label>
+                    <select [(ngModel)]="receiptCode" class="form-control">
+            <option  [selected]="receiptCode=='RMRD DOC 1'" value="RMRD DOC 1">RMRD Doc 1</option>
+            <option  value="RMRD DOC 2">RMRD Doc 2</option>
+            <option  value="RMRD DOC 3">RMRD Doc 3</option>
+          </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Route No</label>
+                    <input [(ngModel)]="filterRoute" type="text" class="form-control" placeholder="Enter route">
+                </div>
+            </div>
+            <!-- <div class="form-row mt-10"> -->
+
+            <div class="form-group col-md-3 text-right"><br />
+                <button (click)="reset()" type="button" class="btn btn-secondary">Reset</button>&nbsp;
+                <button (click)="filterData()" type="button" class="btn btn-primary">Apply Filters</button>
+            </div>
+
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Rec. No.</th>
+                            <th>Soc. No.</th>
+                            <!-- <th>Soc. Name</th> -->
+                            <th>Shift</th>
+                            <th>Date</th>
+                            <th>Route No.</th>
+                            <th>Exp. Cans</th>
+                            <th>Rec. Cans</th>
+                            <th>Acc. Cans</th>
+                            <th>QTY</th>
+                            <th>CLR%</th>
+                            <th>FAT%</th>
+                            <th>SNF%</th>
+                            <th class='text-center'>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="filteredShippingheaderList">
+                            <tr *ngFor="let shippingheader of filteredShippingheaderList | paginate: { itemsPerPage: 10, currentPage: p };let i = index">
+                                <td>{{shippingheader.receiptNum}}</td>
+                                <td>{{shippingheader.vendorNum}}</td>
+                                <td>{{shippingheader.shift}}</td>
+                                <td>{{shippingheader.shippedDate}}</td>
+                                <td>{{shippingheader.routeNo}}</td>
+                                <td>{{shippingheader.quantityShipped}}</td>
+                                <td>{{shippingheader.quantityReceived}}</td>
+                                <td>{{shippingheader.numOfContainers}}</td>
+                                <td>{{shippingheader.netWeight}}</td>
+                                <td>{{shippingheader.avgClr}}</td>
+                                <td>{{shippingheader.avgFat}}</td>
+                                <td>{{shippingheader.avgSnf}}</td>
+                                <td class='text-center'><a (click)="redirectTo('edit-collection',shippingheader.shipmentHeaderId)"><strong><i class='fa fa-edit'></i>
+                Edit</strong></a></td>
+                            </tr>
+                            <ng-container *ngIf="filteredShippingheaderList.length == 0">
+                                <tr class="text-center">
+                                    <td colspan=12>No Data Available</td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+                <pagination-controls class="doNotPrint" (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

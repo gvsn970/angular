@@ -1,0 +1,101 @@
+<h1 class="page-header">List of Indent</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix pt-20 mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Date</label>
+                    <input (bsValueChange)="onValueChange($event)" [(ngModel)]="filterDate" type="text"
+                        class="form-control date-field" placeholder="Date" bsDatepicker>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Shift </label>
+                    <select [(ngModel)]="filterShift" class="form-control">
+                        <option value="1">Morning</option>
+                        <option value="2">Evening</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-md-3">
+                    <label>Status </label>
+                    <select [(ngModel)]="status" class="form-control">
+                        <option value="SCHEDULED">SCHEDULED</option>
+                        <option value="TRANSFERRED">TRANSFERRED</option>
+                        <option value="NEW">NEW</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                        <option value="PROCESSED">PROCESSED</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-md-3 text-right"><br />
+                    <button (click)="reset()" type="button" class="btn btn-secondary">Reset</button>&nbsp;
+                    <button (click)="filterData()" type="button" class="btn btn-primary">Apply Filters</button>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder">
+            <h2 class="sub-header">Today Indent Orders</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr.no</th>
+                            <th>#Order No.</th>
+                            <th>Booking Date</th>
+                            <th>Delivery Date</th>
+                            <th>Shift</th>
+
+
+
+
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="checkArray">
+                            <tr *ngFor='let indentLs of indentLst   
+                          | paginate: { itemsPerPage: 10, currentPage: p };let i= index'>
+                                <td>{{ (p - 1) * 10 + i +1 }}</td>
+                                <td>{{indentLs.headerId}}</td>
+                                <td>{{indentLs.bookingDate}}</td>
+                                <td>{{indentLs.deliveryDate}}</td>
+                                <td>{{indentLs.shiftCode}}</td>
+                                <td><span class="text-active"><strong>{{indentLs.status}}</strong></span></td>
+                                <td class='text-center'>
+                                    <a (click)='indentUpdate(indentLs)'>
+                                        <i *ngIf="indentLs.status=='SCHEDULED' || indentLs.status=='NEW'"
+                                            class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i>
+                                        <i *ngIf="indentLs.status=='PROCESSED' || indentLs.status=='CANCELLED' || indentLs.status=='TRANSFERRED'"
+                                            class="fa fa-eye" aria-hidden="true"> View</i> </a>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container>
+
+                            <tr class="text-center" *ngIf="!checkArray">
+
+                                <td colspan="7">{{indentLst?.message}}</td>
+                            </tr>
+                        </ng-container>
+
+
+
+                    </tbody>
+                </table>
+                <pagination-controls *ngIf="checkArray" (pageChange)="p = $event"></pagination-controls>
+                <ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+                    <p style="color: white"> Loading... </p>
+                </ngx-spinner>
+            </div>
+        </div>
+    </div>
+</div>

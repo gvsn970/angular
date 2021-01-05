@@ -1,0 +1,251 @@
+<h1 class="page-header">Edit BMC Dispatch</h1>
+<div class="row">
+    <div class="col-xs-10 pr-10">
+        <div class="shift text-center">
+            <span>Shift</span>
+            <strong *ngIf="currHour < 14">Morning</strong>
+            <strong *ngIf="currHour >= 14">Evening</strong>
+        </div>
+        <div class="placeholder mt-0 pd-10">
+            <address>
+         <span>BMC Name : <strong>{{UserData.supplierName}}</strong></span>
+         <span class="margin-left25">Ref No : <strong>{{bmcrefno}}</strong></span>
+       </address>
+        </div>
+    </div>
+
+    <div class="col-xs-2 pl-0">
+        <div class="placeholder mt-0 pd-10">
+            <address>
+         <p>
+           <span>Date : <strong>
+               <app-date></app-date>
+             </strong></span>
+         </p>
+         <!-- <p><span>Time : </span><strong>
+             <app-clock></app-clock>
+           </strong></p> -->
+       </address>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-10 mt-10">
+            <form>
+                <div class='row'>
+                    <div class="col-md-12">
+                        <form class="mt-10 py-15 clearfix">
+                            <div class="form-row mt-10">
+                                <div class="form-group col-md-2">
+                                    <label>Dispatch Location</label>
+                                    <input disabled name="vehicleNumber" [(ngModel)]="dispatchlocation" type="text" class="form-control input-bl" placeholder="dispatch location">
+                                </div>
+                                <!-- <div class="form-group col-md-2">
+                                    <label>Route No</label>
+                                    <select (change)="routeonChange($event.target.value)" class="form-control">
+                                        <option [selected]="routePoint==null" value="">Select Route</option>
+                                        <option  [selected]="routePoint==routepoint.routeNumber" *ngFor="let routepoint of routePoints" value="{{routepoint.routeNumber}}">{{routepoint.routeNumber}}</option>
+                                    </select>
+                                </div> -->
+                                <div class="form-group col-md-2">
+                                    <label>Route No</label>
+                                    <input disabled name="routeno" value="{{routePoints && routePoints[0] ? routePoints[0].routeNumber : ''}}" type="text" class="form-control input-bl" placeholder="Route No">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Vehicle Number</label>
+                                    <input disabled name="vehicleNumber" [(ngModel)]="vehicleNumber" [ngModelOptions]="{standalone: true}" type="text" class="form-control input-bl" placeholder="Vehicle Number">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Driver Name</label>
+                                    <input disabled name="driverName" [(ngModel)]="driverName" [ngModelOptions]="{standalone: true}" type="text" class="form-control input-bl" placeholder="Driver Name">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Arrival Time</label>
+                                    <input disabled name="arrivalTime" [(ngModel)]="arrivalTime" [ngModelOptions]="{standalone: true}" type="text" class="form-control input-bl" placeholder="Arrival Time">
+                                </div>
+                                <div class="form-group col-md-2" style="display:grid;">
+                                    <label>Dispatch Time</label>
+                                    <app-clock></app-clock>
+                                    <!-- <input type="text" class="form-control input-bl" placeholder="Dispatch Time"> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="CreateIndentLineItem" novalidate #f="ngForm" novalidate>
+            <div class="placeholder pd-10 mt-10">
+                <div class=" pd-10 mt-10">
+                    <div class="clearfix">
+                        <button class="btn btn-bamul pull-right mb-10" (click)="addNewRow()">Add More</button>
+                    </div>
+                </div>
+                <table class="table inwards" formArrayName="newIndtLItem">
+                    <thead class="v-center">
+                        <tr>
+                            <th width="80px">Receipt No.</th>
+                            <th width="80px">Society Code.</th>
+                            <th width="120px">Society Name</th>
+                            <th width="80px" class="text-center">Date</th>
+                            <th width="60px" class="text-center">Shift</th>
+                            <!-- <th width="60px" class="text-center">cans</th> -->
+                            <th width="80px" class="text-center">QTY (Kg)</th>
+                            <th width="60px" class="text-center">CLR</th>
+                            <th width="60px" class="text-center">FAT %</th>
+                            <th width="60px" class="text-center">SNF %</th>
+                            <th width="60px" class="text-center">Remarks</th>
+                            <th width="60px" class="text-center"></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let field  of  CreateIndentLineItem.controls.newIndtLItem.controls;let in=index" [formGroupName]="in">
+                            <td>
+                                <input readonly formControlName='receiptNum' type="text" class="form-control input-bl" placeholder="Rec No" />
+                            </td>
+                            <td>
+                                <input disabled formControlName="vendorNum" type="text" class="form-control input-bl" placeholder="Soc No." />
+                            </td>
+                            <td>
+                                <select [ngClass]="societyNumber === null ? 'invalid' : 'valid'" (change)="onChange($event.target.value ,CreateIndentLineItem.controls.newIndtLItem.controls,in)" class="form-control">
+                                    <option [selected]="societyNumber==''" value="">Select Society</option>
+                                    <!-- <ng-container *ngIf="this.routeNosocietylogs && this.routeNosocietylogs[0]">
+                                            <option   value="{{society.routePointId}}" *ngFor="let society of routeNosocietylogs">{{society.routePointName}}</option>
+                                    </ng-container> -->
+                                    <ng-container *ngIf="this.routeNosocietylogs && this.routeNosocietylogs[0]">
+                                            <option  [selected]="this.formArr.value[in].vendorId==society.vendorId" value="{{society.vendorId}}" *ngFor="let society of this.routeNosocietylogs">{{society.vendorName}}</option>
+                                    </ng-container>
+                                    </select>
+                                <div *ngIf="submitted && societyNumber === null" class="invalid-feedback">
+                                    <div *ngIf="societyNumber === null" style='color:red'>Required </div>
+                                </div>
+                            </td>
+                            <td>
+                                <!-- <input formControlName='shippedDate' type="text" class="form-control input-bl date-field" bsDatepicker /> -->
+                                <input type="text" formControlName="requestDate" placeholder="Date" class="form-control date-field" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" bsDatepicker>
+                            </td>
+                            <td>
+                                <select formControlName='shift' class="form-control">
+                                  <option value="M">M</option>
+                                  <option value="E">E</option>
+                                </select>
+                            </td>
+                            <!-- <td>
+                                <input min="0" (focusout)="focusOutFunction(CreateIndentLineItem.controls.newIndtLItem.controls,in)" formControlName='numOfContainers' type="number" class="form-control input-bl" placeholder="Cans" />
+                            </td> -->
+                            <td>
+                                <input min="0" (focusout)="focusOutFunction(CreateIndentLineItem.controls.newIndtLItem.controls,in)" formControlName='quantityShipped' type="number" class="form-control input-bl" placeholder="Qty in Kg" />
+                            </td>
+                            <td>
+                                <input min="0" appTwoDigitDecimaNumber [allowedDecimal]="2" (focusout)="focusOutFunction(CreateIndentLineItem.controls.newIndtLItem.controls,in)" formControlName='avgClr' type="text" class="form-control input-bl" placeholder="CLR" />
+                            </td>
+                            <td>
+                                <input min="0" appTwoDigitDecimaNumber [allowedDecimal]="1" (focusout)="focusOutFunction(CreateIndentLineItem.controls.newIndtLItem.controls,in)" formControlName='avgFat' type="text" class="form-control input-bl" placeholder="FAT %" />
+                            </td>
+                            <td>
+                                <input min="0" disabled formControlName='avgSnf' type="number" class="form-control input-bl" placeholder="SNF %" />
+                            </td>
+                            <td>
+                                <input formControlName='comments' type="text" class="form-control input-bl" placeholder="Remarks" />
+                            </td>
+                            <td class="text-center"><i *ngIf="shippingHeaders && (shippingHeaders[0].receiptStatus != 'Dispatched' && shippingHeaders[0].receiptStatus !='Completed' && shippingHeaders[0].receiptStatus !='IMPORTED')" (click)="openModal(ConfirmGross,in)" class="fa fa-trash"
+                                    aria-hidden="true"></i>
+                                <!-- 
+                                <button (click)="openModal(ConfirmGross,in,field,'grossWeight')" [disabled]="manualMode" type="button" class="btn btn-primary btn-sm">Get
+                                        Weight</button> -->
+                                <ng-template #ConfirmGross>
+                                    <div class="modal-body text-center">
+                                        <h5>Do you want to Delete?</h5>
+                                        <br />
+                                        <div class="clearfix">
+                                            <button type="button" class="btn btn-secondary pull-right cancel-btn  ml-10" (click)="decline()">No</button>
+                                            <button type="button" class="btn btn-bamul pull-right" (click)="confirm(in , CreateIndentLineItem.controls.newIndtLItem.controls)">Yes</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="placeholder pd-10 mt-10">
+            <h4 class="col-md-12">Raw Milk Dispatch Details</h4>
+            <div class='row'>
+                <div class="col-md-12">
+                    <div class="form-row mt-10">
+                        <div class="form-group col-md-3">
+                            <label>Compartment Number</label>
+                            <input type="number" [(ngModel)]="compartNumber" class="form-control input-bl" placeholder="Number">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Dispatch Qty</label>
+                            <input type="number" [(ngModel)]="totalQty" class="form-control input-bl" placeholder="Qty in Kgs">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>FAT %</label>
+                            <input type="number" [(ngModel)]="avgFat" class="form-control input-bl" placeholder="FAT %">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>SNF %</label>
+                            <input type="number" [(ngModel)]="avgSnf" class="form-control input-bl" placeholder="SNF %">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>KG FAT</label>
+                            <input type="number" [(ngModel)]="KgFat" class="form-control input-bl" placeholder="Fat In Kg">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>KG SNF</label>
+                            <input type="number" [(ngModel)]="KgSnf" class="form-control input-bl" placeholder="Snf In Kg">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>DipStick Reading</label>
+                            <input type="number" [(ngModel)]="dipstickreading" class="form-control input-bl" placeholder="Enter Reading">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Seal Number</label>
+                            <input type="number" [(ngModel)]="sealnumber" class="form-control input-bl" placeholder="Enter No.">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Temperature</label>
+                            <input type="number" [(ngModel)]="temperature" class="form-control input-bl" placeholder="Enter Value">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Acidity</label>
+                            <input type="number" [(ngModel)]="acidity" class="form-control input-bl" placeholder="Enter Value">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Dispatch Qty (Ltr)</label>
+                            <input type="number" [(ngModel)]="totalQtyLtr" class="form-control input-bl" placeholder="Qty in Ltr">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10">
+    <button type="button" class="btn btn-secondary pull-left cancel-button">Cancel</button>
+    <button (click)="print();" *ngIf="shippingHeaders && (shippingHeaders[0].receiptStatus == 'Dispatched' || shippingHeaders[0].receiptStatus =='Completed' || shippingHeaders[0].receiptStatus =='IMPORTED')" type="button" class="btn btn-bamul pull-right">Print</button>
+    <button (click)="dispatch();" type="button" *ngIf="shippingHeaders && (shippingHeaders[0].receiptStatus != 'Dispatched' && shippingHeaders[0].receiptStatus !='Completed' && shippingHeaders[0].receiptStatus !='IMPORTED')" class="btn btn-bamul pull-right">Dispatch & Print</button>
+    <button type="button" (click)="saveCollection();" [disabled]="shippingHeaders && (shippingHeaders[0].receiptStatus == 'Dispatched' || shippingHeaders[0].receiptStatus =='Completed' || shippingHeaders[0].receiptStatus =='IMPORTED')" class="btn btn-bamul pull-right mr-10">Update</button>
+</div>
+<ng4-loading-spinner [threshold]="0" [timeout]="60000" [zIndex]="100000"> </ng4-loading-spinner>

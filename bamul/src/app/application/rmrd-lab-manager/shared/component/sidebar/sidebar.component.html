@@ -1,0 +1,27 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group heading="Lab" class="lab btn-icon">
+        <ul>
+            <li>
+                <a routerLink="lab/list-samples" routerLinkActive="active">
+                    <fa name="cog"></fa> Lab Collection
+                </a>
+            </li>
+            <li>
+                <a routerLink="lab/lab-report" routerLinkActive="active">
+                    <fa name="cog"></fa> Lab Report
+                </a>
+            </li>
+            <li>
+                <a routerLink="lab/update-sample" routerLinkActive="active">
+                    <fa name="cog"></fa> Sample Re-Test
+                </a>
+            </li>
+            <!-- <li>
+                <a routerLink="lab/dairy-sample" routerLinkActive="active">
+                    <fa name="cog"></fa> BMC Lab Collection
+                </a>
+            </li> -->
+        </ul>
+    </accordion-group>
+
+</accordion>

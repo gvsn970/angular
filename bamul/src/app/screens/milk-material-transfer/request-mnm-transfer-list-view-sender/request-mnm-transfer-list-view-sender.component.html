@@ -1,0 +1,85 @@
+ <h1 class="page-header">Receive Request Milk & Material list</h1>
+ <div class="row">
+   <div class="col-xs-8 pr-10">
+     <div class="shift text-center">
+       <span>Shift</span>
+       <strong>Morning</strong>
+     </div>
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <span>Location : <strong>Anekal Chilling Center - Gate 1</strong></span>
+         <p>
+           Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+         </p>
+       </address>
+     </div>
+   </div>
+   <div class="col-xs-4 pl-0">
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <p>
+           <span>Date : <strong>
+               <app-date></app-date>
+             </strong></span>
+         </p>
+         <p><span>Time : </span><strong>
+             <app-clock></app-clock>
+           </strong></p>
+       </address>
+     </div>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder pd-10 mt-10">
+       <table class="table inwards table-striped">
+         <thead class="v-center">
+           <tr>
+             <th width="120px">Request Type</th>
+             <th>Challan No.</th>
+             <th class="text-center">Date</th>
+             <th class="text-center">Oracle Ref Id</th>
+             <th class="text-center">Vehicle Number</th>
+             <th class="text-center">To</th>
+             <th class="text-center">Status</th>
+             <th class="text-center">Actions</th>
+           </tr>
+           <tr class="sub-head">
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor='let milkTransferList of milkTransferListItem  | paginate: { itemsPerPage: 5,
+             currentPage: p } let i
+             =index'>
+             <td>{{milkTransferList.requestType}}</td>
+             <td>{{milkTransferList.deliveryChallanNo}}</td>
+             <td class="text-center">{{milkTransferList.requestedDate}}</td>
+             <td class="text-center">{{milkTransferList.sOnumber}}</td>
+             <td class="text-center">
+               {{milkTransferList.vehicleNumber}}
+             </td>
+             <td class="text-center">
+               {{milkTransferList.toOrgCode}}-{{milkTransferList.toSubInvDesc}}-{{milkTransferList.toLocDesc}}</td>
+             <td class="text-center">
+               <b *ngIf="milkTransferList.status==='U'">Under Process</b>
+               <b *ngIf="milkTransferList.status==='N'">New</b>
+               <b *ngIf="milkTransferList.status==='A'">Approved</b>
+               <b *ngIf="milkTransferList.status==='I'">In Transit</b>
+               <b *ngIf="milkTransferList.status==='R'">Receiving </b>
+               <b *ngIf="milkTransferList.status==='C'">Completed</b>
+             </td>
+             <td class="text-center">
+               <a [routerLink]="['/rmrd-manager/mnm/update-mnm-transfer']"
+                 (click)='redirectTo(milkTransferList.deliveryChallanNo)'><strong><i class='fa fa-search-plus'></i>
+                   View</strong></a>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+     </div>
+   </div>
+ </div>
+ <ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+   <p style="color: white"> Loading... </p>
+ </ngx-spinner>

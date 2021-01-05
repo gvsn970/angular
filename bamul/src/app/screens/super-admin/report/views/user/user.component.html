@@ -1,0 +1,108 @@
+<h1 class="page-header">List All Users</h1>
+<!-- table rows-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Search</label>
+                    <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-0">
+            <form [formGroup]="advanceSearchForm">
+                <div class="form-row mt-10">
+                    <div class="form-group col-md-3">
+                        <label>User Role</label>
+                        <select class="form-control" formControlName="role">
+                            <option>select</option>
+                            <option value="USER">User</option>
+                            <option value="SECURITY">Security</option>
+                            <option value="CUSTOMER">Customer</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Department</label>
+                        <select class="form-control" formControlName="department">
+                            <option>select</option>
+                            <option value="adminSales">Admin Sales</option>
+                            <option value="salesOperator">Sales Operator</option>
+                            <option value="callDeskSalesOperator">Call Desk Sales Operator</option>
+                            <option value="counterSalesOperator">Counter Sales Operator</option>
+                            <option value="adminFinance">Admin Finance</option>
+                            <option value="financeOperator">Finance Operator</option>
+                            <option value="adminFinance">Admin Operations</option>
+                            <option value="financeOperator">Security Namager</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Status</label>
+                        <select class='form-control' formControlName="status">
+                            <option>select</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                            <option>Draft</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 text-right"><br />
+                        <button (click)='filterClear()' type="button" class="btn btn-secondary">Reset</button>&nbsp;
+                        <button (click)='searchResult()' type="button" class="btn btn-primary">Apply Filters</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-10 mt-10">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="v-center">
+                        <tr>
+                            <th>User ID</th>
+                            <th>User Name</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Department</th>
+                            <th class="text-center">Role</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Contact No.</th>
+                            <th class="text-center">Location</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                        <tr class="sub-head">
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let userList of userListItem | LockFilter: search | grdFilter: {role: role,  status: status} | paginate: { itemsPerPage: 5, currentPage: p }; let i
+             =index'>
+                            <td>{{userList.userId}}</td>
+                            <td>{{userList.userName}}</td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">{{userList.role}}</td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">{{userList.phoneNumber}}</td>
+                            <td class="text-center">-</td>
+                            <td class="text-center"><b class="text-success">{{userList.status}}</b></td>
+                            <td><strong><i class="fa fa-edit"></i> Update</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10">
+
+</div>

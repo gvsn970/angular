@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="">Search Customer</h3>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-5">
+            <div class="row flex flex-center">
+                <div class="col-md-2 flex-child flex-col flex-left">
+                    <strong>Customer No.</strong><br />
+                    <input name='orderID' id='orderID' tabIndex="0" value="" type="text" maxlength="6" class="form-control input-sm" (keydown.enter)="getCustomerDetails($event);" id="customerNumberSel" />
+                    <!-- (change)="getCustomerDetails($event);" -->
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <h1 class="page-header">List Of Customers</h1>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="placeholder">
+                <div class="">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Cuatomer Type</th>
+                                <th>Credit Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Shrinath</td>
+                                <td>TYPE B</td>
+                                <td>10000</td>
+                                <td><span class="text-active"><strong>ACTIVE</strong></span></td>
+                                <td class=''><button (click)="rechargeAccount()" type="button" class="btn-sm btn-primary">Recharge</button></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+                        <p style="color: white"> Loading... </p>
+                    </ngx-spinner>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

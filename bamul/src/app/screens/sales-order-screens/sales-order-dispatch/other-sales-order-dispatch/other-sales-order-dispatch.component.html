@@ -1,0 +1,138 @@
+<h1 class="page-header">Other Sales Order Dispatch</h1>
+
+
+<div>
+  <div>
+    <div class="placeholder pd-10 mt-10">
+          <div class="">
+          
+<div class="row flex flex-center">
+  <div class="col-md-6 flex-child flex-col flex-left">
+    <div class="col-md-5"><strong>Coustomer Number :</strong></div>
+    <div class="col-md-6 pl-0 pr-0" >{{allDispatchShipConfirm.customerNumber}}</div><br />
+    <div class="col-md-5"><strong>Order Number :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.orderNumber}}</div><br />
+    <div class="col-md-5"><strong>Coustomer PO :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.customerPo}}</div><br />
+    <div class="col-md-5"><strong>  Ship To Location: </strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.shipToLocation}}</div><br />
+    <div class="col-md-5"><strong>  Transpoter: </strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.transporter}}</div><br />
+  </div>
+  <div class="col-md-6 flex-child flex-col flex-left">
+    <div class="col-md-5"><strong>Coustomer Name :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.customerName}}</div><br />
+  
+    <div class="col-md-5"><strong> Order Type :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.orderType}}</div><br />
+    <div class="col-md-5"><strong> Coustomer Contact:</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.customerContact}}</div><br />
+    <div class="col-md-5"><strong>  Bill To Location:</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.billToLoction}}</div><br />
+    <div class="col-md-5"><strong> Dispatched  DOC NO :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{allDispatchShipConfirm.dispatchDocNumber}}</div><br />
+  </div>
+</div>
+             
+      
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- <div class="row">
+  <div class="col-md-12">
+    <div class="placeholder mt-10 clearfix">
+      <div class="form-row mt-10">
+        <div class="form-group col-md-2">
+          <label>Order No</label>
+          <input type="text" class="form-control input-bl" value="{{allDispatchShipConfirm?.orderNumber}}" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Order Type</label>
+          <input type="text" class="form-control input-bl" value="{{allDispatchShipConfirm?.orderType}}" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Customer Name</label>
+          <input type="text" class="form-control input-bl" value="{{allDispatchShipConfirm?.customerNumber}}" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Date</label>
+          <input type="text" class="form-control input-bl" value="{{allDispatchShipConfirm?.orderedDate}}" readonly>
+        </div>
+        <div class="form-group col-md-4">
+          <label>ShipTo Address</label>
+          <input type="text" class="form-control input-bl" value="{{allDispatchShipConfirm?.shipToLocation}}" readonly>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder pd-10 mt-10">
+      <table class="table inwards table-striped">
+        <thead class="v-center">
+          <tr>
+            <th width="80px">Sr No.</th>
+            <th width="180px"> Item Code</th>
+            <th class="text-center">Item Description</th>
+            <th width="180px" class="text-center">UOM</th>
+            <th width="180px" class="text-center">QTY</th>
+          </tr>
+          <tr class="sub-head">
+          </tr>
+        </thead>
+        <tbody>
+
+
+          <tr  *ngFor='let i of allDispatchShipConfirm.dispatchShipConfirmLine  let in =index'>
+            <td>{{in+1}}</td>
+            <td>{{i.orderedItem}}</td>
+            <td class="text-center">{{i.description}}</td>
+
+            <td class="text-center">{{i.uom}}</td>
+            <td class="text-center">{{i.orderedQuantity}}</td>
+
+          </tr>
+         
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="placeholder mt-10 clearfix">
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label  dispatch-label">Remarks</label>
+              <div class="col-sm-10">
+                <textarea class="form-control dispatch-text " name="dispRemark" [(ngModel)]="dispatchRemarks"
+                id="exampleFormControlTextarea1" rows="1"></textarea>
+              </div>
+            </div>
+  
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+ <div class="clearfix mt-10">
+      <ng-template #DeleteConfirm>
+        <div class="modal-body text-center">
+          <h4>Do you want to confirm Dispatched?</h4>
+          <br />
+          <div class="clearfix">
+            <button type="button" class="btn btn-primary pull-yes" (click)="confirm(in,field)">Yes</button>
+            <button type="button" class="btn btn-default pull-no" (click)="decline()">No</button>
+          </div>
+        </div>
+      </ng-template>
+   
+    </div>
+<div class="clearfix mt-10 pd-10">
+  <button class="btn btn-bamul pull-left" routerLink='/product-dispatch/other-sales-order-dispatch-list'>Back</button>
+  <button type="button" class="btn btn-bamul  pull-right" (click)="openModal(DeleteConfirm,in,field)"> Dispatch
+    </button>
+  <!-- <button class="btn btn-bamul pull-right"  (click)='dispatch()'>Dispatch</button> -->
+</div>

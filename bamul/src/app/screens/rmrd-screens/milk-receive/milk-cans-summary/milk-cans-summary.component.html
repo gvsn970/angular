@@ -1,0 +1,122 @@
+<h1 class="page-header">ADD MILK SUMMARY</h1>
+<div class="row">
+    <div class="col-xs-8 pr-10">
+        <div class="shift text-center">
+            <span>Shift</span>
+            <strong>{{shift}}</strong>
+        </div>
+        <div class="placeholder mt-0 pd-10 d-flex-align-center flex1-space">
+            <address>
+             <span>Location <br/><strong>{{UserData.locationName}}</strong></span>
+           </address>
+        </div>
+    </div>
+    <div class="col-xs-4 pl-0">
+        <div class="placeholder mt-0 pd-10">
+            <address>
+         <p>
+           <span>Date : <strong>
+               <app-date></app-date>
+             </strong></span>
+         </p>
+         <p><span>Time : </span><strong>
+             <app-clock></app-clock>
+           </strong></p>
+       </address>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="placeholder pd-10">
+            <h4 class="col-md-12">Route Information</h4>
+            <div class='row'>
+                <div class="col-md-12">
+                    <table class="table inwards">
+                        <thead class="v-center">
+                            <tr>
+                                <th class="text-center">Route No</th>
+                                <th class="text-center">Vehicle No</th>
+                                <th class="text-center">Scheduled Start Time</th>
+                                <th class="text-center">Scheduled End Time</th>
+                                <th class="text-center">Number of Society</th>
+                                <th class="text-center">Accepted Cans</th>
+                                <th class="text-center">Received Cans</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td class="text-center">
+
+                                    <select (change)="routeonChange($event.target.value)" class="form-control">
+                                                <option [selected]="routePoint==null" value="">Select Route</option>
+                                 <option  [selected]="routePoint==routepoint.routeNumber" *ngFor="let routepoint of routePoints" value="{{routepoint.routeNumber}}">{{routepoint.routeNumber}}</option>
+                               </select>
+                                </td>
+                                <td class="text-center"><span *ngIf="routeNosocietylogs"><input disabled type="text"  [(ngModel)]="routeNosocietylogs[0].vehicleNumber" class="form-control "></span></td>
+                                <td class="text-center"><span *ngIf="routeNosocietylogs"><input disabled type="text"  [(ngModel)]="routeNosocietylogs[0].estimatedStartTime" class="form-control "></span></td>
+                                <td class="text-center"><span *ngIf="routeNosocietylogs"><input disabled type="text"  [(ngModel)]="routeNosocietylogs[0].estimatedEndTime" class="form-control "></span></td>
+                                <td class="text-center"><span *ngIf="routeNosocietylogs"><input disabled type="text"  [(ngModel)]="routeNosocietylogs[0].tripPoints.length" class="form-control "></span></td>
+                                <td class="text-center">
+                                    <input disabled type="text" [(ngModel)]="this.totalacceptedcans" class="form-control ">
+
+                                </td>
+                                <td [ngClass]="{'warning': totalsentqtycans > totalacceptedcans , 'warning': totalsentqtycans < totalacceptedcans , 'success': totalacceptedcans == totalsentqtycans }" class="text-center">
+                                    <span>{{totalsentqtycans}}</span>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-10">
+            <div class="table-responsive">
+
+                <table *ngIf="routeNosocietylogs" class="table table-bordered table-striped v-middle">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Society Number</th>
+                            <th class="text-center">Society Name</th>
+                            <th class="text-center">Send Cans</th>
+                            <th class="text-center width80"> Send Qty</th>
+                            <th class="text-center width80">Accepted Cans</th>
+                            <th class="text-center width80">Received Cans</th>
+                            <th class="text-center width80">Received Qty</th>
+                            <th class='text-center'>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let society of routeNosocietylogs[0].tripPoints'>
+                            <td class="text-center">{{society.routePointCode}}</td>
+                            <td class="text-left">{{society.routePointName}}</td>
+                            <td class="text-center">{{society.actualQuantity}}</td>
+                            <td class='text-center'>{{society.sendQuantity}}</td>
+                            <td class='text-center'>{{society.receivedQty}}</td>
+                            <td class='text-center'>{{society.numOfContainers ==null ? 0 : society.numOfContainers}}</td>
+                            <td class=' text-center'>{{society.netWeight ==null ? 0 : society.netWeight }}</td>
+                            <td class="text-center">
+                                <button *ngIf="society.numOfContainers ==null && society.netWeight ==null" class="btn-sm btn-success" (click)="redirectTo('rmrd-operator/milk-receive/milk-recieve/',society.routePointCode)">Receive</button>
+                                <button *ngIf="society.numOfContainers !=null && society.netWeight !=null" class="btn-sm btn-bamul" (click)="redirectToReceipt('rmrd-operator/milk-receive/edit-milk-recieve/',society.shipmentHeaderId)">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <!-- <button (click)="reset();" type="button" class="btn btn-secondary pull-left cancel-button">Cancel</button> -->
+            <!-- <button (click)="updateTripData(routeNosocietylogs[0])" class="btn-sm btn-success rec-btn">Receive</button> -->
+        </div>
+    </div>
+</div>

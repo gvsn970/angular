@@ -1,0 +1,111 @@
+<h1 class="page-header">Other Sales Order Dispatch Security</h1>
+<div>
+  <div>
+    <div class="placeholder pd-10 mt-10">
+          <div class="">
+          
+<div class="row flex flex-center">
+  <div class="col-md-6 flex-child flex-col flex-left">
+    <div class="col-md-5"><strong>Coustomer Number :</strong></div>
+    <div class="col-md-6 pl-0 pr-0" >{{listSalesOrderShipping.customerNumber}}</div><br />
+    <div class="col-md-5"><strong>Order Number :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.orderNumber}}</div><br />
+    <div class="col-md-5"><strong>Coustomer PO :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.customerPo}}</div><br />
+    <div class="col-md-5"><strong>  Ship To Location: </strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.shipToLoc}}</div><br />
+    <div class="col-md-5"><strong>  Transpoter: </strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.transporter}}</div><br />
+  </div>
+  <div class="col-md-6 flex-child flex-col flex-left">
+    <div class="col-md-5"><strong>Coustomer Name :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.customerName}}</div><br />
+  
+    <div class="col-md-5"><strong> Order Type :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.orderType}}</div><br />
+    <div class="col-md-5"><strong> Coustomer Contact:</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.customerContact}}</div><br />
+    <div class="col-md-5"><strong>  Bill To Location:</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.billToLoc}}</div><br />
+    <div class="col-md-5"><strong> Dispatched  DOC NO :</strong></div>
+    <div class="col-md-7 pl-0 pr-0" >{{listSalesOrderShipping.dispatchedDocNumber}}</div><br />
+  </div>
+</div>
+             
+      
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder pd-10 mt-10">
+      <table class="table inwards table-striped">
+        <thead class="v-center">
+          <tr>
+            <th width="80px">Sr No.</th>
+            <th width="140px"> Item  Code</th>
+            <th class="text-center">Item Description</th>
+            <th width="180px" class="text-center">UOM</th>
+            <th width="180px" class="text-center">QTY</th>
+          </tr>
+          <tr class="sub-head">
+          </tr>
+        </thead>
+        <tbody>
+        
+          <tr  *ngFor='let i of listSalesOrderShipping.soDispshipLines  let in=index'>
+            <td>{{in+1}}</td>
+            <td>{{i.orderedItem}}</td>
+            <td class="text-center">{{i.description}}</td>
+
+            <td class="text-center">{{i.uom}}</td>
+            <td class="text-center">{{i.orderedQuantity}}</td>
+
+          </tr>
+        
+        </tbody>
+      </table>
+     
+      <div class="row">
+        <div class="col-md-12">
+          <div class="placeholder mt-10 clearfix">
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label  dispatch-label">Remarks</label>
+              <div class="col-sm-10">
+                <textarea class="form-control dispatch-text " name="dispRemark" [(ngModel)]="shippingRemarks"
+                id="exampleFormControlTextarea1" rows="1"></textarea>
+              </div>
+            </div>
+  
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix mt-10">
+  <ng-template #DeleteConfirm>
+    <div class="modal-body text-center">
+      <h4>Do you want to confirm Shiping?</h4>
+      <br />
+      <div class="clearfix">
+        <button type="button" class="btn btn-primary pull-yes" (click)="confirm(in,field)">Yes</button>
+        <button type="button" class="btn btn-default pull-no" (click)="decline()">No</button>
+      </div>
+    </div>
+  </ng-template>
+
+</div>
+
+<div class="clearfix mt-10 pd-10">
+  <button class="btn btn-bamul pull-left"  (click)='back()'>Back</button>
+  <button type="button" class="btn btn-bamul pull-right" (click)="openModal(DeleteConfirm,in,field)"> Dispatch
+    </button>
+  <!-- <button class="btn btn-bamul pull-right"  (click)='dispatch()'>Dispatch</button> -->
+</div>

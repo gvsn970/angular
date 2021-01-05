@@ -1,0 +1,370 @@
+<h1 class="page-header">Edit Indent</h1>
+<form [formGroup]="SalesOrderHeader">
+    <div class="row f09">
+        <div class="col-xs-12 col-sm-12">
+            <div class="placeholder mt-0">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-5">
+                        <h2 class="sub-header">{{customerBillingDetails?.partyName}}</h2>
+                        <div class="address pl-20 mb-22"><strong>Bill To : </strong>
+                            <span>{{customerBillingDetails?.siteAddress}} </span>
+                        </div>
+                        <div class="address pl-20 mb-22">
+                            <strong>Ship To : </strong>
+                            <!-- <span >{{custBillingDetailsByAcctNo?.siteAddress}}</span>    -->
+                            <select id="shipToSiteUseId" class="form-control" style=' width: 290px'
+                                formControlName='shipToSiteUseId' (click)=shipTO() disabled="">
+                                <option [ngValue]='shipToSiteUseId'
+                                    *ngFor='let  shipToSiteUseId of custShippingDetailsByAcctNu'>
+                                    {{shipToSiteUseId.siteAddress}}</option>
+                            </select>
+                        </div>
+                        <div class="address pl-20 mb-22"><strong> Route Inspector Name : </strong>
+                            <span> {{customerBillingDetails?.salesRepName}}</span>
+                        </div>
+
+
+                        <div class="address pl-20 mb-22"><strong> Agent Code: </strong>
+                            <span>
+                                {{customerBillingDetails?.accountNumber}}</span>
+
+                        </div>
+                        <div class="address pl-20 mb-22" *ngIf='indentUpdate.errorMsg!=null'><strong> Error Message:
+                            </strong>
+                            <span>
+                                <input disabled name='sequence' id='sequence' value="{{indentUpdate.errorMsg}}"
+                                    type="text" class="form-control input-sm" />
+                            </span>
+                        </div>
+                        <!-- <div class="pl-20">
+              <div class="form-group row">
+                <label class="col-sm-4 text-left">Order Type</label>
+                <div class="col-sm-8">
+                  <select id="orderType" class="form-control" disabled=''>
+
+                    <option>
+                      {{oderTyp?.orderTypeName}}</option>
+                  </select>
+
+                </div>
+              </div>
+            </div> -->
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h2 class="sub-header">Indent Details</h2>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Booking Date</label>
+                            <div class="col-sm-7">
+                                <input type="text" disabled='' placeholder="End Date" class="form-control date-field"
+                                    value='{{bookingDate}}'>
+
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Delivery Date</label>
+                            <div class="col-sm-7">
+                                <input type="text" disabled='' placeholder="Start Date" class="form-control date-field"
+                                    value='{{deliveryDate}}'>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Balance</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" value='' placeholder="Balance"
+                                    value="{{balaceNo?.balance}}" disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Order Type</label>
+                            <div class="col-sm-7">
+                                <select (change)="setOrderTypeId($event)" disabled="" formControlName="orderTypeId"
+                                    class="form-control input-sm">
+                                    <option *ngFor="let orders of orderTypeDetailsList" value="{{orders.orderTypeId}}">
+                                        {{orders.orderTypeName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Route Number</label>
+                            <div class="col-sm-7">
+                                <select (click)="setSequenceNumber($event.target.value)" disabled=""
+                                    formControlName="route" class="form-control input-sm">
+                                    <option *ngFor="let route of routeList" value="{{route.routeNumber}}">
+                                        {{route.routeNumber}}
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 pr-40">
+                        <h2 class="sub-header">Indent Status</h2>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right pl-0">Indent No</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" value='{{indentUpdate?.headerId}}'
+                                    placeholder="Order No" disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <label class="col-sm-5 text-right">Oracle Order No</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" value="{{indentUpdate?.orderNumber}}"
+                                    placeholder="Oracle Order No" disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <label class="col-sm-5 text-right">Status</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" value="{{indentUpdate?.status}}"
+                                    placeholder="Status" disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Shift</label>
+                            <div class="col-sm-7">
+                                <select id="shift" disabled='' class="form-control">
+                                    <option value="">{{indentUpdate?.shiftName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 text-right">Seq #</label>
+                            <div class="col-sm-7">
+                                <input disabled name='sequence' id='sequence' value="{{sequence}}" type="text"
+                                    class="form-control input-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder">
+            <form [formGroup]="CreateIndentLineItem" #f="ngForm" novalidate (ngSubmit)="submit(f)">
+                <div>
+                    <table class="table f09" formArrayName="newIndtLItem">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th class='col-md-2'>Category</th>
+                                <th class='col-md-4'>Item Code & Description</th>
+                                <th class='col-md-1'>Crates</th>
+                                <th class='col-md-1'>Packets</th>
+                                <th class='col-md-1'>Unit Price</th>
+                                <th class='col-md-1'>Value</th>
+                                <th class='col-md-1'>Tax</th>
+                                <th class='col-md-1'>Amount</th>
+                                <th class='col-md-1'>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let field  of  CreateIndentLineItem.controls.newIndtLItem.controls; 
+            let in=index" [formGroupName]="in">
+                                <td class='text-center lh-30'>{{in+1}}</td>
+                                <td>
+                                    <select formControlName='category'
+                                        (change)="getPriceListByPriceListIdAndOrderType($event.target.value,in,CreateIndentLineItem.controls.newIndtLItem.controls,field)"
+                                        class="form-control" name=''
+                                        [ngClass]="{ 'is-invalid': submitted && field.controls.category.errors}">
+                                        <option value="">Select Category</option>
+                                        <option [value]="category" *ngFor="let category of allCatgeries">
+                                            {{category}}</option>
+                                    </select>
+                                </td>
+                                <td>
+
+                                    <select type="text" class="form-control" formControlName='itemDesc'
+                                        [attr.disabled]="field.value.disabled ? 'disabled' : null"
+                                        [ngClass]="{ 'is-invalid':submitted && field.controls.itemDesc.errors}"
+                                        (change)='itemCode(in,field)' name="dp">
+                                        <option value="">Select Item Code & Description</option>
+                                        <option [ngValue]="dp" *ngFor="let dp of field.value.dp">
+                                            {{ dp.itemCode}}-{{ dp && dp.description? dp.description: dp.itemDesc}}
+                                        </option>
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <input type="text" disabled=''
+                                        (focusout)="checkValidation($event.target.value,in,field);" class="form-control"
+                                        maxlength="4" placeholder="{{field.value.craPlaceHolder}}" formControlName='crt'
+                                        (keypress)="numberOnly($event)" (focusout)="focusOutFunction(in); "
+                                        [ngClass]="{ 'is-invalid': submitted && field.controls.crt.errors }">
+                                </td>
+                                <td>
+
+                                    <input placeholder="{{field.value.pktPlaceHolder}}" disabled=''
+                                        (focusout)="checkValidation($event.target.value,in,field)" class="form-control"
+                                        formControlName='packets' type="text" maxlength="4" autocomplete="off"
+                                        name="name" (keypress)="numberOnly($event)" (focusout)="focusOutFunction(in)"
+                                        [ngClass]="{ 'is-invalid': submitted && field.controls.packets.errors }">
+                                </td>
+                                <td>
+
+                                    <input type="number" class="form-control" placeholder="Price"
+                                        formControlName='price' value='{{field.value.price}}' disabled='' />
+                                </td>
+                                <td>
+                                    <!-- CRT -{{field.value.crt}}<br/>
+PPC- {{field.value.ppc}}<br/>
+packets- {{field.value.packets}}<br/>
+price- {{field.value.price}}<br/> -->
+                                    <input *ngIf="field.value.crt==null&&field.value.packets==null" type="number"
+                                        class="form-control value-{{in}}" placeholder="Value" formControlName='value'
+                                        value="{{(((0*field.value.ppc)+0)*field.value.price)}}" disabled='' />
+
+                                    <input *ngIf="field.value.crt==null && field.value.packets!=null" type="number"
+                                        class="form-control value-{{in}}" placeholder="Value" formControlName='value'
+                                        value="{{(((0*field.value.ppc)+field.value.packets)*field.value.price).toFixed(2)}}"
+                                        disabled='' />
+
+                                    <input *ngIf="field.value.packets==null && field.value.crt!=null" type="number"
+                                        class="form-control value-{{in}}" placeholder="Value" formControlName='value'
+                                        value="{{(((field.value.crt*field.value.ppc)+0)*field.value.price).toFixed(2)}}"
+                                        disabled='' />
+
+                                    <input *ngIf="field.value.packets!=null&&field.value.crt!=null" type="number"
+                                        class="form-control value-{{in}}" placeholder="Value" formControlName='value'
+                                        value="{{(((field.value.crt*field.value.ppc)+field.value.packets)*field.value.price).toFixed(2)}}"
+                                        disabled='' />
+                                </td>
+
+                                <td>
+                                    <!-- <input type="number" class="form-control" placeholder="Tax" disabled='' value='{{field.value.tax}}'
+                    id="tax-{{in}}" /> -->
+                                    <input *ngIf="field.value.crt==null&&field.value.packets==null" type="number"
+                                        class="form-control" placeholder="Value" formControlName='tax'
+                                        value="{{((((0*field.value.ppc)+0)*field.value.price)*(field.value.tax))/100}}"
+                                        disabled='' id="tax-{{in}}" />
+
+                                    <input *ngIf="field.value.crt==null && field.value.packets!=null" type="number"
+                                        class="form-control" placeholder="Value" formControlName='tax'
+                                        value="{{(((((0*field.value.ppc)+field.value.packets)*field.value.price)*(field.value.tax))/100).toFixed(2)}}"
+                                        disabled='' id="tax-{{in}}" />
+
+                                    <input *ngIf="field.value.packets==null && field.value.crt!=null" type="number"
+                                        class="form-control" placeholder="Value" formControlName='tax'
+                                        value="{{(((((field.value.crt*field.value.ppc)+0)*field.value.price)*(field.value.tax))/100).toFixed(2)}}"
+                                        disabled='' id="tax-{{in}}" />
+
+                                    <input *ngIf="field.value.packets!=null&&field.value.crt!=null" type="number"
+                                        class="form-control" placeholder="Value" formControlName='tax'
+                                        value="{{(((((field.value.crt*field.value.ppc)+field.value.packets)*field.value.price)*(field.value.tax))/100).toFixed(2)}}"
+                                        disabled='' id="tax-{{in}}" />
+                                </td>
+                                <td>
+                                    <input *ngIf="field.value.crt==null && field.value.packets==null" type="number"
+                                        class="form-control amount-{{in}}" placeholder="Amount" fromControlName='amount'
+                                        disabled='' value='{{((((0*field.value.ppc)+0)*field.value.price) + 
+                      ((((0*field.value.ppc)+0)*field.value.price)*(field.value.tax))/100).toFixed(2)}}'
+                                        id="amount-{{in}}" />
+
+                                    <input *ngIf="field.value.crt==null && field.value.packets!=null" type="number"
+                                        class="form-control amount-{{in}}" placeholder="Amount" fromControlName='amount'
+                                        disabled=''
+                                        value='{{((((0*field.value.ppc)+field.value.packets)*field.value.price) +
+                       (((((0*field.value.ppc)+field.value.packets)*field.value.price)*(field.value.tax))/100)).toFixed(2)}}'
+                                        id="amount-{{in}}" />
+
+                                    <input *ngIf="field.value.packets==null && field.value.crt!=null" type="number"
+                                        class="form-control amount-{{in}}" placeholder="Amount" fromControlName='amount'
+                                        disabled=''
+                                        value='{{((((field.value.crt*field.value.ppc)+0)*field.value.price) 
+                      +
+                      (((((field.value.crt*field.value.ppc)+0)*field.value.price)*(field.value.tax))/100)).toFixed(2)}}'
+                                        id="amount-{{in}}" />
+
+
+                                    <input *ngIf="field.value.packets!=null&&field.value.crt!=null" type="number"
+                                        class="form-control amount-{{in}}" placeholder="Amount" fromControlName='amount'
+                                        disabled=''
+                                        value='{{((((field.value.crt*field.value.ppc)+field.value.packets)*field.value.price) 
+                      +
+                      (((((field.value.crt*field.value.ppc)+field.value.packets)*field.value.price)*(field.value.tax))/100)).toFixed(2)}}'
+                                        id="amount-{{in}}" />
+                                </td>
+                                <!-- <td> <button (click)='deleteRow(in)' class="btn-sm btn-danger no-border" type="button">Delete</button>
+                </td> -->
+                                <td class="m4 del-icon">
+                                    <i (click)="openModal(DeleteConfirm,in,field)" class="fa fa-trash"
+                                        aria-hidden="true"></i>
+                                    <ng-template #DeleteConfirm>
+                                        <div class="modal-body text-center">
+                                            <h4>Do you want to confirm Delete?</h4>
+                                            <br />
+                                            <div class="clearfix">
+                                                <button type="button" class="btn btn-primary pull-left"
+                                                    (click)="confirm(in,field)">Yes</button>
+                                                <button type="button" class="btn btn-default.pull-right"
+                                                    (click)="decline()">No</button>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+
+                                </td>
+
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-8">
+
+                        <button type="submit" class="btn btn-bamul mr-10 pull-left">Go To List of Indent</button>
+                        <!-- <button (click)='cancel()' type="button" class="btn btn-danger mr-10 pull-left">cancel</button> -->
+
+                    </div>
+
+                    <div class="col-xs-4">
+                        <div class="table-responsive final-biling pt-20">
+
+                            <table class="table">
+
+
+                                <tr>
+                                    <td>Total Value</td>
+
+                                    <td><strong
+                                            class='text-warning'>₹{{ (sumTotal - sumTax) | number : '1.2-2'}}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Total Tax</td>
+                                    <td>₹{{(sumTax) | number : '1.2-2'}}</td>
+                                </tr>
+                                <tr>
+                                    <td> RountOff</td>
+                                    <td>₹{{(roundOff)}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Amount to Pay</td>
+                                    <td><strong>₹{{(sumTotal)   | number : '1.0-0'}}</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

@@ -1,0 +1,76 @@
+<h1 class="page-header">Dispatch - Milk & Material Transfer Request List</h1>
+<div class="row">
+  <div class="col-xs-8 pr-10">
+    <div class="shift text-center">
+      <span>Shift</span>
+      <strong>Morning</strong>
+    </div>
+    <div class="placeholder mt-0 pd-10">
+      <address>
+        <span>Location : <strong>Anekal Chilling Center - Gate 1</strong></span>
+        <p>
+          Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+        </p>
+      </address>
+    </div>
+  </div>
+  <div class="col-xs-4 pl-0">
+    <div class="placeholder mt-0 pd-10">
+      <address>
+        <p>
+          <span>Date : <strong>
+              <app-date></app-date>
+            </strong></span>
+        </p>
+        <p><span>Time : </span><strong>
+            <app-clock></app-clock>
+          </strong></p>
+      </address>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder pd-10 mt-10">
+      <table class="table inwards table-striped">
+        <thead class="v-center">
+          <tr>
+            <th width="120px">Request Type</th>
+            <th>Challan No.</th>
+            <th class="text-center">Request Date</th>
+            <th class="text-center">Shift</th>
+            <th class="text-center">Material Type</th>
+            <th class="text-center">Vehicle No</th>
+            <th class="text-center">To Destination</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Actions</th>
+          </tr>
+          <tr class="sub-head">
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of materialTransferRequestResponse | paginate: { itemsPerPage: 10, currentPage: p };let i = index">
+            <td>{{list.requestType}}</td>
+            <td>{{list.deliveryChallanNo}}</td>
+            <td class="text-center">{{list.requestedDate}}</td>
+            <td class="text-center">{{list.shift}}</td>
+            <td class="text-center"><div *ngIf="list.deliveryLItem.length>0">{{list.deliveryLItem[0].materialType}}</div></td>
+            <td class="text-center">{{list.vehicleNumber}}</td>
+            <td class="text-center">{{list.toLocDesc}}</td>
+            <td class="text-center">{{list.status}}</td>
+            <td class="text-center">
+              <a routerLink="../weighing-bridge/{{list.deliveryChallanNo}}" routerLinkActive="active">
+                <strong>
+                  Take Weight</strong></a>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <pagination-controls class="doNotPrint" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner>

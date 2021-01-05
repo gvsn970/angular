@@ -1,0 +1,20 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group [isOpen]="true" heading="Route Inspector" class="btn-icon rmrd">
+        <ul class="parent-list">
+            <li><label>Manager</label>
+                <ul>
+                    <li>
+                        <a routerLink="hold" routerLinkActive="active">
+                            <fa name="cog"></fa>Hold Information
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="order-release" routerLinkActive="active">
+                            <fa name="cog"></fa> Order Release
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+</accordion>

@@ -1,0 +1,164 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group routerLink="dashboard" routerLinkActive="active" [isDisabled]="true" heading="Dashboard" class="dashboard btn-icon">
+    </accordion-group>
+    <accordion-group heading="Milk Collection" class="milk-collection btn-icon">
+        <ul>
+            <li>
+                <a routerLink="milk-receive/rmrd-list-collection" routerLinkActive="active">
+                    <fa name="cog"></fa>Milk Collection Approval
+                </a>
+            </li>
+            <li>
+                <a routerLink="milk-receive/list-collection" routerLinkActive="active">
+                    <fa name="cog"></fa>List Milk Collection
+                </a>
+            </li>
+            <li>
+                <a routerLink="milk-receive/collection" routerLinkActive="active">
+                    <fa name="cog"></fa> Add Milk
+                </a>
+            </li>
+            <li>
+                <a routerLink="milk-receive/waste-milk" routerLinkActive="active">
+                    <fa name="cog"></fa> Waste Milk Record
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Lab" class="lab btn-icon">
+        <ul>
+            <li>
+                <a routerLink="lab/list-samples" routerLinkActive="active">
+                    <fa name="cog"></fa> List All Samples
+                </a>
+            </li>
+            <li>
+                <a routerLink="lab/update-sample" routerLinkActive="active">
+                    <fa name="cog"></fa> Sample Re-Test
+                </a>
+            </li>
+            <!-- <li>
+        <a routerLink="lab/lab-report" routerLinkActive="active">
+          <fa name="cog"></fa> Lab Report
+        </a>
+      </li> -->
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Route Sheet" class="route-sheet btn-icon">
+        <ul>
+            <li>
+                <a routerLink="route-sheet/list-route-sheet" routerLinkActive="active">
+                    <fa name="cog"></fa> List Route Sheet
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Milk & Material" class="btn-icon lab">
+        <ul class="parent-list">
+            <li><label>Manager Screens</label>
+                <ul>
+                    <li>
+                        <a routerLink="mnm/initiate-mnm-transfer" routerLinkActive="active">
+                            <fa name="cog"></fa> Initiate M&M Request
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-mnm-transfer-receiver" routerLinkActive="active">
+                            <fa name="cog"></fa> List M&M Request Receive
+                        </a>
+                    </li>
+                    <!-- <li>
+            <a routerLink="mnm/list-mnm-transfer-sender" routerLinkActive="active">
+              <fa name="cog"></fa> List M&M Request Sending
+            </a>
+          </li> -->
+                </ul>
+            </li>
+            <li><label>Weighing Bridge</label>
+                <ul>
+                    <li>
+                        <a routerLink="mnm/weighing-bridge" routerLinkActive="active">
+                            <fa name="cog"></fa> MNM Weighing Bridge
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-weighing-bridge-cc-camp" routerLinkActive="active">
+                            <fa name="cog"></fa> List WB CC Camp
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-weighing-bridge-dairy" routerLinkActive="active">
+                            <fa name="cog"></fa> List WB Dairy
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>MNM Dispatch</label>
+                <ul>
+                    <li>
+                        <a routerLink="mnm/mnm-loading" routerLinkActive="active">
+                            <fa name="cog"></fa> MNM Loading
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/mnm-loading-list" routerLinkActive="active">
+                            <fa name="cog"></fa> List MNM Loading
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/mnm-unloading" routerLinkActive="active">
+                            <fa name="cog"></fa> MNM Unloading
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/mnm-unloading-list" routerLinkActive="active">
+                            <fa name="cog"></fa> List MNM Unloading
+                        </a>
+                    </li>
+                    <li><label>MNM Quality</label>
+                        <ul>
+                            <li>
+                                <a routerLink="mnm/mnm-loading" routerLinkActive="active">
+                                    <fa name="cog"></fa> Dispatch MNM QA
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="mnm/mnm-unloading" routerLinkActive="active">
+                                    <fa name="cog"></fa> Dispatch MNM QA list
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="mnm/list-weighing-bridge-cc-camp" routerLinkActive="active">
+                                    <fa name="cog"></fa> Receive MNM QA
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="mnm/list-weighing-bridge-cc-camp" routerLinkActive="active">
+                                    <fa name="cog"></fa> Receive MNM QA List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Report" class="report btn-icon">
+        <ul>
+            <li>
+                <a routerLink="report" routerLinkActive="active">
+                    <fa name="cog"></fa> Report
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Contact" class="route-sheet btn-icon">
+        <ul>
+            <li>
+                <a routerLink="contact" routerLinkActive="active">
+                    <fa name="cog"></fa> Contact
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+</accordion>

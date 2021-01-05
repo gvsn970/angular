@@ -1,0 +1,100 @@
+<accordion class="dashboard-sidebar mt-18" [closeOthers]="true" isAnimated="true">
+    <accordion-group [isOpen]="true" heading="Transport" class=" transport btn-icon">
+        <ul class="parent-list">
+            <li><label>Transport Indent</label>
+                <ul>
+                    <li>
+                        <a routerLink="indent/new-transport-indent" routerLinkActive="active">
+                            <fa name="cog"></fa> New Transport Indent
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="indent/list-transport-indent" routerLinkActive="active">
+                            <fa name="cog"></fa> List Transport Indents
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Milk Transfer</label>
+                <ul>
+                    <li>
+                        <a routerLink="assign-vehicle-milk-transfer" routerLinkActive="active">
+                            <fa name="cog"></fa> Vehicle Assignments
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="list-milk-transfer-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> List Tranfer Request
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="view-assigned-milk-transfer-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> View Tranfer Request
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><label>Schedule Trip</label>
+                <ul>
+                    <li>
+                        <a routerLink="route/list-trip" routerLinkActive="active">
+                            <fa name="cog"></fa> List Routes
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="route/create-trip" routerLinkActive="active">
+                            <fa name="cog"></fa> Create Adhoc Route
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><label>Route</label>
+                <ul>
+                    <li>
+                        <a routerLink="route/list-routes" routerLinkActive="active">
+                            <fa name="cog"></fa> List Routes
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="route/create-route" routerLinkActive="active">
+                            <fa name="cog"></fa> Create Route
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <label>Vehicle</label>
+                <ul>
+                    <li>
+                        <a routerLink="vehicle/add-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> Create Vehicle
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="vehicle/list-vehicles" routerLinkActive="active ">
+                            <fa name="cog "></fa> List of Vehicles
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Driver</label>
+                <ul>
+                    <li>
+                        <a routerLink="driver/list-drivers" routerLinkActive="active ">
+                            <fa name="cog "></fa> List Drivers
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="driver/add-driver" routerLinkActive="active ">
+                            <fa name="cog "></fa> Add New Driver
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+</accordion>

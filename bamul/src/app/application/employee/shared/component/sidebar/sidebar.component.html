@@ -1,0 +1,31 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+  <accordion-group routerLink="dashboard" routerLinkActive="active" [isDisabled]="true" heading="Dashboard"
+    class="dashboard btn-icon">
+  </accordion-group>
+  <accordion-group [isOpen]="true" heading="Random check" class="indent btn-icon">
+    <ul>
+
+      <li>
+        <a routerLink="ramdom-check-shipping" routerLinkActive="active">
+          <fa name="cog"></fa> Random Check Shipping
+        </a>
+      </li>
+
+
+    </ul>
+
+  </accordion-group>
+  <accordion-group [isOpen]="true" heading="Data Upload" class="indent btn-icon">
+    <ul>
+      <li>
+        <a routerLink="biometric-data-upload" routerLinkActive="active">
+          <fa name="cog"></fa> Upload Biometric Data
+        </a>
+      </li>
+
+    </ul>
+
+  </accordion-group>
+
+
+</accordion>

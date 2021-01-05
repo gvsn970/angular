@@ -1,0 +1,72 @@
+ <h1 class="page-header">Route List</h1>
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder clearfix mt-0">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-3">
+           <label>Search</label>
+           <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="clearfix mt-10"></div>
+ <div class="row">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder pt-20 mt-0">
+       <h2 class="sub-header hidden">Reports</h2>
+       <div class="table-responsive" *ngIf="routeLst">
+         <table class="table">
+           <thead>
+             <tr>
+               <th>Sr. No.</th>
+               <th>Route No</th>
+               <th>Type</th>
+               <th>Start Pt.</th>
+               <th>End Pt.</th>
+               <th>Route Shift</th>
+               <th>Status</th>
+               <th>Route Points</th>
+               <th class='text-center'>Edit</th>
+               <!-- <th class='text-center'>View Detail</th> -->
+             </tr>
+           </thead>
+           <tbody>
+             <tr
+               *ngFor='let i of routeLst.routes  | paginate: { itemsPerPage: 10, currentPage: p, totalItems: routeLst?.totalRecords } let in =index'>
+               <td>{{in+1}}</td>
+               <td>{{i.routeNumber}}</td>
+               <td>{{i.routeType}}</td>
+               <td>{{i.startLocationName}}</td>
+               <td>{{i.endLocationName}}</td>
+               <td>{{i.routeShift}}</td>
+               <td>{{i.routeStatus}}</td>
+               <td><a *ngIf="i.routePoint.length===0" routerLink="/transport/route/assign-route-point/{{i.routeNumber}}"
+                   routerLinkActive="active"><strong><i class='fa fa-search-plus'></i>
+                     Add Route Point</strong></a>
+                     <a *ngIf="i.routePoint.length>0" routerLink="/transport/route/assign-route-point/{{i.routeNumber}}"
+                     routerLinkActive="active"><strong><i class='fa fa-search-plus'></i>
+                       Update Route Point</strong></a></td>
+               <td class='text-center'>
+                 <a routerLink="/transport/route/update-route/{{i.routeId}}" routerLinkActive="active"><strong><i
+                       class='fa fa-search-plus'></i>
+                     Edit</strong></a>
+               </td>
+               <!-- <td class='text-center'><i class="fa fa-search-plus" aria-hidden="true"></i> View More</td> -->
+             </tr>
+             <tr *ngIf="routeLst.routes.length==0">
+                <td class="text-center" colspan="9">No Record Found</td>
+            </tr>
+           </tbody>
+         </table>
+         <pagination-controls (pageChange)="pagechange($event)"></pagination-controls>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+ <ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+   <p style="color: white"> Loading... </p>
+ </ngx-spinner>

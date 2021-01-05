@@ -1,0 +1,51 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+  <accordion-group routerLink="dashboard" routerLinkActive="active" [isDisabled]="true" heading="Dashboard"
+    class="dashboard btn-icon">
+  </accordion-group>
+  <accordion-group heading="Departments" class="milk-collection btn-icon">
+    <ul>
+      <li><a routerLink="" routerLinkActive="active">
+          <fa name="cog"></fa> Sales & Marketing
+        </a></li>
+      <li><a routerLink="" routerLinkActive="active">
+          <fa name="cog"></fa> RMRD
+        </a></li>
+      <li><a routerLink="" routerLinkActive="active">
+          <fa name="cog"></fa> Transport
+        </a></li>
+      <li><a routerLink="" routerLinkActive="active">
+          <fa name="cog"></fa> Security
+        </a></li>
+      <li><a routerLink="" routerLinkActive="active">
+          <fa name="cog"></fa> Society
+        </a></li>
+      <li><a routerLink="" routerLinkActive="active">
+          <fa name="cog"></fa> Production
+        </a></li>
+    </ul>
+  </accordion-group>
+  <accordion-group heading="Users" class="driver btn-icon">
+    <ul>
+      <li><a routerLink="user/list-user" routerLinkActive="active">
+          <fa name="cog"></fa> List All Users
+        </a></li>
+      <li><a routerLink="user/create-user" routerLinkActive="active">
+          <fa name="cog"></fa> Create User
+        </a></li>
+    </ul>
+  </accordion-group>
+  <accordion-group heading="Report" class="report btn-icon">
+    <ul>
+      <li><a routerLink="reports/user" routerLinkActive="active">
+          <fa name="cog"></fa> Report
+        </a></li>
+    </ul>
+  </accordion-group>
+  <accordion-group heading="Contact" class="route-sheet btn-icon">
+    <ul>
+      <li><a routerLink="contact" routerLinkActive="active">
+          <fa name="cog"></fa> Contact
+        </a></li>
+    </ul>
+  </accordion-group>
+</accordion>

@@ -1,0 +1,26 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group heading="Milk Collection" class="milk-collection btn-icon">
+        <ul>
+            <li>
+                <a routerLink="milk-receive/list-collection" routerLinkActive="active">
+                    <fa name="cog"></fa> List Milk Collection
+                </a>
+            </li>
+            <li>
+                <a routerLink="milk-receive/collection" routerLinkActive="active">
+                    <fa name="cog"></fa> Add Milk
+                </a>
+            </li>
+            <li>
+                <a routerLink="milk-receive/milk-summary/NEW" routerLinkActive="active">
+                    <fa name="cog"></fa> Add Milk Summary
+                </a>
+            </li>
+            <!-- <li>
+                <a routerLink="milk-receive/waste-milk" routerLinkActive="active">
+                    <fa name="cog"></fa> Waste Milk Record
+                </a>
+            </li> -->
+        </ul>
+    </accordion-group>
+</accordion>

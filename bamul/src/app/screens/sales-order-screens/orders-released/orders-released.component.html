@@ -1,0 +1,81 @@
+<h1 class="page-header">Order Release</h1>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="placeholder clearfix mt-0">
+          <div class="form-row mt-10">
+              <div class="form-group col-md-3">
+                  <label>Search</label>
+                  <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+              </div>
+          </div>
+      </div>
+  </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder pd-10 mt-10">
+
+      <table class="table inwards   table-striped">
+        <thead class="v-center">
+          <tr>
+
+
+            <th>Order Number</th>
+
+            <th class="text-center">Route Number</th>
+            <th class="text-center">Shift</th>
+            <th class="text-center">Ordered Date</th>
+            <th class="text-center">Account Number</th>
+        
+          
+            <th class="text-center">Customer Name</th>
+            <th class="text-center">Customer Code</th>
+           
+            <th>Hold Reason </th>
+            <th class="text-center">Ordered Amount</th>
+            <th class="text-center">Balance</th>
+            <th class="text-center">Credit Limit</th>
+            <th class="text-center"> Released Date</th>
+            <th class="text-center"> Release Reason</th>
+            <th class="text-center"> Release Comment</th>
+
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor='let i of  allReeleasedHoldsOrder  | LockFilter: search    let in=index;'>
+
+          <td>{{i.orderNumber}}</td>
+            <td>{{i.routeNumber}}</td>
+            <td>{{i.shift}}</td>
+            <td>{{i.orderedDate}} </td>
+           
+            <td>{{i.accountNumber}}</td>
+            <td>{{i.customerName}}</td>
+            <td>{{i.customerCode}}</td>
+        
+            <td>{{i.holdReason}}</td>
+            <td>{{i.orderedAmount}}</td>
+            <td>{{i.bal}}</td>
+            <td>{{i.creditLimit}}</td>
+          
+            <td>{{i.releasedDate}}</td>
+
+            <td>{{i.releaseReason}}</td>
+            
+            <td>{{i.releaseComment}}</td>
+          </tr>
+        </tbody>
+   
+      </table>
+
+    </div>
+    <div class="clearfix">
+    
+      <button class="btn btn-bamul pull-right mt-10">OK</button>
+    </div>
+  </div>
+</div>
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

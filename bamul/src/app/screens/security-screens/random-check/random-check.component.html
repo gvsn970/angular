@@ -1,0 +1,104 @@
+<h1 class="page-header m-t-80">Random Check Routes</h1>
+<div class="row" *ngIf='!show'>
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-10">
+            <!-- <h2 class="sub-header hidden">Reports</h2> -->
+            <div class="table-responsive">
+                <div class="form-row mt-10">
+                    <div class="form-group col-md-3">
+                        <label>Search</label>
+                        <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Date</label>
+                        <input type="text" class="form-control" placeholder="Date" value="{{dateValue}}" disabled=''>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="placeholder pd-10 mt-10">
+            <!-- <h2 class="sub-header hidden">Reports</h2> -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SrNo</th>
+                            <th>Route Number</th>
+                            <th>Shift</th>
+                            <th>Random Check</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let i of listArray     | LockFilter: search   ;
+                      let in=index;'>
+                            <td> {{in+1}}</td>
+                            <td>{{i.routeNo}}</td>
+                            <td>{{i.randomCheckShift}}</td>
+                            <td><input type="checkbox" class='form-check-input' (change)='randomCheck(i,in)' value="" style=" width: 29px; " name="item-returnable" /></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <button type="button" class="btn btn-bamul pull-left" style="margin-top: 10px;">Cancel</button>
+        <button type="button" class="btn btn-bamul pull-right" style="margin-top: 10px;" (click)='saveAllRandomCheck()'>Confirm</button>
+    </div>
+</div>
+
+<div class="row" *ngIf='show'>
+    <div class="col-xs-12 col-sm-12" style="margin-top: -20px;">
+        <div class="placeholder pt-20 mt-10">
+            <!-- <h2 class="sub-header hidden">Reports</h2> -->
+            <div class="table-responsive">
+                <div class="form-row mt-10">
+                    <div class="form-group col-md-4">
+                        <label>Search</label>
+                        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Date</label>
+                        <input type="text" class="form-control" placeholder="Date" value="{{dateValue}}" disabled=''>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="placeholder pd-10 mt-10">
+            <!-- <h2 class="sub-header hidden">Reports</h2> -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SrNo</th>
+                            <th>Route Number</th>
+                            <th>Shift</th>
+                            <th>Random Check</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let i of   listArrayRamdomCheck 
+                        | LockFilter: search   ;
+                         let in=index'>
+                            <td> {{in+1}}</td>
+                            <td>{{i.routeNo}}</td>
+                            <td>{{i.randomCheckShift}}</td>
+
+                            <td><input type="checkbox" class='form-check-input' (change)='randomCheckUpadte(in)' value="{{i.randomCheckReq}}" style=" width: 29px; " [checked]='i.randomCheckReq' name="item-returnable" /></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button type="button" class="btn btn-bamul pull-left" style="margin-top: 10px;">Cancel</button>
+        <button type="button" class="btn btn-bamul pull-right" style="margin-top: 10px;" (click)='updateRandomCheck()'>Update</button>
+    </div>
+</div>
+
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

@@ -1,0 +1,154 @@
+ <h1 class="page-header">Create Schedule Transport Indent</h1>
+ <tabset>
+   <tab heading='New Schedule'>
+     <div class="placeholder clearfix mt-0">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-2">
+           <label>Route Number</label>
+         </div>
+         <div class="form-group col-md-3">
+           <label>Route Type</label>
+           <select class="form-control">
+             <option>select</option>
+             <option>Two-Point</option>
+             <option>Multi-Point</option>
+
+           </select>
+         </div>
+         <div class="form-group col-md-3">
+           <label>Department</label>
+           <select class="form-control">
+             <option>select</option>
+             <option>Sales</option>
+             <option>Production</option>
+           </select>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Status</label>
+           <select class='form-control'>
+             <option>Active</option>
+             <option>Inactive</option>
+             <option>Draft</option>
+           </select>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Shift</label>
+           <select class='form-control'>
+             <option>Morning</option>
+             <option>Evening</option>
+             <option>Both</option>
+           </select>
+         </div>
+       </div>
+       <div class="row">
+
+
+         <div class="col-md-12 clearfix">
+
+           <ul class='list-inline clearfix mr-15 flex schduleweek'>
+             <li><strong>Schedule</strong></li>
+             <li>
+               <a href="#">Select All</a>
+             </li>
+             <li><input type="checkbox" id="monday" class='weekday'> <label for="monday">Monday</label></li>
+             <li><input type="checkbox" id="tuesday" class='weekday'> <label for="tuesday">Tuesday</label></li>
+             <li><input type="checkbox" id="wednesday" class='weekday'><label for="wednesday">Wednesday</label> </li>
+             <li><input type="checkbox" id="thursday" class='weekday'><label for="thursday">Thursday</label> </li>
+             <li><input type="checkbox" id="friday" class='weekday'> <label for="friday">Friday</label></li>
+             <li><input type="checkbox" id="saturday" class='weekday'><label for="saturday">Saturday</label> </li>
+             <li><input type="checkbox" id="sunday" class='weekday'> <label for="sunday">Sunday</label></li>
+           </ul>
+
+         </div>
+       </div>
+     </div>
+
+     <div class="placeholder clearfix pd-10 mt-10">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-4">
+           <label>Start Time</label>
+           <input type="text" class="form-control" placeholder="Start Time">
+         </div>
+         <div class="form-group col-md-4">
+           <label>Start Lattitude</label>
+           <input type="text" class="form-control" placeholder="Lattitude">
+         </div>
+
+         <div class="form-group col-md-4">
+           <label>Start Longitute</label>
+           <input type="text" class="form-control" placeholder="Longitute">
+         </div>
+       </div>
+       <div class="form-row mt-10">
+         <div class="form-group col-md-4">
+           <label>End Time</label>
+           <input type="text" class="form-control" placeholder="End Time">
+         </div>
+         <div class="form-group col-md-4">
+           <label>End Lattitude</label>
+           <input type="text" class="form-control" placeholder="Lattitude">
+         </div>
+         <div class="form-group col-md-4">
+           <label>End Longitute</label>
+           <input type="text" class="form-control" placeholder="Longitute">
+         </div>
+       </div>
+     </div>
+   </tab>
+   <tab heading='Assign Route Points'>
+     <div class="placeholder clearfix mt-10">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-3">
+           <label>Start Point</label>
+           <select class="form-control">
+             <option>select</option>
+             <option>Sales</option>
+             <option>Production</option>
+           </select>
+         </div>
+         <div class="form-group col-md-3">
+           <label>End Point</label>
+           <select class="form-control">
+             <option>select</option>
+             <option>Sales</option>
+             <option>Production</option>
+           </select>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Include Return?</label>
+           <select class="form-control">
+             <option>select</option>
+             <option>Yes</option>
+             <option>No</option>
+           </select>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Distance</label>
+           <input type="text" class="form-control input-bl" placeholder="KM">
+         </div>
+       </div>
+     </div>
+   </tab>
+   <tab heading='Assign Vehicle'></tab>
+   <tab heading='Payment'>
+     <div class="placeholder clearfix pd-10 mt-10">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-4">
+           <label>Payment Type</label>
+           <input type="text" class="form-control" placeholder="Payment Type">
+         </div>
+         <div class="form-group col-md-4">
+           <label>Payment Amount</label>
+           <input type="text" class="form-control" placeholder="Payment Amount">
+         </div>
+       </div>
+
+     </div>
+   </tab>
+ </tabset>
+
+
+ <div class="clearfix mt-10">
+   <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+   <button type="button" class="btn btn-bamul pull-right">Submit</button>
+ </div>

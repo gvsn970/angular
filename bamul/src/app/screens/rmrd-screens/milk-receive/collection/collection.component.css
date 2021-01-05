@@ -1,0 +1,295 @@
+address,
+address p {
+    line-height: 30px !important;
+    margin-bottom: 0;
+}
+
+table {
+    table-layout: fixed;
+    border: 1px solid #ccc;
+    margin-bottom: 0px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.pd-b-0 {
+    position: relative;
+    top: -10px;
+    padding-top: 10px;
+}
+
+.bg-warning.pd-b-0.form-group.col-sm-1 {
+    padding-bottom: 20px;
+    margin-bottom: -10px;
+}
+
+.bg-dark.pd-b-0.form-group {
+    height: 93px;
+    line-height: 79px;
+    margin-bottom: -13px;
+    padding-bottom: 0;
+}
+
+.pt-10 {
+    padding-top: 10px;
+}
+
+.pl-10 {
+    padding-left: 10px;
+}
+
+th {
+    border: 0 !important;
+    vertical-align: middle !important;
+    border-right: 1px solid #ccc !important;
+}
+
+td {
+    /* border-right: 1px solid #ccc !important; */
+    vertical-align: middle !important;
+}
+
+tr>th:last-child,
+tr>td:last-child {
+    border-right: 0 !important;
+}
+
+tr.sub-head th {
+    background: #f3f3f8;
+}
+
+.stime {
+    width: 150px;
+}
+
+.cans {
+    width: 80px;
+}
+
+.route-no {
+    width: 60px;
+}
+
+.cans {
+    width: 80px !important;
+}
+
+.actions {
+    width: 240px;
+}
+
+.pl-0 {
+    padding-left: 0;
+}
+
+.pr-10 {
+    padding-right: 10px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.shift {
+    position: absolute;
+    right: 10px;
+    width: 80px;
+    background: #0099de;
+    top: 0;
+    height: 94%;
+    text-align: center;
+    border-radius: 0 4px 4px 0;
+    color: #fff;
+    z-index: 1;
+}
+
+.shift span {
+    display: block;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #b6e7fc;
+    margin-bottom: 4px;
+}
+
+.shift strong {
+    text-transform: unset;
+}
+
+tfoot {
+    border-top: 1px solid #ccc;
+    background: #f0f0f7;
+    text-align: right;
+}
+
+tfoot th {
+    text-align: right;
+    padding-right: 10px !important;
+}
+
+tfoot th strong {
+    /* font-size: 22px; */
+    display: inline-flex;
+    position: relative;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+button.accept-weight {
+    background: #FF5722;
+    color: #fff;
+    position: absolute;
+    font-size: 18px;
+    top: 0;
+    right: 0;
+    height: 100%;
+    border: 0;
+    border-radius: 0 3px 0 0;
+    padding: 0px 8px;
+    line-height: 100%;
+}
+
+button.accept-weight:hover,
+button.accept-weight:focus,
+button.accept-weight:active {
+    background: #e24b1b;
+    outline: none;
+}
+
+.relative {
+    position: relative;
+}
+
+label.weight-bowl {
+    display: block;
+    font-size: 42px;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0px 0px 4px #000;
+}
+
+.disabled i {
+    color: #ddd;
+    pointer-events: none;
+}
+
+.receipt-details {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.flex1-space {
+    flex: 1;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.d-flex-align-center {
+    display: flex;
+    align-items: stretch;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.cancel-button {
+    background: #ddd;
+}
+
+.width80 {
+    width: 80px;
+}
+
+.weigh-button {
+    padding: 6px 12px !important;
+    border-radius: 0;
+}
+
+
+/*---------Custom css for weight */
+
+.weight_type input[type="radio"] {
+    display: none;
+}
+
+.weight_type label {
+    margin: 0;
+    height: 30px;
+    text-align: center;
+    line-height: 30px !important;
+    padding: 0 5px;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    background: #ccc;
+    color: #7a7a7a;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+td.bg-info.weight_m_wrapper {
+    padding: 0;
+    position: relative;
+}
+
+.input-group.mb-3.d-flex.weight_m {
+    height: 100% !important;
+    padding: 0 !important;
+    position: absolute;
+    top: 0;
+}
+
+.weight_m input.form-control,
+.weight_m button {
+    height: 100%;
+    border: 0;
+}
+
+input.activeradio:active~label[for="manual"],
+input.activeradio:checked~label {
+    background: green;
+    color: #fff;
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+input.activeradio:active~label[for="auto"],
+input.activeradio:checked~label {
+    background: green;
+    color: #fff;
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+input#auto:active+input[formcontrolname="quantityReceived"],
+input#auto:checked+input[formcontrolname="quantityReceived"] {
+    pointer-events: none;
+    background: #ccc;
+}
+
+.activeradiolabel {
+    background: green !important;
+    color: #fff !important;
+    opacity: 1 !important;
+    transition: all 0.5s ease !important;
+}

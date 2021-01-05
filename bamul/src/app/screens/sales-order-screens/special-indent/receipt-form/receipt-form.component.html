@@ -1,0 +1,38 @@
+ <h1 class="page-header">Receipt Form</h1>
+
+
+ <div class="row mt-10">
+   <div class="col-md-4">
+     <div class="placeholder pd-10 mt-0">
+       <p class="mb-0">Customer: <Strong>Mr. Brijmoan Shukla</Strong></p>
+       <address>1235, New Colony, J.P. Nagar, Near mEdhavi Colony, Mini Forest, <br />Pin: 810093, Bengalore, Karnataka
+         <br />
+         Contact : 09987654322
+       </address>
+     </div>
+   </div>
+
+   <div class="col-md-4">
+     <div class="placeholder pd-10 mt-0">
+       <p>Indent No: <Strong>#SIO-4590289</Strong></p>
+       <p>Total Amount : <Strong> 6750 /- INR</Strong></p>
+       <p>Date & Time : <Strong>12 Jan 2020, 4:30PM</Strong></p>
+       <p>Status : <Strong>New</Strong></p>
+     </div>
+   </div>
+   <div class="col-md-4">
+     <div class="placeholder pd-10 mt-0">
+       <label>Type of Payment</label><select class="form-control">
+         <option value="CLN">Bank Challan</option>
+         <option value="CRD">Card (Visa / MasterCard)</option>
+       </select>
+       <label>Challan No. / Reference No.</label>
+       <input type="text" class="form-control" placeholder="ref no." />
+
+     </div>
+   </div>
+ </div>
+ <div class="clearfix mt-10">
+   <button (click)='redirectTo("special-indent")' type="button" class="btn btn-warning pull-left mr-10">Back</button>
+   <button (click)='printMe()' class="btn btn-bamul pull-right mt-10">Save & Print</button>
+ </div>

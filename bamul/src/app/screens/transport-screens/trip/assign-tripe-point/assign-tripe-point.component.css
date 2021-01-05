@@ -1,0 +1,159 @@
+address,
+address p {
+  line-height: 25px !important;
+  margin-bottom: 0;
+}
+
+table {
+  table-layout: fixed;
+  border: 1px solid #ccc;
+  margin-bottom: 0px;
+}
+
+.pt-10 {
+  padding-top: 10px;
+}
+
+th {
+  border: 0 !important;
+  vertical-align: middle !important;
+  border-right: 1px solid #ccc !important;
+}
+
+td {
+  /* border-right: 1px solid #ccc !important; */
+  vertical-align: middle !important;
+}
+
+tr>th:last-child,
+tr>td:last-child {
+  border-right: 0 !important;
+}
+
+tr.sub-head th {
+  background: #f3f3f8;
+}
+
+.stime {
+  width: 150px;
+}
+
+.cans {
+  width: 80px;
+}
+
+.route-no {
+  width: 60px;
+}
+
+.cans {
+  width: 80px !important;
+}
+
+.actions {
+  width: 240px;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.pr-10 {
+  padding-right: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+
+/*--------  Drag Drop List Css * ------------*/
+.example-list {
+  width: 100%;
+  max-width: 100%;
+  /* border: solid 1px #ccc; */
+  min-height: 60px;
+  table-layout: auto;
+  /* display: block; */
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #eeeeee;
+  /* overflow: hidden; */
+}
+
+thead th {
+  padding: 5px;
+  line-height: 30px;
+}
+
+.cursor-move {
+  cursor: move;
+}
+
+tr.example-box td {
+  padding: 5px;
+  line-height: 30px;
+  border: 1px solid #eeeeee;
+}
+
+.example-box1 {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 12px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.w-100 {
+  width: 100% !important;
+}
+input.ng-pristine.ng-valid.ng-touched {
+  border-color: #ff00007a !important;
+  box-shadow: 0 0 3px #ff00007a !important;
+  background: #ff00000d !important;
+}
+thead {
+  background: #0099DE;
+  border: 0;
+  font-size: 14px !important;
+  color: #fff;
+}
+.form-control {
+  font-size: 14px !important;
+  padding: 6px !important;
+}
+button.btn.btn-bamul.pull-left {
+  padding: 5px 8px;
+}
+button.btn.btn-danger.no-border.pull-right {
+  padding: 6px 8px;
+}

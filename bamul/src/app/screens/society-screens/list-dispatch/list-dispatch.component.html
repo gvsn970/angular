@@ -1,0 +1,78 @@
+<h1 class="page-header">List Dispatch</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Search</label>
+                    <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Vehicle. No.</th>
+                            <th>Driver Name</th>
+                            <th>Shift</th>
+                            <th>Date</th>
+                            <th>Cans</th>
+                            <th>Acc. Cans</th>
+                            <th>QTY</th>
+                            <th>FAT%</th>
+                            <th>SNF%</th>
+                            <th class='text-center'>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let dispatchList of dispatchListItem | LockFilter: search | paginate: { itemsPerPage: 10, currentPage: p } let i
+             =index'>
+                            <td>{{i+1}}</td>
+                            <td>{{dispatchList.vehicleNumber}}</td>
+                            <td>{{dispatchList.driverName}}</td>
+                            <td>{{dispatchList.shift}}</td>
+                            <td>{{dispatchList.tripDate}}</td>
+                            <td>{{dispatchList.noOfCans}}</td>
+                            <td>27</td>
+                            <td>{{dispatchList.totalQty}}</td>
+                            <td>{{dispatchList.apxFAT}}</td>
+                            <td>{{dispatchList.apxSNF}}</td>
+                            <td class='text-center'>
+
+                                <button *ngIf="dispatchList.status =='Running'" (click)="redirectTo('society-operator/edit-dispatch/',dispatchList.socId,dispatchList.shift,dispatchList.tripDate)" class="btn btn-primary pad-view">Edit</button>
+                                <button *ngIf="dispatchList.status =='Dispatched'" (click)="redirectTo('society-operator/edit-dispatch/',dispatchList.socId,dispatchList.shift,dispatchList.tripDate)" class="btn btn-primary pad-view">View</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p=$event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="middle " *ngIf="showDialog ">
+    <div class="middle-inner ">
+        <div class="text-primary mb-20 ">Remarks</div>
+        <div class="popup-scroll ">
+            <div>
+                <a class="modal-close close " (click)="modalClose() "></a>
+                <div class="row ">
+                    <div class="col-md-10 ">
+                        {{summaryMessage}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

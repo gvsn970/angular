@@ -1,0 +1,52 @@
+<h1 class="page-header">List Dispatch</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Search</label>
+                    <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Dispatch Date</th>
+                            <th>Ref No.</th>
+                            <th>Cans</th>
+                            <th>QTY</th>
+                            <th>Avg FAT%</th>
+                            <th>Avg SNF%</th>
+                            <th>Status</th>
+                            <th class='text-center'>View Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let shippingheader of shippingHeadersBmcList | paginate: { itemsPerPage: 10, currentPage: p };let i = index">
+                            <td>{{shippingheader.shippedDate}}</td>
+                            <td>{{shippingheader.bmcRefNo}}</td>
+                            <td>{{shippingheader.numOfContainers}}</td>
+                            <td>{{shippingheader.customSociety}}</td>
+                            <td>{{shippingheader.overallcustomAvgFat}}</td>
+                            <td>{{shippingheader.overallcustomAvgSnf}}</td>
+                            <td>{{shippingheader.receiptStatus}}</td>
+                            <td class='text-center'><a (click)="redirectTo('bmc-operator/milk-receive/update-dispatch',shippingheader.bmcRefNo)"><strong><i class='fa fa-edit'></i>
+                              Edit</strong></a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <pagination-controls class="doNotPrint" (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner>

@@ -1,0 +1,121 @@
+<h1 class="page-header">Inward Vehicle</h1>
+<div class="row">
+    <div class="col-xs-8">
+        <div class="placeholder mt-0 pd-10">
+            <address>
+         <span>Location : <strong>Anekal Chilling Center - Gate 1</strong></span>
+         <p>
+           Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+         </p>
+       </address>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="placeholder mt-0 pd-10">
+            <address>
+         <p>
+           <span>Date : <strong>10-11-2019</strong></span>
+         </p>
+         <p><span>Time :</span><strong>9:34:05PM</strong></p>
+       </address>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder">
+            <table class="table inwards">
+                <thead class="v-center">
+                    <tr>
+                        <th rowspan="2" class="route-no">Route No</th>
+                        <th rowspan="2" class="vehicle-no">Vehicle No</th>
+                        <th rowspan="2" class="drver-name">Driver Name</th>
+                        <th colspan="2" class="stime text-center">Schedule Time</th>
+                        <th rowspan="2" class="text-center">Arrival Time</th>
+                        <th rowspan="2" class="cans text-center">Total Cans</th>
+                        <th rowspan="2" class="actions text-center">Action</th>
+
+                    </tr>
+                    <tr class="sub-head">
+                        <th class="text-center">Start</th>
+                        <th class="text-center">End</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>201</td>
+                        <td>KA11ED4567</td>
+                        <td>Tulsi Ram</td>
+                        <td class="text-center">06:00</td>
+                        <td class="text-center">09:00</td>
+                        <td class="time text-center">
+                            <app-clock></app-clock>
+                        </td>
+
+                        <td class="text-center">
+                            <input type="number" min="0" value='0' class="form-contol required" required />
+                        </td>
+                        <td class="text-center inward-actions">
+                            <button type="button" class="btn-sm btn-success">Ontime Arrived</button>&nbsp;
+
+                            <button routerLink="../issue-inward" type="button" class="btn-sm btn-danger">Issue</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>223</td>
+                        <td>KA22VF3321</td>
+                        <td>Venkat Raman</td>
+                        <td class="text-center">06:00</td>
+                        <td class="text-center">09:00</td>
+                        <td class="time text-center">
+                            <app-clock></app-clock>
+                        </td>
+                        <td class="text-center">
+                            <input type="number" min="0" value='0' class="form-contol required" required />
+                        </td>
+                        <td class="text-center inward-actions">
+                            <button type="button" class="btn-sm btn-warning">Delayed Arrive</button>&nbsp;
+                            <button routerLink="../issue-inward" type="button" class="btn-sm btn-danger">Issue</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>109</td>
+                        <td>KA56FF2363</td>
+                        <td>Vikamraman</td>
+                        <td class="text-center">06:00</td>
+                        <td class="text-center">09:00</td>
+                        <td class="time text-center">
+                            <app-clock></app-clock>
+                        </td>
+                        <td class="text-center">
+                            <input type="number" min="0" value='0' class="form-contol required" required />
+                        </td>
+                        <td class="text-center inward-actions">
+                            <button type="button" class="btn-sm btn-success">Ontime Arrived</button>&nbsp;
+                            <button routerLink="../issue-inward" type="button" class="btn-sm btn-danger">Issue</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>KA11SD4347</td>
+                        <td>Mahesh Babba</td>
+                        <td class="text-center">06:00</td>
+                        <td class="text-center">09:00</td>
+                        <td class="time text-center">
+                            <app-clock></app-clock>
+                        </td>
+                        <td class="text-center">
+                            <input type="number" min="0" value='0' class="form-contol required" required />
+                        </td>
+                        <td class="text-center inward-actions">
+                            <button type="button" class="btn-sm btn-success">Ontime Arrived</button>&nbsp;
+                            <button type="button" class="btn-sm btn-danger" routerLink="">Issue</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

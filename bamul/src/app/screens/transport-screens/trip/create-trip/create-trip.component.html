@@ -1,0 +1,492 @@
+<h1 class="page-header">Create Adhoc Route</h1>
+<form [formGroup]="routeHeader" novalidate #f="ngForm" novalidate>
+    <div class="placeholder clearfix">
+        <div class="form-row clearfix mt-20">
+            <div class="form-group col-md-2 required">
+                <label>Route No</label>
+                <input type="text" class="form-control" (keyup)="toUpper($event.target.value,'routeNumber')" (keypress)="alphanumbericOnly($event)" maxlength="20" placeholder="Route No" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.routeNumber.errors?.required }" formControlName='routeNumber'>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Route Name</label>
+                <input type="text" class="form-control" (keypress)="alphanumbericOnly($event)" maxlength="30" placeholder="Route Name" formControlName='routeName'>
+            </div>
+            <div class="form-group col-md-2 required">
+                <label>Route Type</label>
+                <select type="text" class="form-control input-bl" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.routeType.errors?.required }" formControlName='routeType'>
+          <option value="">Select</option>
+          <option *ngFor='let routeType of routeTypeList' [ngValue]='routeType.value'>
+            {{routeType.value}}</option>
+        </select>
+            </div>
+            <div class="form-group col-md-2 required">
+                <label>Department</label>
+                <select type="text" class="form-control input-bl" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.associateToDepartmentId.errors?.required }" formControlName='associateToDepartmentId'>
+          <option value="">Select</option>
+          <option *ngFor='let department of departmentList' value="{{department.deptId}}/{{department.deptName}}">
+            {{department.deptName}}</option>
+        </select>
+            </div>
+            <div class="form-group col-md-2 required">
+                <label>UOM</label>
+                <select type="text" class="form-control input-bl" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.unitOfMeasure.errors?.required }" formControlName='unitOfMeasure'>
+                    <option value="">Select</option>
+                    <option *ngFor='let uom of unitOfMeasureList' value="{{uom.value}}">
+                        {{uom.value}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-2 required">
+                <label>Account Type</label>
+                <!-- <input formControlName="accountype" type="text" class="form-control" value=""> -->
+                <select [ngClass]="{ 'is-invalid':
+                submitted && routeHeader.controls.accountType.errors?.required }" class="form-control" formControlName="accountType">
+          <option value="">Select</option>
+          <option [ngValue]='accountType.key' *ngFor='let accountType of accountTypeResponse'>{{accountType.key}}</option>
+        </select>
+            </div>
+        </div>
+        <div class="form-row clearfix bg-info">
+            <div class="form-group col-md-6">
+                <div class="mt-10">
+                    <div class="required">
+                        <label class="mr-10">Source Type</label>
+                        <span *ngFor="let sourceType of typeList" class="mr-10">
+              <input type="radio" [value]="sourceType" name="source"
+                (change)="sourceTypeVal(sourceType)" />{{sourceType}}
+            </span>
+                    </div>
+                    <div class="row mt-10">
+                        <div class="col-md-12 required">
+                            <label>Start Point</label>
+                            <select class="form-control" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.startLocationList.errors?.required }" formControlName='startLocationList'>
+                <option selected value="">Select</option>
+                <option *ngFor="let startPoint of startPointList"
+                  value="{{startPoint.locationCode}}/{{startPoint.locationId}}">
+                  {{startPoint.locationCode}}
+                </option>
+              </select>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group col-md-6">
+
+                <div class="mt-10">
+                    <div class="required"><label class="mr-10">Destination Type</label>
+                        <span *ngFor="let destinationType of typeList" class="mr-10">
+              <input type="radio" [value]="destinationType" name="destination"
+                (change)="destinationTypeVal(destinationType)" />{{destinationType}}
+            </span>
+                    </div>
+                    <div class="row mt-10">
+                        <div class="col-md-12 required">
+                            <label>End Point</label>
+                            <select class="form-control" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.endLocationList.errors?.required }" formControlName='endLocationList'>
+                <option selected value="">Select</option>
+                <option *ngFor="let endPoint of endPointList" value="{{endPoint.locationCode}}/{{endPoint.locationId}}">
+                  {{endPoint.locationCode}}
+                </option>
+              </select>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-row clearfix mt-10">
+
+            <div class="form-group col-md-2">
+                <label>Distance in KM</label>
+                <input type="text" class="form-control" placeholder="Distance" formControlName='routeDistInKm' (keypress)="decimalOnly($event)" maxlength="6">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Estimated Qty </label>
+                <input type="text" class="form-control " placeholder="Quantity" formControlName='estimatedTotalQuantity' (keypress)="numberOnly($event)" maxlength="6">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Amount</label>
+                <input type="text" class="form-control " placeholder="Amount" formControlName='paymentAmount' (keypress)="decimalOnly($event)" maxlength="6">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Vehicle Type</label>
+                <select type="text" class="form-control input-bl" formControlName="vehicleType">
+          <option value="">Select</option>
+          <option *ngFor='let vehicleType of vechicleTypeList' [ngValue]='vehicleType.value'>
+            {{vehicleType.value}}</option>
+        </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Capacity</label>
+                <input type="text" class="form-control input-bl" formControlName="capacityQuantity" (keypress)="decimalOnly($event)" maxlength="6" placeholder='Capacity'>
+            </div>
+            <div class="clear"> </div>
+            <div class="col-md-3 required">
+                <label>Scheduled Date </label>
+                <input type="text" class="form-control date-field" placeholder="Start Date" bsDatepicker formControlName="scheduleDate" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                    [bsConfig]="datePickerConfig" [ngClass]="{ 'is-invalid': submitted &&
+          routeHeader.controls.scheduleDate.errors }">
+            </div>
+            <div class="col-md-2 required">
+                <label>Start Time</label>
+                <timepicker class="route-time" [showMeridian]="false" [showSpinners]="false" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.estimatedStartTime.errors?.required }" formControlName='estimatedStartTime'></timepicker>
+            </div>
+            <div class="col-md-2 required">
+                <label>End Time</label>
+                <timepicker class="route-time" [showMeridian]="false" [showSpinners]="false" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.estimatedEndTime.errors?.required }" formControlName='estimatedEndTime'></timepicker>
+            </div>
+            <div class="col-md-2 required">
+                <label>Shift</label>
+                <select type="text" class="form-control input-bl" formControlName="routeShift" [ngClass]="{ 'is-invalid':
+                        submitted && routeHeader.controls.routeShift.errors?.required }">
+          <option value="">Select</option>
+          <option *ngFor='let shift of shiftList' [ngValue]='shift.value'>
+            {{shift.value}}</option>
+        </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Description</label>
+                <input type="text" class="form-control " placeholder="Description" formControlName='routeDescription'>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <form [formGroup]="routeAssignmentList" novalidate #fab="ngForm" novalidate>
+        <div class="col-md-12">
+            <div class="placeholder mt-10 clearfix">
+                <h4 class="pd-10 bg-info"> Assignment</h4>
+                <div class="option-group">
+                    <div class="form-check form-check-inline">
+                        <input formControlName="vehicleRegistered" (change)="routeRegister($event.target.value)" class="form-check-input"
+                            type="radio" value="register">
+                        <label class="form-check-label" for="inlineRadio1">Registered</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input formControlName="vehicleRegistered" (change)="routeRegister($event.target.value)" class="form-check-input"
+                            type="radio" value="unregistered">
+                        <label class="form-check-label" for="inlineRadio2">Unregistered</label>
+                    </div>
+                </div>
+                <div class="form-row mt-10">
+                    <div *ngIf="disabled" class="form-group col-md-3 required">
+                        <label>Vehicle No </label>
+                        <!-- <input type="text" class="form-control input-bl" placeholder='Vehicle No' Value=""> -->
+                        <div class="ng-autocomplete w-100">
+                            <ng-autocomplete formControlName="vehicleList" [data]="vehicleItemList" [searchKeyword]="vehicleListkeyword"
+                                (selected)='selectEvent($event)' (inputChanged)='onChangeVehicleSearch($event)' (inputFocused)='onFocused($event)'
+                                [itemTemplate]="itemTemplateVehicle" [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid':
+                (vehicleAvailable==false) || (submitted && routeAssignmentList.controls.vehicleList.errors?.required) }">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateVehicle let-item>
+                                <a [innerHTML]="item.vehicleRegNumber"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div>No Record Found</div>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!disabled" class="form-group col-md-3">
+                        <label>Vehicle No</label>
+                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="vehicleregno" class="form-control input-bl"
+                            placeholder='Vehicle No'>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Vehicle Type</label>
+                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="vehicleType" class="form-control input-bl"
+                            placeholder='Vehicle Type' [value]="vehicleType" [disabled]="disabled">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Capacity</label>
+                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="vehicleCapacity" class="form-control input-bl"
+                            placeholder='Capacity' [value]="vehicleCapacity" [disabled]="disabled">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Status</label>
+                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="vehicleStatus" class="form-control input-bl"
+                            placeholder='Status' [value]="vehicleStatus" disabled>
+                    </div>
+                    <div class="option-group">
+                        <div class="form-check form-check-inline">
+                            <input formControlName="driverRegistered" (change)="driverRegister($event.target.value)"
+                                class="form-check-input" type="radio" value="register">
+                            <label class="form-check-label" for="inlineRadio1">Registered</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input formControlName="driverRegistered" (change)="driverRegister($event.target.value)"
+                                class="form-check-input" type="radio" value="unregistered">
+                            <label class="form-check-label" for="inlineRadio2">Unregistered</label>
+                        </div>
+                    </div>
+                    <div *ngIf="driverDisabled" class="form-group col-md-3 required mt-10">
+                        <label>Driver Name</label>
+                        <div class="ng-autocomplete w-100">
+                            <ng-autocomplete formControlName="driverList" [data]="driverItemList" [searchKeyword]="driverListkeyword"
+                                (selected)='selectDriverEvent($event)' (inputChanged)='onChangeSearchDriver($event)'
+                                (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateDriver"
+                                [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid':
+                (driverAvailable==false) || (submitted && routeAssignmentList.controls.driverList.errors?.required)
+                }">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateDriver let-item>
+
+                                <a>
+                                    <span [innerHTML]="item.driverName"></span> -
+                                    <span [innerHTML]="item.licenceNumber"></span>
+                                </a>
+
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div>No Record Found</div>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!driverDisabled" class="form-group col-md-3 mt-10">
+                        <label>Driver Name</label>
+                        <input [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="drivername" class="form-control input-bl"
+                            placeholder='Driver Name'>
+                    </div>
+                    <div class="form-group col-md-3 mt-10">
+                        <label>licence Number</label>
+                        <input [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="licenceNumber" class="form-control input-bl"
+                            placeholder='licence Number' [disabled]="driverDisabled">
+                    </div>
+                    <!-- <div class="form-group col-md-2 mt-10">
+                        <label>licence Type</label>
+                        <input [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="licenceType" class="form-control input-bl"
+                            placeholder='licence Type' [disabled]="driverDisabled">
+                    </div> -->
+                    <div class="form-group col-md-3 mt-10">
+                        <label>Mobile Number</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="driverMobNumber" type="text" class="form-control input-bl"
+                            placeholder='Mobile Number' [value]="driverMobNumber" [disabled]="driverDisabled">
+                    </div>
+                    <div class="form-group col-md-3 mt-10">
+                        <label>Status</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="driverStatus" type="text" class="form-control input-bl"
+                            placeholder='Status' [value]="driverStatus" disabled>
+                    </div>
+                    <div class="form-group col-md-3 mt-10">
+                        <label>Transporter Name</label>
+                        <!-- <input [ngModelOptions]="{standalone: true}" [(ngModel)]="vendorName" type="text" class="form-control input-bl"
+                            placeholder='Transporter Name' [value]="vendorName" [disabled]="driverDisabled"> -->
+                        <div class="ng-autocomplete w-100">
+                            <ng-autocomplete formControlName="vendorName" placeholder="Registration Number" [data]="vendorList"
+                                [searchKeyword]="vendorListkeyword" (selected)='selectVendorEvent($event)'
+                                (inputChanged)='onChangeVendorSearch($event)' (inputFocused)='onFocused($event)'
+                                [itemTemplate]="itemTemplateVendor" [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateVendor let-item>
+                                <a [innerHTML]="item.vendorName"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div>No Record Found</div>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 mt-10">
+                        <label>Vendor Number</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="vendorNum" type="text" class="form-control input-bl"
+                            placeholder='Vendor Number' [value]="vendorNum" [disabled]="true">
+                    </div>
+                    <div class="form-group col-md-3 mt-10">
+                        <label>Vendor Type</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="vendorType" type="text" class="form-control input-bl"
+                            placeholder='Vendor Type' [value]="vendorType" [disabled]="true">
+                    </div>
+                    <div class="form-group col-md-3 mt-10">
+                        <label>City</label>
+                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="vendorCity" type="text" class="form-control input-bl"
+                            placeholder='City' [value]="vendorCity" [disabled]="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="clearfix mt-10">
+    <!-- <button type="button" class="btn btn-secondary pull-left cancel-btn" (click)="resetRouteVal()">Cancel</button> -->
+
+    <button type="button" class="btn btn-bamul pull-right" (click)="createRoute(f,fa,fab)">Save</button>
+
+    <button type="button" class="btn btn-bamul pull-right mr-10" *ngIf="enableAddPointsBtn" routerLink="/transport/route/assign-trip-point/{{assignRouteNumber}}">
+    Add Points
+  </button>
+
+</div>
+
+
+
+
+
+
+<!-- 
+  <tab heading='Assign Route Points'>
+    <div class="placeholder clearfix pt-10 mt-0">
+      <h4 class="pd-10 bg-info">Two Way Route Point Assignment</h4>
+      <div class="form-row mt-10">
+        <div class="form-group col-md-3">
+          <label>Start Point</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Sales</option>
+            <option>Production</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Start Time</label>
+          <timepicker [(ngModel)]="startTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+        </div>
+        <div class="form-group col-md-3">
+          <label>End Point</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Sales</option>
+            <option>Production</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>End Time</label>
+          <timepicker [(ngModel)]="endTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+        </div>
+      </div>
+
+      <div class="form-row mt-10">
+        <div class="form-group col-md-3">
+          <label>Include Return?</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Distance</label>
+          <input type="text" class="form-control input-bl" placeholder="KM">
+        </div>
+      </div>
+    </div>
+
+    <div class="placeholder pd-10 mt-10">
+      <h4 class="pd-10 bg-warning">Multi Route Point Assignment</h4>
+      <table class="table inwards">
+        <thead class="v-center">
+          <tr>
+            <th width="60px">Order</th>
+            <th width="120px">Point Type</th>
+            <th width="120px" class="text-center">Receiver Id</th>
+            <th class="text-center">Receiver Name</th>
+            <th class="text-center">Shipping Address</th>
+            <th width="130px" class="text-center">Arrival</th>
+            <th width="130px" class="text-center">Departure</th>
+          </tr>
+          <tr class="sub-head">
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <select class="form-control">
+                <option>CC</option>
+                <option>Dairy</option>
+                <option>BMC</option>
+                <option>Customer</option>
+                <option>Supplier</option>
+              </select>
+            </td>
+            <td><select class="form-control">
+                <option>2011</option>
+                <option>432</option>
+                <option>335</option>
+                <option>234</option>
+                <option>56</option>
+              </select></td>
+            <td>
+              <select class="form-control">
+                <option>Venkat</option>
+                <option>Ajaad</option>
+                <option>Vikas</option>
+                <option>Mahendar</option>
+                <option>Narindam</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control">
+                <option>8-2-341/A, Prasanth Nagar, Bengalore 500987</option>
+                <option>Anekal Chilling Center - Gate 1</option>
+              </select>
+            </td>
+            <td>
+              <timepicker [(ngModel)]="startTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+            </td>
+            <td>
+              <timepicker [(ngModel)]="endTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot class="hidden">
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="clearfix">
+      <button class="btn btn-bamul pull-right mt-10">Add More</button>
+    </div>
+    <div class="clearfix mt-10">
+      <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+      <button type="button" class="btn btn-bamul pull-right">Submit</button>
+    </div>
+
+
+  </tab> -->
+<!-- <tab heading='Assign Vehicle'></tab> -->
+<!-- <tab heading='Payment'>
+    <div class="placeholder clearfix pd-10 mt-10">
+      <div class="form-row mt-10">
+        <div class="form-group col-md-4">
+          <label>Payment Type</label>
+          <input type="text" class="form-control" placeholder="Payment Type">
+        </div>
+        <div class="form-group col-md-4">
+          <label>Payment Amount</label>
+          <input type="text" class="form-control" placeholder="Payment Amount">
+        </div>
+      </div>
+
+    </div>
+  </tab>
+  <tab heading='Schedule'>
+    <div class="placeholder clearfix pd-10 mt-10">
+      <div class="form-row mt-10">
+
+      </div>
+    </div>
+  </tab> -->

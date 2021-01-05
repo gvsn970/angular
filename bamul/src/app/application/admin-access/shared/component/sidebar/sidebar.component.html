@@ -1,0 +1,655 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group routerLinkActive="active" heading="Admin" class="admin btn-icon">
+        <ul class="parent-list">
+            <li><label>Users</label>
+                <ul>
+                    <li>
+                        <a routerLink="user/create-user" routerLinkActive="active">
+                            <fa name="cog"></fa> Create User
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="user/list-user" routerLinkActive="active">
+                            <fa name="cog"></fa> List Users
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="jreport" routerLinkActive="active">
+                            <fa name="cog"></fa> Jasper Report
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Manager</label>
+                <ul>
+                    <li>
+                        <a routerLink="milk-transfer/new-milk-transfer" routerLinkActive="active">
+                            <fa name="cog"></fa> Intiatiate New Trasfer
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="milk-transfer/list-milk-transfer" routerLinkActive="active">
+                            <fa name="cog"></fa> List Tranfer Request
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+
+    <accordion-group heading="RMRD" class="btn-icon rmrd">
+        <ul class="parent-list">
+            <li><label>Milk Collection</label>
+                <ul>
+                    <li>
+                        <a routerLink="rmrd/milk-receive/list-collection" routerLinkActive="active">
+                            <fa name="cog"></fa> List Milk Collection
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="rmrd/milk-receive/collection" routerLinkActive="active">
+                            <fa name="cog"></fa> Add Milk
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="rmrd/milk-receive/waste-milk" routerLinkActive="active">
+                            <fa name="cog"></fa> Waste Milk Record
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><label>MPCS Route Sheet</label>
+                <ul>
+                    <li>
+                        <a routerLink="rmrd/route-sheet/list-route-sheet" routerLinkActive="active">
+                            <fa name="cog"></fa> List MPCS Routes
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Route Inspector" class="btn-icon rmrd">
+        <ul class="parent-list">
+            <li><label>Manager</label>
+                <ul>
+                    <li>
+                        <a routerLink="route-inspector/hold" routerLinkActive="active">
+                            <fa name="cog"></fa> Hold Information
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="order-release" routerLinkActive="active">
+                            <fa name="cog"></fa> Order Release
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="parent-list">
+            <li><label>Operator</label>
+                <ul>
+                    <li>
+                        <a routerLink="route-inspector/hold" routerLinkActive="active">
+                            <fa name="cog"></fa> Hold Information
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Milk & Material" class="btn-icon lab">
+        <ul class="parent-list">
+            <li><label>Manager Screens</label>
+                <ul>
+                    <li>
+                        <a routerLink="mnm/initiate-mnm-transfer" routerLinkActive="active">
+                            <fa name="cog"></fa> Initiate M&M Request
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-mnm-transfer-receiver" routerLinkActive="active">
+                            <fa name="cog"></fa> List M&M Request Receive
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-mnm-transfer-sender" routerLinkActive="active">
+                            <fa name="cog"></fa> List M&M Request Sending
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Weighing Bridge</label>
+                <ul>
+                    <li>
+                        <a routerLink="mnm/weighing-bridge" routerLinkActive="active">
+                            <fa name="cog"></fa> MNM Weighing Bridge
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-weighing-bridge-cc-camp" routerLinkActive="active">
+                            <fa name="cog"></fa> List WB CC Camp
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-weighing-bridge-dairy" routerLinkActive="active">
+                            <fa name="cog"></fa> List WB Dairy
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>MNM Dispatch</label>
+                <ul>
+                    <li>
+                        <a routerLink="mnm/mnm-loading" routerLinkActive="active">
+                            <fa name="cog"></fa> MNM Loading
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/mnm-loading-list" routerLinkActive="active">
+                            <fa name="cog"></fa> List MNM Loading
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/mnm-unloading" routerLinkActive="active">
+                            <fa name="cog"></fa> MNM Unloading
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/mnm-unloading-list" routerLinkActive="active">
+                            <fa name="cog"></fa> List MNM Unloading
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><label>MNM Quality</label>
+                <ul>
+                    <li>
+                        <a routerLink="mnm/mnm-loading" routerLinkActive="active">
+                            <fa name="cog"></fa> Dispatch MNM QA
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/mnm-unloading" routerLinkActive="active">
+                            <fa name="cog"></fa> Dispatch MNM QA list
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-weighing-bridge-cc-camp" routerLinkActive="active">
+                            <fa name="cog"></fa> Receive MNM QA
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="mnm/list-weighing-bridge-cc-camp" routerLinkActive="active">
+                            <fa name="cog"></fa> Receive MNM QA List
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Lab" class="btn-icon lab">
+        <ul class="parent-list">
+            <li><label>MPCS Lab Results</label>
+                <ul>
+                    <li>
+                        <a routerLink="rmrd/lab/list-samples" routerLinkActive="active">
+                            <fa name="cog"></fa> List All Samples
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="rmrd/lab/lab-report" routerLinkActive="active">
+                            <fa name="cog"></fa> Lab Report
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>DC Lab Results</label>
+                <ul>
+                    <li>
+                        <a routerLink="milk-transfer/lab/list-samples" routerLinkActive="active">
+                            <fa name="cog"></fa> List All Samples
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="milk-transfer/lab/lab-report" routerLinkActive="active">
+                            <fa name="cog"></fa> Lab Report
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+
+    <accordion-group heading="Transport" class=" transport btn-icon">
+        <ul class="parent-list">
+            <li><label>Transport Indent</label>
+                <ul>
+                    <li>
+                        <a routerLink="transport/indent/new-transport-indent" routerLinkActive="active">
+                            <fa name="cog"></fa> New Transport Indent
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="transport/indent/list-transport-indent" routerLinkActive="active">
+                            <fa name="cog"></fa> List Transport Indents
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Milk Transfer</label>
+                <ul>
+                    <li>
+                        <a routerLink="transport/assign-vehicle-milk-transfer" routerLinkActive="active">
+                            <fa name="cog"></fa> Vehicle Assignments
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="transport/list-milk-transfer-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> List Tranfer Request
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="transport/view-assigned-milk-transfer-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> View Tranfer Request
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><label>Route</label>
+                <ul>
+                    <li>
+                        <a routerLink="transport/route/list-routes" routerLinkActive="active">
+                            <fa name="cog"></fa> List Routes
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="transport/route/create-route" routerLinkActive="active">
+                            <fa name="cog"></fa> Create Route
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <label>Vehicle</label>
+                <ul>
+                    <li>
+                        <a routerLink="transport/vehicle/add-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> Create Vehicle
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="transport/vehicle/list-vehicles" routerLinkActive="active">
+                            <fa name="cog"></fa> List of Vehicles
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Driver</label>
+                <ul>
+                    <li>
+                        <a routerLink="transport/driver/list-drivers" routerLinkActive="active">
+                            <fa name="cog"></fa> List Drivers
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="transport/driver/add-driver" routerLinkActive="active">
+                            <fa name="cog"></fa> Add New Driver
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+
+    <accordion-group heading="Weighing Bridge" class="wb btn-icon">
+        <ul class="parent-list">
+            <li>
+                <label>CC Milk Transfer</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="weighing-bridge/list-milk-transfer-wb">
+                            <fa name="cog"></fa> List WB for DC
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="weighing-bridge/add-milk-transfer-wb">
+                            <fa name="cog"></fa> Add WB for DC
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Dairy Milk Receive</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="weighing-bridge/list-milk-transfer-wb">
+                            <fa name="cog"></fa> List WB for DC
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="weighing-bridge/add-milk-transfer-wb">
+                            <fa name="cog"></fa> Add WB for DC
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Sales Order" class="btn-icon indent">
+        <ul class="parent-list">
+            <li><label>Call-Desk</label>
+                <ul>
+                    <!-- <li><a routerLink="sales-order/list-calldesk-indents" routerLinkActive="active">
+                <fa name="cog"></fa> List All Indents
+              </a></li> -->
+                    <li>
+                        <a routerLink="sales-order/calldesk" routerLinkActive="active">
+                            <fa name="cog"></fa> Call-Desk
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="on-hand-quantity" routerLinkActive="active">
+                            <fa name="cog"></fa> On Hand Quantity
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Counter Sales</label>
+                <ul>
+                    <li>
+                        <a routerLink="sales-order/cs/list-counter-sales" routerLinkActive="active">
+                            <fa name="cog"></fa> List All Orders
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="sales-order/cs/counter-sales" routerLinkActive="active">
+                            <fa name="cog"></fa> Create a Order
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Random Check</label>
+                <ul>
+                    <li>
+                        <a routerLink="random-check" routerLinkActive="active">
+                            <fa name="cog"></fa> Random Check
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="random-check-shipping" routerLinkActive="active">
+                            <fa name="cog"></fa> Random Check Shipping
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Miscellaneous</label>
+                <ul>
+                    <li>
+                        <a routerLink="return-shipping" routerLinkActive="active">
+                            <fa name="cog"></fa> Return Shipping
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="route-manager" routerLinkActive="active">
+                            <fa name="cog"></fa> Route Manager
+                        </a>
+                    </li>
+                    <!-- <li><a routerLink="order-release" routerLinkActive="active">
+                <fa name="cog"></fa> Order Release
+              </a></li> -->
+                    <li>
+                        <a routerLink="list-dispatch-security" routerLinkActive="active">
+                            <fa name="cog"></fa> List Dispatch Security
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Dispatch" class="order btn-icon">
+        <ul class="parent-list">
+            <li>
+                <label>CC Milk Dispatch</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="cc/cc-milk-dispatch">
+                            <fa name="cog"></fa> Milk Tranfer Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="cc/list-cc-milk-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> List Milk Tranfer Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="cc/view-cc-milk-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> View Milk Tranfer Dispatch
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Sales Order Dispatch</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="cc/cc-milk-dispatch">
+                            <fa name="cog"></fa> List Dispatch Routes
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="cc/list-cc-milk-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> View Dispatch Route
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="cc/view-cc-milk-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> View Sales-Order Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="cc/view-cc-milk-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> Report SO Dispatch
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+
+    <accordion-group heading="BMC & Society" class="dispatch btn-icon">
+
+        <ul class="parent-list">
+
+            <li>
+                <label>Society</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="society/mpcs-create-dispath">
+                            <fa name="cog"></fa> Society Milk Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="society/mpcs-list-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> List Society Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="society/mpcs-view-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> View Society Milk Dispatch
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>BMC</label>
+                <ul>
+                    <li>
+                        <a routerLink="bmc/bmc-milk-dispatch">
+                            <fa name="cog"></fa> Milk Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="bmc/list-bmc-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> List Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="bmc/view-bmc-dispatch" routerLinkActive="active">
+                            <fa name="cog"></fa> View Milk Tranfer Dispatch
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="bmc/bmc-milk-collection">
+                            <fa name="cog"></fa> Milk Collection
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="bmc/list-bmc-milk-collection" routerLinkActive="active">
+                            <fa name="cog"></fa> List BMC Milk Collection
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="bmc/view-bmc-milk-collection" routerLinkActive="active">
+                            <fa name="cog"></fa> View BMC Milk Collection
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Security" class="security btn-icon">
+        <ul class="parent-list">
+            <li>
+                <label>GLobal Security</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/security-global">
+                            <fa name="cog"></fa> Security Global
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active">
+                        <a routerLink="security/global-inward">
+                            <fa name="cog"></fa> Global Inward
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/global-outward">
+                            <fa name="cog"></fa> Global Outward
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Milk-Collection</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/inward-vehicle">
+                            <fa name="cog"></fa> Inward Vehicles
+                        </a>
+                    </li>
+
+                    <li>
+                        <a routerLink="security/list-inward-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> List Inwards
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Milk Tranfer</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/milk-transfer">
+                            <fa name="cog"></fa> Milk Transfer
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-milk-transfer">
+                            <fa name="cog"></fa> List Milk Transfer
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>GatePass</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/create-gatepass">
+                            <fa name="cog"></fa> Gatepass
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-gatepass">
+                            <fa name="cog"></fa> List All Gatepass
+                        </a>
+                    </li>
+                    <!-- <li routerLinkActive="active"><a routerLink="security/view-gatepass">
+        <fa name="cog"></fa> View All Gatepass
+      </a></li> -->
+
+                </ul>
+            </li>
+            <li>
+                <label>Visitors</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/visitor-register">
+                            <fa name="cog"></fa> Add A Visitor
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-visitor-register">
+                            <fa name="cog"></fa> List All Visitors
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Key Log</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/create-new-keylog">
+                            <fa name="cog"></fa> Create Keylog
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-keylogs">
+                            <fa name="cog"></fa> List Keylogs
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active">
+                        <a routerLink="security/key-register">
+                            <fa name="cog"></fa> Keylog Register
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-key-register">
+                            <fa name="cog"></fa> List Keylog Register
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </accordion-group>
+</accordion>
+<!-- <accordion-group heading="Route Sales" class="btn-icon indent">
+    <ul class="parent-list">
+      <li><label>Route Sales</label>
+        <ul>
+          <li><a routerLink="" routerLinkActive="active">
+              <fa name="cog"></fa> List All Route Sales
+            </a></li>
+        
+        </ul>
+      </li>
+     
+    </ul>
+  </accordion-group> -->

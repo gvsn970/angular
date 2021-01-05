@@ -1,0 +1,31 @@
+.sidebar-menu li a {
+    padding: 15px;
+    display: inline-flex;
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar-menu {
+    padding-top: 10px;
+}
+
+.sidebar-menu li a fa {
+    margin-right: 5px;
+}
+
+.sidebar-menu li.active {
+    background: #0072A4;
+}
+
+button.logout {
+    display: none;
+}
+
+@media(max-width:767px) {
+    button.logout {
+        display: inline-block;
+        background: #253545;
+        width: 150px;
+        margin-top: 20px;
+    }
+}

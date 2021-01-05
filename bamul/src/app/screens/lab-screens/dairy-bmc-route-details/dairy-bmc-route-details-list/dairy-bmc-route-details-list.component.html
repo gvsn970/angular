@@ -1,0 +1,536 @@
+<h1 class="page-header">Create New Route</h1>
+<tabset>
+  <tab heading='Create Route'>
+    <!-- <form [formGroup]="TransportRoute">
+       <div class="placeholder clearfix pt-10 mt-0">
+         <div class="form-row mt-10">
+           <div class="form-group col-md-3">
+             <label>Route Type</label>
+             <select class="form-control" formControlName="routeType" [ngClass]="{ 'is-invalid': submitted && f.routeType.errors ||f.routeType.touched && f.routeType.errors
+               }">
+               <option>select</option>
+               <option *ngFor='let routeTypes of routeType' [ngValue]='routeTypes'>
+                 {{routeTypes}}</option>
+             </select>
+             <div *ngIf="  submitted && f.routeType.errors ||f.routeType.touched && f.routeType.errors"
+               class="alert alert-danger">
+               <div *ngIf="f.routeType.errors.required">Route Type is required</div>
+             </div>
+           </div>
+           <div class="form-group col-md-3">
+             <label>Route Number</label>
+             <input type="text" class="form-control input-bl" placeholder="Route Number" formControlName="routeNumber"
+               [ngClass]="{ 'is-invalid': submitted && f.routeNumber.errors ||f.routeNumber.touched &&
+               f.routeNumber.errors }">
+             <div *ngIf="  submitted && f.routeNumber.errors ||f.routeNumber.touched && f.routeNumber.errors"
+               class="alert alert-danger">
+               <div *ngIf="f.routeNumber.errors.required">Route Number is required</div>
+             </div>
+           </div>
+           <div class="form-group col-md-3">
+             <label>Route Name</label>
+             <input type="text" class="form-control input-bl" placeholder="Route Name" formControlName="routeName"
+               [ngClass]="{ 'is-invalid': submitted && f.routeName.errors ||f.routeName.touched && f.routeName.errors
+               }">
+             <div *ngIf="  submitted && f.routeName.errors ||f.routeName.touched && f.routeName.errors"
+               class="alert alert-danger">
+               <div *ngIf="f.routeName.errors.required">Route Name is required</div>
+             </div>
+           </div>
+           <div class="form-group col-md-3">
+             <label>Department</label>
+             <select class="form-control">
+               <option>select</option>
+               <option>Sales</option>
+               <option>Production</option>
+             </select>
+           </div>
+         </div>
+         <div class="form-row mt-10">
+           <div class="form-group col-md-2">
+             <label>Status</label>
+             <select class='form-control' formControlName='routeStatus'
+               [ngClass]="{ 'is-invalid': submitted && f.routeStatus.errors ||f.routeStatus.touched && f.routeStatus.errors }">
+               <option>select</option>
+               <option *ngFor='let routeStatus of status' [ngValue]='routeStatus'>
+                 {{routeStatus}}</option>
+             </select>
+           </div>
+           <div class="form-group col-md-2">
+             <label>Shift</label>
+             <select class='form-control' formControlName='routeShift' [ngClass]="{ 'is-invalid': submitted && f.routeShift.errors ||f.routeShift.touched && f.routeShift.errors
+               }">
+               <option>select</option>
+               <option *ngFor='let routeShift of shift' [ngValue]='routeShift'>
+                 {{routeShift}}</option>
+             </select>
+           </div>
+           <div class="form-group col-md-2">
+             <label>Payment Type</label>
+             <input type="text" class="form-control" placeholder="Payment Type" formControlName='paymentType'
+               [ngClass]="{ 'is-invalid': submitted && f.paymentType.errors ||f.paymentType.touched && f.paymentType.errors }">
+           </div>
+           <div class="form-group col-md-2">
+             <label>Payment Amount</label>
+             <input type="text" class="form-control" placeholder="Payment Amount" formControlName='paymentAmount'
+               [ngClass]="{ 'is-invalid': submitted && f.paymentAmount.errors ||f.paymentAmount.touched && f.paymentAmount.errors }">
+           </div>
+           <div class="form-group col-md-4">
+             <label> Distance In KM</label>
+             <input type="text" class="form-control" placeholder=" Distance In KM" formControlName='routeDistanceInKM'
+               [ngClass]="{ 'is-invalid': submitted && f.routeDistanceInKM.errors ||f.routeDistanceInKM.touched &&
+               f.routeDistanceInKM.errors }">
+           </div>
+         </div>
+         <div class="form-row mt-10">
+           <div class="form-group col-md-3">
+             <label>Department Id</label>
+             <input type="text" class="form-control input-bl" placeholder="Department Id"
+               formControlName='createdByDept'
+               [ngClass]="{ 'is-invalid': submitted && f.createdByDept.errors ||f.createdByDept.touched && f.createdByDept.errors }">
+           </div>
+           <div class="form-group col-md-3">
+             <label>Assign To</label>
+             <input type="text" class="form-control input-bl" placeholder="Assign To"
+               formControlName='routeAssociatedTo' [ngClass]="{ 'is-invalid': submitted && f.routeAssociatedTo.errors ||f.routeAssociatedTo.touched &&
+               f.routeAssociatedTo.errors }">
+           </div>
+
+
+         </div>
+         <div class="form-row mt-10">
+           <div class="form-group col-md-3">
+             <label>Start Location</label>
+             <input type="text" class="form-control input-bl" placeholder=" start Location"
+               formControlName='startLocation'
+               [ngClass]="{ 'is-invalid': submitted && f.startLocation.errors ||f.startLocation.touched && f.startLocation.errors }">
+           </div>
+           <div class="form-group col-md-3">
+             <label>End Location</label>
+             <input type="text" class="form-control input-bl" placeholder="end Location" formControlName='endLocation'
+               [ngClass]="{ 'is-invalid': submitted && f.endLocation.errors ||f.endLocation.touched && f.endLocation.errors }">
+           </div>
+           <div class="form-group col-md-3">
+             <label>Start Time</label>
+             <input type="time" class="form-control input-bl" placeholder="start Time" formControlName='startTime'
+               [ngClass]="{ 'is-invalid': submitted && f.startTime.errors ||f.startTime.touched && f.startTime.errors }">
+           </div>
+
+           <div class="form-group col-md-3">
+             <label>End Time</label>
+             <input type="time" class="form-control input-bl" placeholder="end Time" formControlName='endTime'
+               [ngClass]="{ 'is-invalid': submitted && f.endTime.errors ||f.endTime.touched && f.endTime.errors }">
+           </div>
+         </div>
+       </div>
+       <div class="clearfix mt-10">
+         <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+         <button type="button" (click)='createRouteSave()' class="btn btn-bamul pull-right">Submit</button>
+       </div>
+     </form> -->
+
+    <div class="placeholder clearfix mt-0">
+      <div class="form-row mt-10">
+        <!-- <div class="form-group col-md-2">
+            <label>Route Number</label>
+          </div> -->
+        <div class="form-group col-md-3">
+          <label>Route Type</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Two-Point</option>
+            <option>Multi-Point</option>
+
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Department</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Sales</option>
+            <option>Production</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Satrt Date</label>
+          <input type="text" class="form-control date-field" bsDatepicker>
+        </div>
+        <div class="form-group col-md-2">
+          <label>End Date</label>
+          <input type="text" class="form-control date-field" bsDatepicker>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Status</label>
+          <select class='form-control'>
+            <option>Active</option>
+            <option>Inactive</option>
+            <option>Draft</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row mt-10">
+        <!-- <div class="form-group col-md-2">
+            <label>Route Number</label>
+          </div> -->
+        <div class="form-group col-md-3">
+          <label>Route No</label>
+          <input type="text" class="form-control " placeholder="123">
+        </div>
+        <div class="form-group col-md-3">
+          <label>Route Name</label>
+          <input type="text" class="form-control " placeholder="route 1">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Shift</label>
+          <select class='form-control'>
+            <option>Morining</option>
+            <option>Evening</option>
+            <option>Both</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Distance in KM</label>
+          <input type="text" class="form-control" placeholder="12">
+        </div>
+        <div class="form-group col-md-2">
+          <label></label>Duration
+          <input type="text" class="form-control" placeholder="12">
+        </div>
+
+      </div>
+      <div class="form-row mt-10">
+        <!-- <div class="form-group col-md-2">
+            <label>Route Number</label>
+          </div> -->
+        <div class="form-group col-md-6">
+          <label>Route Start Location</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Two-Point</option>
+            <option>Multi-Point</option>
+
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Route End Location</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Sales</option>
+            <option>Production</option>
+          </select>
+        </div>
+
+
+      </div>
+      <div class="form-row mt-10">
+        <div class="form-group col-md-2">
+          <label>Estimated Qty </label>
+          <input type="text" class="form-control " placeholder="123">
+        </div>
+        <div class="form-group col-md-2">
+          <label> Payment Type </label>
+          <input type="text" class="form-control " placeholder="123">
+        </div>
+        <div class="form-group col-md-2">
+          <label> Amount </label>
+          <input type="text" class="form-control " placeholder="123">
+        </div>
+        <div class="form-group col-md-2">
+          <label> Extra Rate </label>
+          <input type="text" class="form-control " placeholder="123">
+        </div>
+        <div class="form-group col-md-3">
+          <label> Rate per KM</label>
+          <input type="text" class="form-control " placeholder="123">
+        </div>
+        <div class="form-group col-md-2">
+
+          <label> Description</label>
+        </div>
+        <div class="form-group col-md-10">
+          <input type="text" class="form-control " placeholder="">
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+    <div class="row mt-10">
+      <div class="col-xs-1 col-sm-1  pr-0">
+        <div class="cards bg-info">
+
+          <div class="form-group col-md-3">
+
+            <div class="shift">
+              <span>Shift</span> <br>
+              <strong>Morning</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-11 col-sm-11 pr-0 pl-10">
+        <div class="cards">
+          <div class="row">
+            <div class=" col-md-6">
+              <label>Start Time </label>
+              <input type="time" class="form-control " placeholder="">
+            </div>
+            <div class=" col-md-6">
+              <label> End Time </label>
+              <input type="time" class="form-control " placeholder="">
+            </div>
+          </div>
+          <div class="col-md-11 clearfix">
+
+            <ul class=' flex schduleweek'>
+
+              <li>
+                <a href="#">Select All</a>
+              </li>
+              <li><input type="checkbox" id="monday" class='weekday'> <label for="monday">Monday</label></li>
+              <li><input type="checkbox" id="tuesday" class='weekday'> <label for="tuesday">Tuesday</label></li>
+              <li><input type="checkbox" id="wednesday" class='weekday'><label for="wednesday">Wednesday</label> </li>
+              <li><input type="checkbox" id="thursday" class='weekday'><label for="thursday">Thursday</label> </li>
+              <li><input type="checkbox" id="friday" class='weekday'> <label for="friday">Friday</label></li>
+              <li><input type="checkbox" id="saturday" class='weekday'><label for="saturday">Saturday</label> </li>
+              <li><input type="checkbox" id="sunday" class='weekday'> <label for="sunday">Sunday</label></li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-12">
+        <div class="placeholder mt-10 clearfix">
+          <h4 class="pd-10 bg-info"> Assignment</h4>
+          <div class="form-row mt-10">
+
+            <div class="form-group col-md-3">
+              <label>Vehicle No</label>
+              <input type="text" class="form-control input-bl" placeholder='Capacity' Value="">
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Vehicle Type</label>
+              <select class='form-control'>
+                <option>select</option>
+                <option>vechile</option>
+
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label>Capacity</label>
+              <input type="text" class="form-control input-bl" placeholder='Amount' Value="">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Status</label>
+              <select class='form-control'>
+                <option>Active</option>
+                <option>Inactive</option>
+                <option>Draft</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label>Driver Name</label>
+              <input type="text" class="form-control input-bl" placeholder='Amount' Value="">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Vendor Number</label>
+              <select class='form-control'>
+                <option>select</option>
+                <option>2456</option>
+
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label>Transpoter Name</label>
+              <input type="text" class="form-control input-bl" placeholder='Amount' Value="">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Mobile Number</label>
+              <input type="text" class="form-control input-bl" placeholder='9110709089' Value="">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Status</label>
+              <select class='form-control'>
+                <option>Active</option>
+                <option>Inactive</option>
+                <option>Draft</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+  </tab>
+
+
+
+
+  <tab heading='Assign Route Points'>
+    <div class="placeholder clearfix pt-10 mt-0">
+      <h4 class="pd-10 bg-info">Two Way Route Point Assignment</h4>
+      <div class="form-row mt-10">
+        <div class="form-group col-md-3">
+          <label>Start Point</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Sales</option>
+            <option>Production</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Start Time</label>
+          <timepicker [(ngModel)]="startTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+        </div>
+        <div class="form-group col-md-3">
+          <label>End Point</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Sales</option>
+            <option>Production</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>End Time</label>
+          <timepicker [(ngModel)]="endTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+        </div>
+      </div>
+
+      <div class="form-row mt-10">
+        <div class="form-group col-md-3">
+          <label>Include Return?</label>
+          <select class="form-control">
+            <option>select</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Distance</label>
+          <input type="text" class="form-control input-bl" placeholder="KM">
+        </div>
+      </div>
+    </div>
+
+    <div class="placeholder pd-10 mt-10">
+      <h4 class="pd-10 bg-warning">Multi Route Point Assignment</h4>
+      <table class="table inwards">
+        <thead class="v-center">
+          <tr>
+            <th width="60px">Order</th>
+            <th width="120px">Point Type</th>
+            <th width="120px" class="text-center">Receiver Id</th>
+            <th class="text-center">Receiver Name</th>
+            <th class="text-center">Shipping Address</th>
+            <th width="130px" class="text-center">Arrival</th>
+            <th width="130px" class="text-center">Departure</th>
+          </tr>
+          <tr class="sub-head">
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <select class="form-control">
+                <option>CC</option>
+                <option>Dairy</option>
+                <option>BMC</option>
+                <option>Customer</option>
+                <option>Supplier</option>
+              </select>
+            </td>
+            <td><select class="form-control">
+                <option>2011</option>
+                <option>432</option>
+                <option>335</option>
+                <option>234</option>
+                <option>56</option>
+              </select></td>
+            <td>
+              <select class="form-control">
+                <option>Venkat</option>
+                <option>Ajaad</option>
+                <option>Vikas</option>
+                <option>Mahendar</option>
+                <option>Narindam</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control">
+                <option>8-2-341/A, Prasanth Nagar, Bengalore 500987</option>
+                <option>Anekal Chilling Center - Gate 1</option>
+              </select>
+            </td>
+            <td>
+              <timepicker [(ngModel)]="startTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+            </td>
+            <td>
+              <timepicker [(ngModel)]="endTime" [showMeridian]="false" [showSpinners]="false"></timepicker>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot class="hidden">
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="clearfix">
+      <button class="btn btn-bamul pull-right mt-10">Add More</button>
+    </div>
+    <div class="clearfix mt-10">
+      <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+      <button type="button" class="btn btn-bamul pull-right">Submit</button>
+    </div>
+
+
+  </tab>
+  <tab heading='Assign Vehicle'></tab>
+  <tab heading='Payment'>
+    <div class="placeholder clearfix pd-10 mt-10">
+      <div class="form-row mt-10">
+        <div class="form-group col-md-4">
+          <label>Payment Type</label>
+          <input type="text" class="form-control" placeholder="Payment Type">
+        </div>
+        <div class="form-group col-md-4">
+          <label>Payment Amount</label>
+          <input type="text" class="form-control" placeholder="Payment Amount">
+        </div>
+      </div>
+
+    </div>
+  </tab>
+  <tab heading='Schedule'>
+    <div class="placeholder clearfix pd-10 mt-10">
+      <div class="form-row mt-10">
+
+      </div>
+    </div>
+  </tab>
+</tabset>

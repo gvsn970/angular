@@ -1,0 +1,306 @@
+ <h1 class="page-header">View Milk Transfer</h1>
+ <tabset class="clearfix mt-10">
+   <tab heading="Milk Transfer Request">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="placeholder mt-0 clearfix">
+           <div class="form-row pt-10 mt-10">
+             <div class="form-group col-md-2">
+               <label>DC Number </label>
+               <input type="text" class="form-control input-bl" *ngIf="milkTransferListItemByChallanNo"
+                 value="{{milkTransferListItemByChallanNo.deliveryChallanNo}}" readonly>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Transfer Type</label>
+               <input type="text" class="form-control input-bl" *ngIf="milkTransferListItemByChallanNo"
+                 value="{{milkTransferListItemByChallanNo.requestType}}" readonly>
+             </div>
+             <div class="form-group col-md-3">
+               <label>Start Date & TIme</label>
+               <input type="text" class="form-control input-bl" *ngIf="milkTransferListItemByChallanNo"
+                 value="{{milkTransferListItemByChallanNo.requiredDate}} {{milkTransferListItemByChallanNo.requiredTime}}"
+                 readonly>
+             </div>
+             <div class="form-group col-md-3">
+               <label>Completed Date & TIme</label>
+               <input type="text" class="form-control input-bl" value="NA" readonly>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Status</label>
+               <select class="form-control" *ngIf="milkTransferListItemByChallanNo" disabled>
+                 <option selected *ngIf="milkTransferListItemByChallanNo.status==='U'">Under Process</option>
+                 <option selected *ngIf="milkTransferListItemByChallanNo.status==='N'">New</option>
+                 <option selected *ngIf="milkTransferListItemByChallanNo.status==='A'">Approved</option>
+                 <option selected *ngIf="milkTransferListItemByChallanNo.status==='I'">In Transit</option>
+                 <option selected *ngIf="milkTransferListItemByChallanNo.status==='R'">Receiving </option>
+                 <option selected *ngIf="milkTransferListItemByChallanNo.status==='C'">Completed</option>
+                 <!-- <option>Draft</option>
+                 <option>Requested</option>
+                 <option>In Process</option>
+                 <option selected>Completed</option> -->
+               </select>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="placeholder mt-10 clearfix">
+           <div class="form-row mt-10">
+             <div class="form-group col-md-4">
+               <label>Select Source</label>
+               <select class="form-control" *ngIf="sourceLocation" disabled>
+                 <option selected
+                   value="{{sourceLocation.orgCode}}-{{sourceLocation.subInvDesc}}-{{sourceLocation.locDescription}}">
+                   {{sourceLocation.orgCode}}-{{sourceLocation.subInvDesc}}-{{sourceLocation.locDescription}}
+                 </option>
+                 <!--chilling centers-->
+                 <!-- <option>Anekal Chilling Center</option>
+                 <option>Byrapatna Chilling Center</option>
+                 <option selected>Doddaballapura Chilling Center</option>
+                 <option>Hoskote Chilling Center</option>
+                 <option>Kanakapura Chilling Center</option>
+                 <option>Solur Chilling Center</option>
+                 <option>Vijyapura Chilling Center</option> -->
+
+               </select>
+             </div>
+
+             <div class="form-group col-md-4">
+               <label>Select Destination</label>
+               <select class="form-control" *ngIf="destinationLocation" disabled>
+                 <option selected
+                   value="{{destinationLocation.orgCode}}-{{destinationLocation.subInvDesc}}-{{destinationLocation.locDescription}}">
+                   {{destinationLocation.orgCode}}-{{destinationLocation.subInvDesc}}-{{destinationLocation.locDescription}}
+                 </option>
+                 <!-- <option selected>Bamul Mega Dairy</option>
+                 <option>Anekal Chilling Center</option>
+                 <option>Byrapatna Chilling Center</option>
+                 <option>Doddaballapura Chilling Center</option>
+                 <option>Hoskote Chilling Center</option>
+                 <option>Kanakapura Chilling Center</option>
+                 <option>Solur Chilling Center</option>
+                 <option>Vijyapura Chilling Center</option> -->
+               </select>
+             </div>
+           </div>
+
+           <div class="form-row mt-10">
+             <div class="form-group col-md-4">
+               <label>Requested Quantity (In Kg's)</label>
+               <input type="text" class="form-control input-bl" *ngIf="milkTransferListItemByChallanNo"
+                 value="{{milkTransferListItemByChallanNo.requiredQty}}" disabled>
+             </div>
+             <!-- <div class="form-group col-md-3">
+               <label>FAT %</label>
+               <input type="text" class="form-control input-bl" Value='4.2' disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>SNF %</label>
+               <input type="text" class="form-control input-bl" Value='5.2' disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>CLR</label>
+               <input type="text" class="form-control input-bl" Value='4.3' disabled>
+             </div> -->
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="placeholder mt-10 clearfix">
+
+           <div class="form-row mt-10">
+             <div class="form-group col-md-3">
+               <label>Received Quantity (In Kg's)</label>
+               <input type="text" class="form-control input-bl" value="NA" disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>FAT %</label>
+               <input type="text" class="form-control input-bl" *ngIf="milkTransferListItemByChallanNo"
+                 value={{milkTransferListItemByChallanNo.requiredFAT}} disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>SNF %</label>
+               <input type="text" class="form-control input-bl" *ngIf="milkTransferListItemByChallanNo"
+                 value={{milkTransferListItemByChallanNo.requiredSNF}} disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>CLR</label>
+               <input type="text" class="form-control input-bl" value='NA' disabled>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </tab>
+   <tab heading="Tranport Information">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="placeholder mt-0 clearfix">
+           <div class="form-row pt-10 mt-10">
+             <div class="form-group col-md-3">
+               <label>Vehicle Number</label>
+               <input type="text" class="form-control input-bl" value="{{vehicleNumber}}" disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>Driver Name</label>
+               <input type="text" class="form-control input-bl" value='{{driverName}}' disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Total KM</label>
+               <input type="text" class="form-control input-bl" value='NA' disabled>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="placeholder mt-10 clearfix">
+           <div class="form-row pt-10 mt-10">
+             <div class="form-group col-md-3">
+               <label>Vehicle Type</label>
+               <input type="text" class="form-control input-bl" value="NA" disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>No Of Compartments</label>
+               <input type="text" class="form-control input-bl" value="NA" disabled>
+             </div>
+             <div class="form-group col-md-3">
+               <label>Seal 1 No.</label>
+               <input type="text" class="form-control input-bl" value='' disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Seal 2 No.</label>
+               <input type="text" class="form-control input-bl" value='' disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Seal 3 No.</label>
+               <input type="text" class="form-control input-bl" value='' disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Back Seal No.</label>
+               <input type="text" class="form-control input-bl" value='' disabled>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </tab>
+   <tab heading="Security Information">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="placeholder mt-0 clearfix">
+           <div class="form-row pt-10 mt-10">
+             <div class="form-group col-md-4">
+               <label>Before Loading Vehicle Check</label>
+               <input type="text" class="form-control input-bl" Value="22-02-20 16:44:00" disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Seal Condition</label>
+               <input type="text" class="form-control input-bl" Value='Good' disabled>
+             </div>
+             <div class="form-group col-md-6">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+             <div class="form-group col-md-4">
+               <label>After Loading Vehicle Outward</label>
+               <input type="text" class="form-control input-bl" Value="22-02-20 16:44:00" disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Seal Condition</label>
+               <input type="text" class="form-control input-bl" Value='Good' disabled>
+             </div>
+             <div class="form-group col-md-6">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+             <div class="form-group col-md-4">
+               <label>On Destination Vehicle Inward</label>
+               <input type="text" class="form-control input-bl" Value="22-02-20 16:44:00" disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Seal Condition</label>
+               <input type="text" class="form-control input-bl" Value='Good' disabled>
+             </div>
+             <div class="form-group col-md-6">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+             <div class="form-group col-md-4">
+               <label>After Unloading on Destination Vehicle Outward</label>
+               <input type="text" class="form-control input-bl" Value="22-02-20 16:44:00" disabled>
+             </div>
+             <div class="form-group col-md-2">
+               <label>Seal Condition</label>
+               <input type="text" class="form-control input-bl" Value='Damage' disabled>
+             </div>
+             <div class="form-group col-md-6">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+           </div>
+
+         </div>
+       </div>
+     </div>
+   </tab>
+   <tab heading="Weighing Bridge">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="placeholder mt-0 clearfix">
+           <div class="form-row pt-10 mt-10">
+             <div class="form-group col-md-4">
+               <label>Before Loading Vehicle Tare Weight (Kg)</label>
+               <input type="text" class="form-control input-bl" Value="100000" disabled>
+             </div>
+             <div class="form-group col-md-8">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+             <div class="form-group col-md-4">
+               <label>After Loading Vehicle Gross Weight (Kg)</label>
+               <input type="text" class="form-control input-bl" Value="150000" disabled>
+             </div>
+             <div class="form-group col-md-8">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+             <div class="form-group col-md-4">
+               <label>On Destination Gross Weight (Kg)</label>
+               <input type="text" class="form-control input-bl" Value="150000" disabled>
+             </div>
+             <div class="form-group col-md-8">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+             <div class="form-group col-md-4">
+               <label>After Unload Vehicle Gross Weight (Kg)</label>
+               <input type="text" class="form-control input-bl" Value="100000" disabled>
+             </div>
+             <div class="form-group col-md-8">
+               <label>Remarks</label>
+               <input type="text" class="form-control input-bl" Value='no comments' disabled>
+             </div>
+           </div>
+
+         </div>
+       </div>
+     </div>
+   </tab>
+ </tabset>
+
+
+
+
+ <div class="clearfix mt-10">
+
+ </div>
+ <div class="clearfix mt-10">
+   <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+   <button type="button" class="btn btn-bamul pull-right mr-10">Edit & Update</button>
+ </div>

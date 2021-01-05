@@ -1,0 +1,198 @@
+<h1 class="page-header">Assign Adhoc Route Points</h1>
+<form [formGroup]="routeHeader" novalidate #f="ngForm" novalidate>
+    <div class="placeholder clearfix">
+        <div class="form-row clearfix mt-20 pt-10">
+            <div class="form-group col-md-2 required">
+                <label>Route No</label>
+                <input formControlName="routeNumber" type="text" class="form-control" value="">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Route Name</label>
+                <input formControlName="routeName" type="text" class="form-control" value="">
+            </div>
+            <div class="form-group col-md-2 required">
+                <label>Route Type</label>
+                <input formControlName="routeType" type="text" class="form-control" value="">
+            </div>
+            <div class="form-group col-md-2 required">
+                <label>Department</label>
+                <input formControlName="department" type="text" class="form-control" value="">
+            </div>
+            <div class="form-group col-md-2 required">
+                <label>Account Type</label>
+                <!-- <input formControlName="accountype" type="text" class="form-control" value=""> -->
+                <select (change)="setAccountType($event.target.value)" class="form-control" formControlName="accountype">
+          <option value="">Select</option>
+          <option [ngValue]='accountType.key' *ngFor='let accountType of accountTypeResponse'>{{accountType.key}}</option>
+        </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Shift</label>
+                <select type="text" class="form-control input-bl" formControlName='routeShift'>
+                    <!-- <option value="">Select</option> -->
+                    <option value="M">Morning</option>
+                    <option value="E">Evening</option>
+                </select>
+                <!-- <span>{{routeDetailsForHeader.routeShift}}</span> -->
+            </div>
+        </div>
+        <!-- <div class="form-row clearfix mt-20 pt-10">
+            <div class="form-group col-md-2 required">
+                <label>UOM</label>
+                <select type="text" class="form-control input-bl" [ngClass]="{ 'is-invalid':
+                      submitted && routeHeader.controls.unitOfMeasure.errors?.required }" formControlName='unitOfMeasure'>
+                  <option *ngFor='let uom of unitOfMeasureList' value="{{uom.value}}">
+                      {{uom.value}}</option>
+              </select>
+            </div>
+        </div> -->
+    </div>
+</form>
+
+<div class="placeholder pd-10 mt-10">
+    <div class="placeholder pd-10 mt-10">
+        <table cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Account No.</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Arrival</th>
+                    <th>Est. Qty</th>
+                    <th>UOM</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tr *ngFor="let item of itemArray,let in=index" class="example-box cursor-move" cdkDrag>
+                <td class="text-center cursor-move">{{in+1}}</td>
+                <td>{{item.routePointCode}}</td>
+                <td>{{item.routePointName}}</td>
+                <td>{{item.shippingAddress}}</td>
+                <td>{{item.expectedArrivalTime}}</td>
+                <td>{{item.estimatedquantity}}</td>
+                <td>
+                    <span class="text-center">{{routeHeader.controls.unitOfMeasure.value}}</span>
+                </td>
+                <td class="text-center cursor-move"><i class="fa fa-bars" aria-hidden="true"></i></td>
+            </tr>
+            <tr *ngIf="itemArray.length==0" class="example-box cursor-move">
+                <td class="text-center cursor-move" colspan="7"> No Record to display </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="placeholder pd-10 mt-10">
+    <h4 class="pd-10 bg-warning">Add A New Route Point</h4>
+    <form [formGroup]="CreateIndentLineItem" novalidate #f="ngForm" novalidate>
+        <table class="table inwards" formArrayName="newIndtLItem">
+            <thead class="v-center">
+                <tr>
+                    <th width="120px" class="text-center">Account Number</th>
+                    <th class="text-center">Account Name</th>
+                    <th class="text-center">Shipping Address</th>
+                    <th width="130px" class="text-center">Arrival</th>
+                    <th width="80px" class="text-center">Qty</th>
+                    <th width="80px" class="text-center">UOM</th>
+                    <th width="130px" class="text-center">Action</th>
+                </tr>
+                <tr class="sub-head">
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let field of CreateIndentLineItem.controls.newIndtLItem.controls;let in=index" [formGroupName]="in">
+                    <td>
+                        <!-- <input formControlName='accountNumber' (keyup)="getShipingDetails($event.target.value,in)" type="text" class="form-control" placeholder="Account Number"> -->
+                        <div class="ng-autocomplete w-100" *ngIf="accountType=='CUSTOMER'">
+                            <ng-autocomplete initialValue={{department}} formControlName="accountNumber" [data]="shippingDetails" [searchKeyword]="searchkeywordForAccountNumber" (selected)='selectEventForAccountNumer($event,in)' (inputChanged)='onChangeSearchForAccountNumber($event)'
+                                (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateVehicle" [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid':field.controls.accountNumber.errors && (field.controls.accountNumber.touched ||submited)}">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateVehicle let-item>
+                                <a [innerHTML]="item.accountNumber"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div>No Record Found</div>
+                            </ng-template>
+                        </div>
+                        <div class="ng-autocomplete w-100" *ngIf="accountType=='SUPPLIER'">
+                            <ng-autocomplete initialValue={{department}} formControlName="accountNumber" [data]="vendorDetail" [searchKeyword]="searchkeywordForVendorNumber" (selected)='selectEventForVendorNumber($event,in)' (inputChanged)='onChangeSearchForVendorNumber($event)'
+                                (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateVehicle" [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid':field.controls.accountNumber.errors && (field.controls.accountNumber.touched ||submited)}">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateVehicle let-item>
+                                <a [innerHTML]="item.vendorNum"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div>No Record Found</div>
+                            </ng-template>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ng-autocomplete w-100" *ngIf="accountType=='CUSTOMER'">
+                            <ng-autocomplete initialValue={{department}} formControlName="recieverName" [data]="searchResponse" [searchKeyword]="searchkeyword" (selected)='selectEvent($event,in)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateVehicle"
+                                [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid':field.controls.recieverName.errors && (field.controls.recieverName.touched ||submited)}">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateVehicle let-item>
+                                <a [innerHTML]="item.partyName"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div>No Record Found</div>
+                            </ng-template>
+                        </div>
+                        <div class="ng-autocomplete w-100" *ngIf="accountType=='SUPPLIER'">
+                            <ng-autocomplete initialValue={{department}} formControlName="recieverName" [data]="searchResponse" [searchKeyword]="searchkeyword" (selected)='selectEvent($event,in)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateVehicle"
+                                [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid':field.controls.recieverName.errors && (field.controls.recieverName.touched ||submited)}">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateVehicle let-item>
+                                <a [innerHTML]="item.vendorName"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div>No Record Found</div>
+                            </ng-template>
+                        </div>
+                        <!-- <input formControl Name="recieverName" type="text" class="form-control" value=""> -->
+                    </td>
+                    <td title="{{shippingAddressText}}">
+                        <select (change)="addressSelected($event.target.value,siteAddress[in],in)" formControlName='shippingAddress' class="form-control" [ngClass]="{ 'is-invalid':field.controls.shippingAddress.errors && (field.controls.shippingAddress.touched ||submited)}">
+                            <option value="">Select</option>
+                            <!-- <option [selected]="true" *ngFor="let address of siteAddress[in]" value="{{address.custAcctSiteId}}">{{address.address}}</option> -->
+                            <option *ngFor="let address of siteAddress[in]" value="{{address.custAcctSiteId}}">{{address.address}}</option>
+                        </select>
+                        <!-- <textarea title="{{shippingAddressText}}" rows="2" col="6" disabled formControlName="shippingAddressText" type="text" class="form-control" value=""></textarea> -->
+                    </td>
+                    <td>
+                        <timepicker formControlName='arrival' [showMeridian]="false" [showSpinners]="false" [ngClass]="{ 'is-invalid':field.controls.arrival.errors && (field.controls.arrival.touched ||submited)}">
+                        </timepicker>
+                    </td>
+                    <td>
+                        <input formControlName="estimatedQuantity" type="number" class="form-control" value="" [ngClass]="{ 'is-invalid':field.controls.estimatedQuantity.errors && (field.controls.estimatedQuantity.touched ||submited)}">
+                        <input formControlName="shipmentId" type="hidden" class="form-control" value="">
+                        <input formControlName="partyNumber" type="hidden" class="form-control" value="">
+                    </td>
+                    <td>
+                        <input disabled type="text" class="form-control" value="{{routeHeader.controls.unitOfMeasure.value}}">
+                    </td>
+                    <td>
+                        <button [disabled]="field.controls.estimatedQuantity.errors || field.controls.arrival.errors || field.controls.shippingAddress.errors || field.controls.recieverName.errors || field.controls.accountNumber.errors " type="button
+                            " (click)="addToList(in) " class="btn btn-bamul pull-left ">Add</button>
+                        <button type="button " (click)="remove(in) " class="btn btn-danger no-border pull-right ">Remove</button>
+                    </td>
+                </tr>
+                <tr *ngIf="CreateIndentLineItem.controls.newIndtLItem.controls.length==0 " class="example-box cursor-move ">
+                    <td class="text-center cursor-move " colspan="6 "> No Record to display </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </form>
+</div>
+<div class="clearfix ">
+    <button class="btn btn-bamul pull-right mt-10 " (click)="addNewRow() ">Add More</button>
+</div>
+<div class="clearfix mt-10 ">
+    <button type="button " (click)="navigateToList() " class="btn btn-secondary pull-left cancel-btn ">Back To List</button>
+    <button type="button " class="btn btn-bamul pull-right " (click)="createTripePoint() ">{{submitButtonLabel}}</button>
+</div>
+<ngx-spinner size="medium " type="ball-clip-rotate-pulse ">
+    <p style="color: white "> Loading... </p>
+</ngx-spinner>

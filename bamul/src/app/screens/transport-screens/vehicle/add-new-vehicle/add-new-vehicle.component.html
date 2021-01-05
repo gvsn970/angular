@@ -1,0 +1,487 @@
+<h1 class="page-header">Add New Vehicle</h1>
+<tabset #staticTabs>
+  <tab heading="Vehicle Information">
+    <form [formGroup]="Vehicle" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="placeholder pd-10 mt-0">
+            <span class="required_label">Required Fields ( <b>*</b> )</span>
+            <div class='row'>
+              <div class="col-md-12">
+                <div class="mt-10 py-15 clearfix">
+                  <div class="form-row mt-10">
+                    <div class="form-group col-md-3 required">
+                      <label>Registration Number</label>
+                      <input type="text" class="form-control input-bl" placeholder="Registration Number"
+                        formControlName="vehicleRegNumber" maxlength="12" (keyup)="toUpper($event.target.value)"
+                        (keypress)="alphanumbericOnly($event)"
+                        [ngClass]="{ 'is-invalid': submitted && f.vehicleRegNumber.errors ||f.vehicleRegNumber.touched && f.vehicleRegNumber.errors }" />
+
+
+
+
+                    </div>
+                    <div class="form-group col-md-3 required">
+                      <label>Registration State</label>
+                      <select type="text" class="form-control input-bl" formControlName="registrationState"
+                        [ngClass]="{ 'is-invalid': submitted && f.registrationState.errors ||f.registrationState.touched && f.registrationState.errors }">
+
+                        <option value="">Select State</option>
+                        <option *ngFor="let registrationState of allStCodeList " [value]='registrationState'>
+                          {{registrationState}}</option>
+                      </select>
+
+                    </div>
+                    <div class="form-group col-md-3 required">
+                      <label>Registration Date</label>
+                      <input type="text" class="form-control input-bl date-field" placeholder="Registration Date"
+                        formControlName="registrationDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY'
+                        }" [maxDate]='maxDate' [ngClass]="{ 'is-invalid': submitted && f.registrationDate.errors
+                        ||f.registrationDate.touched &&
+                        f.registrationDate.errors }">
+
+                    </div>
+
+                    <div class="form-group col-md-3 required">
+                      <label>Registration Valid Up To</label>
+                      <input type="text" class="form-control input-bl date-field" placeholder="Registration Date To"
+                        bsDatepicker formControlName="regPeriodTo" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                        [ngClass]="{ 'is-invalid': submitted && f.regPeriodTo.errors ||f.regPeriodTo.touched && f.regPeriodTo.errors }">
+                      <!-- <div *ngIf="error.isError" class="error">
+                        {{ error.errorMessage }}
+                      </div> -->
+                      <!-- <div *ngIf="f.regPeriodTo.errors.mustMatch"    class="error">Registration valid upto cannot be less than registration date</div> -->
+                    </div>
+
+
+                  </div>
+                  <!-- <div class="form-row mt-10">
+                    <div class="form-group col-md-4 required">
+                      <label>Registration From</label>
+                      <input type="text" class="form-control input-bl date-field" placeholder="Registration Date"
+                      formControlName="regPeriodFrom" bsDatepicker      [bsConfig]="datePickerConfig"
+                [ngClass]="{ 'is-invalid': submitted && f.regPeriodFrom.errors ||f.regPeriodFrom.touched && f.regPeriodFrom.errors }">
+                     
+                    </div>
+                    <div class="form-group col-md-3 required">
+                      <label>Registration Valid Up To</label>
+                      <input type="text" class="form-control input-bl date-field" placeholder="Registration Date To"
+                        bsDatepicker formControlName="regPeriodTo" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [minDate]='minDate'
+                        [ngClass]="{ 'is-invalid': submitted && f.regPeriodTo.errors ||f.regPeriodTo.touched && f.regPeriodTo.errors }">
+                      <div *ngIf="error.isError" class="error">
+                      {{ error.errorMessage }}
+                   </div>
+                    </div>
+
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="placeholder pd-10 mt-10">
+
+            <div class='row'>
+              <div class="col-md-12">
+                <div class="mt-10 py-15 clearfix">
+                  <div class="form-row mt-10">
+                    <div class="form-group col-md-4">
+                      <label>Vehicle Make</label>
+                      <!-- <input type="text" class="form-control input-bl" placeholder="Vehicle Make" formControlName="make"
+                        [ngClass]="{ 'is-invalid': submitted && f.make.errors ||f.make.touched && f.make.errors }"> -->
+                      <select type="text" class="form-control input-bl" formControlName="make">
+                        <option value="">Select</option>
+                        <option *ngFor='let vehicleMake of vehicleMakeList' [ngValue]='vehicleMake.value'>
+                          {{vehicleMake.value}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Vehicle Model</label>
+                      <input type="text" class="form-control input-bl" placeholder="Vehicle Model"
+                        (keypress)="alphanumbericOnly($event)" maxlength="10" formControlName="model">
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Vehicle Type</label>
+                      <select type="text" class="form-control input-bl" formControlName="vehicleType">
+                        <option value="">Select</option>
+                        <option *ngFor='let vehicleType of vechicleTypeList' [ngValue]='vehicleType.value'>
+                          {{vehicleType.value}}</option>
+                      </select>
+
+
+                    </div>
+                  </div>
+                  <div class="form-row mt-10">
+                    <div class="form-group col-md-4">
+                      <label>Vehicle Sub-Type</label>
+                      <input type="text" class="form-control input-bl" placeholder="Vehicle Sub-Type"
+                        formControlName="vehicleSubType" (keypress)="alphanumbericOnly($event)" maxlength="30">
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Vehicle Capacity</label>
+                      <input type="text" class="form-control input-bl" placeholder="Vehicle Capacity"
+                        formControlName="capacity" (keypress)="decimalOnly($event)" maxlength="4">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label>Capacity Units</label>
+                      <!-- <input type="text" class="form-control input-bl" placeholder="Capacity Units"
+                        formControlName="capacityUnits" (keypress)="numberOnly($event)"
+                        [ngClass]="{ 'is-invalid': submitted && f.capacityUnits.errors ||f.capacityUnits.touched && f.capacityUnits.errors }"> -->
+                      <select type="text" class="form-control input-bl" formControlName="capacityUnits">
+                        <option value="">Select</option>
+                        <option *ngFor='let capacityUnits of capacityUnitsList' [ngValue]='capacityUnits.value'>
+                          {{capacityUnits.value}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Vehicle Fuel Type </label>
+
+                      <select type="text" class="form-control input-bl" formControlName="fuelType">
+                        <option value="">Select</option>
+                        <option *ngFor="let fuelType of fuelTypeList" [ngValue]='fuelType.value'>{{fuelType.value}}
+                        </option>
+                      </select>
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Material Type</label>
+                      <input type="text" class="form-control input-bl" placeholder="Material Type"
+                        (keypress)="alphanumbericOnly($event)" maxlength="30" formControlName="materialType">
+
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label>Model Year</label>
+                      <input type="text" class="form-control input-bl " placeholder="Model Year"
+                        formControlName="modelYear" (keypress)="numberOnly($event)" maxlength="4">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- (onShown)="onOpenCalendar($event)"  -->
+          </div>
+        </div>
+      </div>
+      <div class="clearfix mt-10">
+        <button type="button" (click)='saveVehicleInfoCancel()'
+          class="btn btn-secondary pull-left cancel-btn">Cancel</button>
+        <button type="button" (click)='saveVehicleInfo()' class="btn btn-bamul pull-right">Save & Next</button>
+      </div>
+    </form>
+  </tab>
+
+  <tab heading="Vehicle Assignment ">
+    <form [formGroup]="VehicleAssignment" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="placeholder pd-10 mt-0">
+
+            <div class='row'>
+              <div class="col-md-12">
+                <div class="mt-10 py-15 clearfix">
+                  <div class="form-row mt-10">
+                    <div class="form-group col-md-4">
+                      <!-- <label>Transpoter</label> -->
+                      <label>Transporter Name</label>
+
+                      <div>
+                        <ng-autocomplete formControlName="vendorId" maxlength="12" placeholder="Registration Number"
+                          [data]="vehicleItemList" [searchKeyword]="vehicleListkeyword" (selected)='selectEvent($event)'
+                          (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                          [itemTemplate]="itemTemplateVehicle" [notFoundTemplate]="notFoundTemplate"
+                          [ngClass]="{ 'is-invalid':
+                          (vehicleAvailable==false) || (submitted && VehicleAssignment.controls.vendorId.errors?.required) }">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplateVehicle let-item>
+                          <a [innerHTML]="item.vendorName"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                          <div>No Record Found</div>
+                        </ng-template>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <!-- <label>Transpoter</label> -->
+                      <label>Ownership</label>
+                      <!-- <input type="text" class="form-control input-bl" placeholder="Transporter"
+                        formControlName="ownership"
+                        [ngClass]="{ 'is-invalid': submittedassign && g.ownership.errors ||g.ownership.touched && g.ownership.errors }"> -->
+                      <select type="text" class="form-control input-bl" formControlName="ownership">
+                        <option value="">Select</option>
+                        <option *ngFor="let vehicleOwnership of vehicleOwnershipList"
+                          [ngValue]='vehicleOwnership.value'>
+                          {{vehicleOwnership.value}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Driver</label>
+                      <!-- <input type="text" class="form-control input-bl" placeholder="Driver"
+                        formControlName="driverName"> -->
+                      <div class="ng-autocomplete w-100">
+                        <ng-autocomplete formControlName="driverName" [data]="driverItemList"
+                          [searchKeyword]="driverListkeyword" (selected)='selectDriverEvent($event)'
+                          (inputChanged)='onChangeSearchDriver($event)' (inputFocused)='onFocused($event)'
+                          [itemTemplate]="itemTemplateDriver" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplateDriver let-item>
+                          <!-- <a [innerHTML]="item.driverName"></a> - <a [innerHTML]="item.licenceNumber"></a> -->
+                          <a>
+                            <span [innerHTML]="item.driverName"></span> -
+                            <span [innerHTML]="item.licenceNumber"></span>
+                          </a>
+                          <!-- <a>{{item.driverName}}</a> -->
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                          <div>No Record Found</div>
+                        </ng-template>
+                      </div>
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Department Tagging</label>
+                      <select type="text" class="form-control input-bl" formControlName="departmentTagging">
+                        <option value="">Select</option>
+                        <option [ngValue]="departmentTagging.deptName" *ngFor="let departmentTagging of departments">
+                          {{departmentTagging.deptName}}</option>
+
+                      </select>
+
+
+                    </div>
+                  </div>
+                  <div class="form-row mt-10">
+                    <div class="form-group col-md-4">
+                      <label>Tender Rate</label>
+                      <input type="text" class="form-control input-bl" placeholder="Total Value"
+                        formControlName="tenderRate" (keypress)="decimalOnly($event)" maxlength="4">
+
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label>Tender Diesel Price </label>
+                      <input type="text" class="form-control input-bl" placeholder="Rate Per KM"
+                        formControlName="tenderDieselPrice" (keypress)="decimalOnly($event)" maxlength="4">
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Extra KM Rate</label>
+                      <input type="text" class="form-control input-bl" placeholder="Extra KM Rate"
+                        formControlName="extraKMRate" (keypress)="decimalOnly($event)" maxlength="6">
+
+                    </div>
+                  </div>
+                  <div class="form-row mt-10">
+                    <div class="form-group col-md-4">
+                      <label>GPS Device Number</label>
+                      <input type="text" class="form-control input-bl" placeholder="GPS Device Number"
+                        formControlName="gPSDeviceNumber" (keypress)="numberOnly($event)" maxlength="20">
+
+                    </div>
+
+
+                    <!-- <div class="form-group col-md-4">
+                      <label>Assignment From</label>
+                      <input type="text" class="form-control input-bl date-field" placeholder="Assignment From"
+                        [minDate]='minDate' formControlName="assignmentFromDate" bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Assignment Up To</label>
+                      <input type="text" class="form-control input-bl date-field" placeholder="Assignment Up To"
+                        formControlName="assignmenToDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                        [minDate]='minDate'
+                        [ngClass]="{ 'is-invalid': submittedassign && g.assignmenToDate.errors ||g.assignmenToDate.touched && g.assignmenToDate.errors }">
+
+                    </div> -->
+
+                    <div class="form-group col-md-4">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearfix mt-10">
+        <button type="button" (click)='saveVehicleAssignmentCancel()'
+          class="btn btn-secondary pull-left cancel-btn">Cancel</button>
+        <button type="button" (click)='saveVehicleAssignment()' [disabled]="vechicleAssignmentButton"
+          class="btn btn-bamul pull-right">Save & Next</button>
+      </div>
+    </form>
+  </tab>
+  <tab heading="Documents">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="placeholder clearfix pd-10 mt-0">
+          <form [formGroup]="VehicleDocuments">
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="w-50">Sr. No.</th>
+                    <th>Document Type</th>
+                    <th>Doc No </th>
+                    <!-- <th>Transportor</th> -->
+                    <th>Description</th>
+                    <th>Valid From</th>
+                    <th>Valid To</th>
+                    <th class='text-center w-200'>Action</th>
+                    <!-- <th class='text-center'>View Detail</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let control of VehicleDocuments.get('users').controls; let i=index" [formGroup]="control">
+                    <td>{{i+1}}</td>
+                    <td>
+                      <select type="text" class="form-control input-bl" formControlName="documentType"
+                        [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentType.errors }">
+                        <option value="">Select</option>
+                        <option *ngFor="let documentType of   documentTypeList" [ngValue]='documentType.value'>
+                          {{documentType.value}}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control input-bl" placeholder="No" formControlName='documentNumber'
+                        (keypress)="numberOnly($event)" maxlength="20"
+                        [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentNumber.errors }" />
+                    </td>
+                    <td>
+                      <input type="text" class="form-control input-bl" placeholder="Desc."
+                        formControlName='documentProviderName'
+                        [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentProviderName.errors }" />
+                    </td>
+                    <td>
+                      <input type="text" class="form-control input-bl date-field" placeholder="From" bsDatepicker
+                        formControlName='docValidateFrom' [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                        [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docValidateFrom.errors }" />
+                    </td>
+                    <td>
+                      <input type="text" class="form-control input-bl date-field" placeholder="To" bsDatepicker
+                        formControlName='docValidateTo' [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                        [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docValidateTo.errors }" />
+                    </td>
+                    <td>
+                      <!-- <div class="" style="display:inline-block;vertical-align: top;">
+                        <input type="file" class="custom-file-input" style="display: inline-block;
+    width: 44px;
+    vertical-align: top;" formControlName='fileUpload'
+                          [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                          (change)="upload($event.target.files,i,control)">
+                      </div> -->
+
+                      <div class="image-upload d-inline-block">
+                        <label for="file-input-{{i+1}}">
+                          <img src="../../../../../../assets/img/file-upload.png" />
+                        </label>
+
+                        <input id="file-input-{{i+1}}" type="file" class="custom-file-input"
+                          formControlName='fileUpload'
+                          [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                          (change)="upload($event.target.files,i,control)" />
+                      </div>
+                      <div class="d-inline-block">
+                        <button (click)='remove(i,control)' type="button"
+                          class="btn-sm btn-danger no-border">Delete</button>
+                      </div>
+
+                      <div class="d-inline-block">
+                        <button (click)='saveDoc(i,control)' [disabled]="control.value.saveDocument" type="button"
+                          class="btn btn-bamul btn-sm btn-vehicle-save">Save</button>
+                      </div>
+                    </td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <!-- <div class="form-row clearfix mt-10"
+              *ngFor="let control of VehicleDocuments.get('users').controls; let i=index" [formGroup]="control">
+              <div class="form-group col-md-2">
+ 
+
+                <select type="text" class="form-control input-bl" formControlName="documentType"
+                  [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentType.errors }">
+                  <option value="">Select</option>
+                  <option *ngFor="let documentType of   documentTypeList" [ngValue]='documentType.value'>
+                    {{documentType.value}}</option>
+                </select>
+
+
+              </div>
+              <div class="form-group col-md-2">
+
+                <input type="text" class="form-control input-bl" placeholder="No" formControlName='documentNumber'
+                  (keypress)="numberOnly($event)" maxlength="20"
+                  [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentNumber.errors }" />
+
+              </div>
+              <div class="form-group col-md-2">
+
+                <input type="text" class="form-control input-bl" placeholder="Desc."
+                  formControlName='documentProviderName'
+                  [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentProviderName.errors }" />
+
+              </div>
+              <div class="form-group col-md-2">
+
+                <input type="text" class="form-control input-bl date-field" placeholder="From" bsDatepicker
+                  formControlName='docValidateFrom' [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                  [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docValidateFrom.errors }" />
+
+              </div>
+              <div class="form-group col-md-2">
+
+                <input type="text" class="form-control input-bl date-field" placeholder="To" bsDatepicker
+                  formControlName='docValidateTo' [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                  [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docValidateTo.errors }" />
+
+              </div>
+              <div class="col-md-1  file-upload">
+                <input type="file" class="custom-file-input" formControlName='fileUpload'
+                  [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                  (change)="upload($event.target.files,i,control)">
+              </div>
+              <div class="col-md-1  delete ">
+                <button (click)='remove(i,control)' type="button" class="btn-sm btn-danger no-border">Delete</button>
+              </div>
+
+              <div class="col-md-1  save ">
+                <button (click)='saveDoc(i,control)' [disabled]="control.value.saveDocument" type="button"
+                  class="  btn btn-bamul btn-sm ">Save</button>
+              </div>
+            </div> -->
+            <div class="clearfix pl-15">
+              <!-- <a class="pull-left" ><u  >Add New Document</u></a> -->
+              <button type="button" (click)="addUser()" [disabled]="addNewRow" class="btn btn-bamul pull-right">Add New
+                Document</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </tab>
+</tabset>
+
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

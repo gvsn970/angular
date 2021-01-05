@@ -1,0 +1,63 @@
+ <h1 class="page-header">List Vehicles</h1>
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder clearfix mt-0">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-3">
+           <label>Search</label>
+           <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="clearfix mt-10"></div>
+ <div class="row">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder pt-20 mt-0">
+       <h2 class="sub-header hidden">Reports</h2>
+       <div class="table-responsive" *ngIf="vehicles.vehicles">
+         <table class="table">
+           <thead>
+             <tr>
+               <th>Sr. No.</th>
+               <th>vehicle Number</th>
+               <th>Material Type: </th>
+               <!-- <th>Transportor</th> -->
+               <th>vehicleType</th>
+               <th>vehicleSubType</th>
+               <th>Status</th>
+               <th class='text-center'>Edit</th>
+               <!-- <th class='text-center'>View Detail</th> -->
+             </tr>
+           </thead>
+           <tbody>
+             <tr
+               *ngFor='let veicle of vehicles.vehicles | paginate: { itemsPerPage: 10, currentPage: p, totalItems: vehicles?.totalRecords } let in =index'>
+               <td>{{in+1}}</td>
+
+               <td>{{veicle.vehicleRegNumber }}</td>
+               <td>{{veicle.materialType }}</td>
+               <!-- <td>{{veicles.driverName}}</td> -->
+               <td>{{veicle.vehicleType}}</td>
+               <td>{{veicle.vehicleSubType}}</td>
+               <td>{{veicle.status}}</td>
+               <td class='text-center'><a (click)='redirectTo("update-vehicle",veicle)'><i class="fa fa-pencil-square-o"
+                     aria-hidden="true"></i> Edit</a></td>
+               <!-- <td class='text-center'><a (click)='redirectToView("view-vehicle",veicle)'><i class="fa fa-search-plus"
+                     aria-hidden="true"></i> View More</a></td> -->
+             </tr>
+             <tr *ngIf="vehicles.vehicles.length==0">
+              <td class="text-center" colspan="7">No Record Found</td>
+            </tr>
+
+           </tbody>
+         </table>
+         <pagination-controls (pageChange)="pagechange($event)"></pagination-controls>
+       </div>
+     </div>
+   </div>
+ </div>
+ <ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+   <p style="color: white"> Loading... </p>
+ </ngx-spinner>

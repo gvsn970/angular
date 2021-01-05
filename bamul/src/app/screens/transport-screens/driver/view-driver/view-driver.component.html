@@ -1,0 +1,270 @@
+<h1 class="page-header">View   Driver</h1>
+<div>
+
+  <hr/>
+  <tabset #staticTabs>
+    <tab heading=" Driver ">
+      <form [formGroup]="Driver">
+        <div class="row">
+          <span class="required_label">Required Fields ( <b>*</b> )</span>
+          <div class="col-md-12">
+            <div class="placeholder clearfix pd-10 mt-0">
+              <div class="form-row clearfix mt-10">
+                <div class="form-group col-md-4 ">
+                  <label>Driver Name</label>
+                  <input type="text" class="form-control input-bl" placeholder="Driver Name" formControlName='driverName' 
+                  >
+                 
+                </div>
+                <div class="form-group col-md-3  ">
+                  <label>Mobile No.</label>
+                  <input type="text" class="form-control input-bl" placeholder="Mobile No" 
+                   formControlName='mobileNumber' >
+                
+                </div>
+                <div class="form-group col-md-2  ">
+                  <label>Date of Birth </label>
+                  <input type="text" class="form-control date-field" placeholder="DOB" formControlName='driverDateofBirth'
+               >
+                
+                </div>
+                <div class="form-group col-md-2   ">
+                  <label>Gender</label>
+                  <select class="form-control input-bl" formControlName="gender"
+                   >
+                    <option value="">Select</option>
+                    <option     [ngValue]='gender.value' *ngFor='let gender of genderList'>{{gender.value}}</option>
+                 
+                  </select>
+                
+                </div>
+  
+              </div>
+              <div class="form-row clearfix mt-10">
+                <div class="form-group col-md-8  ">
+                  <label>Address</label>
+                  <input type="text" class="form-control input-bl" placeholder="Address" formControlName="address"
+                                >
+                 
+  
+                </div>
+                <div class="form-group col-md-2   ">
+                  <label>State</label>
+                  <select class="form-control" formControlName="state"
+                 >
+                    <option value="">Select</option>
+                    <option *ngFor="let registrationState of allStCodeList " [ngValue]='registrationState.name'>
+                      {{registrationState.name}}</option>
+                  </select>
+                 
+                </div>
+             
+                <div class="form-group col-md-2  ">
+                  <label>City</label>
+                  <input type="text" class="form-control input-bl" placeholder="City" 
+                  formControlName='city' >
+                </div>
+               
+              </div>
+            </div>
+            <div class="placeholder clearfix pd-10 mt-10">
+              <div class="form-row mt-10">
+                <div class="form-group col-md-4  ">
+                  <label>Licence No</label>
+                  <input type="text" class="form-control input-bl" placeholder="Licence No"
+                    formControlName="licenceNumber" maxlength="17"
+                  >
+                </div>
+                <div class="form-group col-md-4   ">
+                  <label>Licence Expiry Date</label>
+                  <input type="text" class="form-control date-field" placeholder="Licence Expiry Date"
+                  
+                    formControlName="licenceExpDate"
+                  >
+                 
+                </div>
+                <div class="form-group col-md-4  required">
+                  <label>Licence Type</label>
+                  <select class="form-control" formControlName="licenceType"
+                    >
+                    <option value="">Select</option>
+                    <option>Heavy</option>
+                    <option  [ngValue]='licenceType.value'  *ngFor='let licenceType  of licenceTypeList'>{{licenceType.value}}</option>
+                  </select>
+                
+                </div>
+              </div>
+  
+              <div class="form-row mt-10">
+                <div class="form-group col-md-4  required">
+                  <label> Nominee  Name</label>
+                  <input type="text" class="form-control input-bl" placeholder=" Nominee  Name"
+                    formControlName="nomineeName"
+                   >
+                
+                </div>
+                <div class="form-group col-md-4  required">
+                  <label>Nominee DOB</label>
+                  <input type="text" class="form-control date-field" placeholder="Nominee DOB" 
+                    formControlName="nomineeDateoFBirth" 
+                   >
+                  
+                </div>
+                <div class="form-group col-md-4  required">
+                  <label>Nominee Relation</label>
+                  <select class="form-control" formControlName="nomineeRelation"
+                >
+                  <option value="">Select</option>
+                  <option     [ngValue]='nomineeRelation.value' *ngFor='let nomineeRelation of nomineeList'>{{nomineeRelation.value}}</option>
+                </select>
+  
+                 
+                </div>
+              </div>
+  
+              <div class="form-row mt-10">
+  
+                
+                <div class="form-group col-md-2  required"  >
+                  <label>Country</label>
+                  <select class="form-control" disabled=''>
+                    <option value="">India</option>
+                  </select>
+
+                </div>
+                <div class="form-group col-md-2  ">
+                  <label>Status</label>
+                  
+                  <select class="form-control" formControlName="status"
+                 >
+                  <option value="">Select</option>
+                  <option   [ngValue]='status.value' *ngFor='let status  of  validateSatusList'>{{status.value}}</option>
+            
+                </select>
+  
+  
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix mt-10">
+          <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+          <button type="button" (click)='updateDriver()' class="btn btn-bamul pull-right">View</button>
+        </div>
+      </form>
+  </tab>
+  <tab heading=" Assignment">
+    <form [formGroup]="DriverAssignments">
+      <div class="placeholder clearfix pd-10 mt-0">
+        <div class="form-row mt-10">
+          <div class="form-group col-md-3  ">
+            <label>Contractor Code</label>
+            <input type="text" class="form-control input-bl" placeholder="Contractor Code" formControlName="vendorId"
+          >
+           
+          </div>
+
+          <div class="form-group col-md-3  ">
+            <label>Department</label>
+            <select class="form-control input-bl" placeholder="Department" formControlName="department"
+        >
+            <option value="">Select</option>
+            <option  [ngValue]="department.deptName" *ngFor="let department of departments">{{department.deptName}}</option>
+         
+          </select>
+        
+
+          </div>
+          <div class="form-group col-md-2  ">
+            <label>Start Date</label>
+            <input type="text" class="form-control date-field" placeholder="Start Date" 
+              formControlName="startDate">
+          
+          </div>
+          <div class="form-group col-md-2  required">
+            <label>End Date</label>
+            <input type="text" class="form-control date-field" placeholder="End Date" 
+              
+         
+            formControlName="endDate" >
+
+          </div>
+        
+        </div>
+      </div>
+      <div class="clearfix mt-10">
+        <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+        <button type="button" (click)='updateDriverAssignments()' class="btn btn-bamul pull-right">View</button>
+      </div>
+    </form>
+  </tab>
+  <tab heading="Documents ">
+    <div class="placeholder clearfix pd-10 mt-0">
+      <form [formGroup]="Driverdocuments">
+        <div class="form-row clearfix mt-10" *ngFor="let control of  Driverdocuments.get('users').controls; let i=index"
+          [formGroup]="control">
+          <div class="form-group col-md-2  ">
+            <label>Document Type</label>
+            <select type="text" class="form-control input-bl" formControlName="documentType"
+                      
+                >    <option value="" >Select</option>
+                      <option *ngFor="let documentType of   documentTypeList" [ngValue]='documentType.value'>{{documentType.value}}</option>
+                    </select>
+           
+      
+          </div>
+          <div class="form-group col-md-2  ">
+            <label>Doc No</label>
+            <input type="text" class="form-control input-bl" placeholder="No" 
+            formControlName="documentNumber"    >
+            
+          </div>
+          <div class="form-group col-md-2  ">
+            <label> Provider Name</label>
+            <input type="text" class="form-control input-bl" placeholder="Desc." 
+            formControlName="documentProviderName" >
+         
+          </div>
+          <div class="form-group col-md-2  ">
+            <label>Valid From</label>
+            <input type="text" class="form-control input-bl date-field" placeholder="From"
+              formControlName="docStartDate">
+             
+          </div>
+          <div class="form-group col-md-2  ">
+            <label>Valid To</label>
+            <input type="text" class="form-control input-bl date-field" placeholder="To"
+             formControlName="docEndDate"
+              >
+             
+          </div>
+          <div class="form-group col-md-2  ">
+            <label>Valid To</label>
+            <input type="text" class="form-control input-bl date-field" placeholder="To"
+             formControlName="docEndDate"
+              >
+             
+          </div>
+      
+       
+
+        <div class="form-group col-md-2  ">
+          <button 
+            type="button" class="  btn btn-bamul btn-sm "  (click)='viewDoc()'>View</button>
+        </div>
+      </div>
+     
+      </form>
+    </div>
+
+  </tab>
+  </tabset>
+</div>
+
+
+
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

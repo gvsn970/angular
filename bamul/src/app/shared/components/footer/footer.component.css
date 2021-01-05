@@ -1,0 +1,11 @@
+.footer {
+  margin-top: 30px;
+  padding-bottom: 10px;
+  font-size: 12px;
+  color: #989898;
+}
+
+.footer a {
+  color: #666666;
+  text-decoration: underline;
+}

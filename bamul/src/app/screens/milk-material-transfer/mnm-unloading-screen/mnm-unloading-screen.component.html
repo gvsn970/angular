@@ -1,0 +1,437 @@
+<h1 class="page-header">Dispatch Unloading</h1>
+<div class="row">
+  <div class="col-xs-8 pr-10">
+    <div class="shift text-center">
+      <span>Shift</span>
+      <strong>Morning</strong>
+    </div>
+    <div class="placeholder mt-0 pd-10">
+      <address>
+        <span>Location : <strong>Anekal Co-Operative Soc.</strong></span>
+        <p>
+          Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+        </p>
+      </address>
+    </div>
+  </div>
+
+  <div class="col-xs-4 pl-0">
+    <div class="placeholder mt-0 pd-10">
+      <address>
+        <p>
+          <span>Date : <strong>
+              <app-date></app-date>
+            </strong></span>
+        </p>
+        <p><span>Time : </span><strong>
+            <app-clock></app-clock>
+          </strong></p>
+      </address>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="placeholder pd-5 mt-10">
+      <form>
+        <div class='row'>
+          <div class="col-md-12">
+            <form class="mt-10 py-15 clearfix" [formGroup]="SourceForm">
+              <div class="form-row mt-10">
+                <div class="form-group col-md-4">
+                  <label>From Source</label>
+                  <input [ngClass]="{ 'is-invalid':sf.FromSource.errors && (sf.FromSource.touched ||submited)}" formControlName='FromSource' type="text" class="form-control input-bl"
+                    placeholder="Dairy.Subinventory.Location">
+                </div>
+                <div class="form-group col-md-4">
+                   <label>To Source</label>
+                   <!-- <input [ngClass]="{ 'is-invalid':sf.ToSource.errors && (sf.ToSource.touched ||submited)}" formControlName='ToSource' type="text" class="form-control input-bl"
+                     placeholder="Dairy.Subinventory.Location"> -->
+                     <select class="form-control input-sm" formControlName='ToSource' [ngClass]="{ 'is-invalid':sf.ToSource.errors && (sf.ToSource.touched ||submited)}" (change)="getDistinctOrgId($event.target.value)">
+                      <option selected value="">From Location</option>
+                      <option *ngFor="let locationDetail of allLocationDetails"
+                        value="{{locationDetail.locationId}}">
+                        {{locationDetail.locationCode}}
+                      </option>
+                    </select>
+                 </div>
+                <div class="form-group col-md-4">
+                  <label>Request Type</label>
+                  <select [ngClass]="{ 'is-invalid':sf.requestType.errors && (sf.requestType.touched ||submited)}" formControlName='requestType' class="form-control input-sm">
+                    <option>Select</option>
+                    <option *ngFor="let milkTransferList of milkTransferType" [value]="milkTransferList.transferType">
+                     {{milkTransferList.description}}
+                   </option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6 pl-0">
+    <div class="placeholder pd-5 mt-10">
+      <form [formGroup]="milkChallanForm">
+        <div class='row'>
+          <div class="col-md-12">
+            <div class="mt-10 py-15 clearfix">
+              <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                  <label>Challan No.</label>
+                  <input [ngClass]="{ 'is-invalid':mc.challanNumber.errors && (mc.challanNumber.touched ||submited)}" formControlName='challanNumber' type="text" class="form-control input-bl"
+                    placeholder="auto Gen">
+                </div>
+                <div class="form-group col-md-3">
+                  <label>Status</label>
+                  <input [ngClass]="{ 'is-invalid':mc.status.errors && (mc.status.touched ||submited)}" formControlName='status' type="text" class="form-control input-bl" placeholder="Status">
+                </div>
+                <div class="form-group col-md-3">
+                  <label>Shift</label>
+                  <select [ngClass]="{ 'is-invalid':mc.shift.errors && (mc.shift.touched ||submited)}" formControlName='shift' class="form-control input-sm">
+                    <option>Select</option>
+                    <option value="M">Morning</option>
+                    <option Value="E">Evening</option>
+                  </select>
+                </div>
+                <!-- <div class="form-group col-md-3">
+                  <label>Time</label>
+                  <input [ngClass]="{ 'is-invalid':mc.time.errors && (mc.time.touched ||submited)}" formControlName='time' type="text" class="form-control input-bl" placeholder="Time">
+                </div> -->
+                <div class="form-group col-md-3">
+                   <label>Oracle Ref Id</label>
+                   <input [ngClass]="{ 'is-invalid':mc.soNumber.errors && (mc.soNumber.touched ||submited)}" formControlName='soNumber' type="text" class="form-control input-bl" placeholder="SO Number">
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="placeholder pd-5 mt-10">
+      <h3 class="subtitle">To Destination</h3>
+      <form [formGroup]="toDestinationForm">
+        <div class='row'>
+          <div class="col-md-12">
+            <div class="mt-10 py-15 clearfix">
+              <div class="form-row mt-10">
+                <div class="form-group col-md-4">
+                  <label>Dairy</label>
+                  <select [ngClass]="{ 'is-invalid':td.toDairy.errors && (td.toDairy.touched ||submited)}" class="form-control input-sm" formControlName='toDairy'
+                    (change)="getAllSubDestInvCodeByOrgId($event.target.value)">
+                    <option selected value="">Select Dairy</option>
+                    <option *ngFor="let sourceDairyList of sourceDairyData | keyvalue"
+                      value="{{sourceDairyList.value.invOrgDesc}}/{{sourceDairyList.value.organizationId}}/{{sourceDairyList.value.orgCode}}">
+                      {{sourceDairyList.value.invOrgDesc}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Inventory</label>
+                  <select [ngClass]="{ 'is-invalid':td.toInventory.errors && (td.toInventory.touched ||submited)}" class="form-control input-sm" formControlName='toInventory'
+                    (change)="getAllDestLocationBySubInvCode($event.target.value)">
+                    <option selected value="">Select Inventory</option>
+                    <option *ngFor="let destInventoryList of destInventoryData | keyvalue"
+                      value="{{destInventoryList.value.subInvDesc}}/{{destInventoryList.value.subInvCode}}">
+                      {{destInventoryList.value.subInvDesc}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Locator</label>
+                  <select [ngClass]="{ 'is-invalid':td.toLocation.errors && (td.toLocation.touched ||submited)}" class="form-control input-sm" formControlName='toLocation'>
+                    <option selected value="">Select Location</option>
+                    <option *ngFor="let destLocationList of destLocationData"
+                      value="{{destLocationList.locDescription}}/{{destLocationList.locatorId}}">
+                      {{destLocationList.locDescription}}
+                    </option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6 pl-0">
+    <div class="placeholder pd-5 mt-10">
+      <h3 class="subtitle">Loading Reading</h3>
+      <form [formGroup]="loadingForm">
+        <div class='row'>
+          <div class="col-md-12">
+            <div class="mt-10 py-15 clearfix">
+              <div class="form-row mt-10">
+                <div class="form-group col-md-4">
+                  <label>Tar Weight</label>
+                  <input [ngClass]="{ 'is-invalid':l.tarWeight.errors || (isGrossWeightCorrect==false) && (l.tarWeight.touched ||submited)}" formControlName='tarWeight' type="text" class="form-control input-bl"
+                    placeholder="Weight in Kg">
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Gross Weight</label>
+                  <input [ngClass]="{ 'is-invalid':l.grossWeight.errors && (l.grossWeight.touched ||submited)}" formControlName='grossWeight' type="text" class="form-control input-bl"
+                    placeholder="Weight in Kg">
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Net Weight</label>
+                  <input [ngClass]="{ 'is-invalid':l.netWeight.errors && (l.netWeight.touched ||submited)}" formControlName='netWeight' type="text" class="form-control input-bl"
+                    placeholder="Weight in Kg">
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="row" *ngIf="showCustomer">
+    <div class="col-md-12">
+      <div class="placeholder pd-10 mt-10">
+        <form [formGroup]="customerForm">
+          <table class="table inwards">
+            <thead class="v-center">
+              <tr>
+                <th>Customer Name</th>
+                <th>Shipping Details</th>
+                <th class="text-center">Contact Name</th>
+                <th class="text-center">Contact Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input [ngClass]="{ 'is-invalid':c.custName.errors && (c.custName.touched ||submited)}" formControlName='custName' type="text" class="form-control input-bl"
+                    placeholder="Customer Name"></td>
+                <td><input [ngClass]="{ 'is-invalid':c.custShipTo.errors && (c.custShipTo.touched ||submited)}" formControlName='custShipTo' type="text" class="form-control input-bl"
+                    placeholder="Customer Details"></td>
+                <td><input [ngClass]="{ 'is-invalid':c.custContactName.errors && (c.custContactName.touched ||submited)}" formControlName='custContactName' type="text" class="form-control input-bl"
+                    placeholder="Conatct Name"></td>
+                <td><input formControlName='custContactNo' type="text" class="form-control input-bl"
+                    placeholder="Contact No."></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="placeholder pd-10 mt-10">
+        <form [formGroup]="routDetailForm">
+           <div class="option-group">
+               <div class="form-check form-check-inline">
+                 <input (change)="routeRegister($event.target.value)" formControlName='registered' class="form-check-input" type="radio" value="register">
+                 <label class="form-check-label" for="inlineRadio1">Registered</label>
+               </div>
+               <div class="form-check form-check-inline">
+                 <input (change)="routeRegister($event.target.value)" formControlName='registered' class="form-check-input" type="radio" value="unregistered">
+                 <label class="form-check-label" for="inlineRadio2">Unregistered</label>
+               </div>
+             </div>
+          <table class="table inwards">
+            <thead class="v-center">
+              <tr>
+                <th>Route Type</th>
+                <th>Route No.</th>
+                <th class="text-center">Vehicle Number</th>
+                <th class="text-center">Driver</th>
+                <th class="text-center">Transportor</th>
+                <th class="text-center">Vehicle Type</th>
+                <th class="text-center">Capacity(Kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <!-- <input  type="text" class="form-control input-bl"
+                    placeholder="Route Type"> -->
+                    <select (change)="selectRouteType($event.target.value)" class="form-control input-sm" formControlName="routeType">
+                     <option selected>Select</option>
+                     <option *ngFor="let route of routeType" value="{{route.value}}">{{route.value}}</option>
+                   </select>
+                 </td>
+                <td>
+                  <!-- <input (keyup)="getRouteDetailsByRouteNumber($event.target.value)" formControlName="routeNumber" type="text" class="form-control input-bl"
+                    placeholder="Route No."> -->
+                    <select (change)="getRouteDetailsByRouteNumber($event.target.value)" class="form-control input-sm" formControlName="routeNumber">
+                       <option selected>Select</option>
+                       <option *ngFor="let route of routyeNumber"
+                       value="{{route.routeNumber}}">{{route.routeNumber}}</option>
+                     </select>
+                   </td>
+                <td><input [ngClass]="{ 'is-invalid':r.vehicleNumber.errors && (r.vehicleNumber.touched ||submited)}" formControlName="vehicleNumber" type="text" class="form-control input-bl"
+                    placeholder="Vehicle No."></td>
+                <td><input [ngClass]="{ 'is-invalid':r.driverName.errors && (r.driverName.touched ||submited)}" formControlName="driverName" type="text" class="form-control input-bl" placeholder="Driver">
+                </td>
+                <td><input [ngClass]="{ 'is-invalid':r.transporterName.errors && (r.transporterName.touched ||submited)}" formControlName="transporterName" type="text" class="form-control input-bl"
+                    placeholder="Transportor"></td>
+                <td><input [ngClass]="{ 'is-invalid':r.vehicleType.errors && (r.vehicleType.touched ||submited)}" formControlName="vehicleType" type="text" class="form-control input-bl"
+                    placeholder="Vehicle Type"></td>
+                <td><input [ngClass]="{ 'is-invalid':r.capacity.errors && (r.capacity.touched ||submited)}" formControlName="capacity" type="text" class="form-control input-bl" placeholder="Capacity">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="placeholder clearfix mt-10 pd-0">
+             <form [formGroup]="MaterialForm" novalidate #f="ngForm" novalidate>
+               <div class="form-group pl-10 pt-10 pr-10 pb-5">
+                   <label>Material Type</label>
+                   <select formControlName='materialType' class="form-control input-sm">
+                     <option>Select</option>
+                     <option *ngFor="let materialType of materialTypeDetails" value="{{materialType.category}}">
+                       {{materialType.category}}
+                     </option>
+                   </select>
+                 </div>
+             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="placeholder pd-10 mt-10">
+        <form [formGroup]="CreateIndentLineItem" novalidate #f="ngForm" novalidate>
+          <table class="table inwards" formArrayName="newIndtLItem">
+            <thead class="bg-info v-center">
+              <tr>
+                <th rowspan="2">Comp.</th>
+                <th rowspan="2">Material Code</th>
+                <th rowspan="2">Material Description</th>
+                <th rowspan="2">UOM</th>
+                <th rowspan="2">QTY</th>
+                <th class="text-center bordered" colspan="5">Loading Reading</th>
+                <th rowspan="2">Seal No.</th>
+                <th rowspan="2">Remarks</th>
+              </tr>
+              <tr>
+                <th class="text-center">TEMP</th>
+                <th class="text-center">Acidity</th>
+                <th class="text-center">CLR</th>
+                <th class="text-center">FAT</th>
+                <th class="text-center">SNF</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let field of CreateIndentLineItem.controls.newIndtLItem.controls;let in=index"
+                [formGroupName]="in">
+                <td>
+                  <select [ngClass]="{ 'is-invalid':field.controls.compartment.errors && (field.controls.compartment.touched ||submited)}" formControlName='compartment' class="form-control input-bl">
+                    <option *ngFor="let compartment of compartments" [value]="compartment.key">{{compartment.value}}</option>
+                  </select>
+                </td>
+                <td>
+                  <!-- <input [ngClass]="{ 'is-invalid':field.controls.marterialCode.errors && (field.controls.marterialCode.touched ||submited)}" formControlName='marterialCode' type="text" class="form-control input-bl"
+                    placeholder="Material Code"> -->
+                   <select [ngClass]="{ 'is-invalid':field.controls.marterialCode.errors && (field.controls.marterialCode.touched ||submited)}" (click)="setDescription(in,$event.target.value)" formControlName='marterialCode' class="form-control input-bl">
+                     <option *ngFor="let requestTypeList of requestTypeData;let dropindex=index" [value]="requestTypeList.itemCode">{{requestTypeList.itemCode}}</option>
+                   </select>
+               </td>
+                <td><input [ngClass]="{ 'is-invalid':field.controls.materialDescription.errors && (field.controls.materialDescription.touched ||submited)}" formControlName='materialDescription' type="text" class="form-control input-bl"
+                    placeholder="Material Desc">
+                </td>
+                <td>
+                  <!-- <input [ngClass]="{ 'is-invalid':field.controls.uom.errors && (field.controls.uom.touched ||submited)}" formControlName='uom' type="text" class="form-control input-bl" placeholder="UOM"> -->
+                  <select [ngClass]="{ 'is-invalid':field.controls.uom.errors && (field.controls.uom.touched ||submited)}" formControlName='uom' class="form-control input-bl">
+                     <option *ngFor="let uom of uomList" [value]="uom.uom">{{uom.uom}}</option>
+                   </select>
+                 </td>
+                <td><input [ngClass]="{ 'is-invalid':field.controls.quantity.errors && (field.controls.quantity.touched ||submited)}" formControlName='quantity' type="number" class="form-control input-bl" placeholder="QTY"></td>
+                <td><input [ngClass]="{ 'is-invalid':field.controls.temp.errors && (field.controls.temp.touched ||submited)}" formControlName='temp' type="number" class="form-control input-bl" placeholder="Temp"></td>
+                <td><input [ngClass]="{ 'is-invalid':field.controls.acidity.errors && (field.controls.acidity.touched ||submited)}" formControlName='acidity' type="number" class="form-control input-bl" placeholder="Acidity">
+                </td>
+                <td><input (keyup)="snfCalculate(in)" [ngClass]="{ 'is-invalid':field.controls.clr.errors && (field.controls.clr.touched ||submited)}" formControlName='clr' type="number" class="form-control input-bl" placeholder="CLR"></td>
+                <td><input (keyup)="snfCalculate(in)" [ngClass]="{ 'is-invalid':field.controls.fat.errors && (field.controls.fat.touched ||submited)}" formControlName='fat' type="number" class="form-control input-bl" placeholder="FAT"></td>
+                <td><input [ngClass]="{ 'is-invalid':field.controls.snf.errors && (field.controls.snf.touched ||submited)}" formControlName='snf' type="number" class="form-control input-bl" placeholder="SNF"></td>
+                <td><input [ngClass]="{ 'is-invalid':field.controls.sealNumber.errors && (field.controls.sealNumber.touched ||submited)}" formControlName='sealNumber' type="text" class="form-control input-bl"
+                    placeholder="Seal No."></td>
+                <td><input [ngClass]="{ 'is-invalid':field.controls.remarks.errors && (field.controls.remarks.touched ||submited)}" formControlName='remarks' type="text" class="form-control input-bl" placeholder="Remarks">
+                 <input formControlName='dChTtemNo' type="hidden" class="form-control input-bl" placeholder="Remarks">
+                 <input formControlName='itemId' type="hidden" class="form-control input-bl" placeholder="Remarks">
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+        </form>
+      </div>
+      <div class="clearfix">
+
+        <button class="btn btn-bamul pull-right mt-10" (click)="addNewRow()">Add More</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="placeholder pd-10 mt-10">
+        <form [formGroup]="approveForm">
+          <table class="table inwards">
+            <thead class="v-center">
+              <tr>
+                <th>Operator Approved By</th>
+                <th>Quality Approved By</th>
+                <th class="text-center">Manager Approved By</th>
+                <th class="text-center">Security Approved By</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input formControlName="operatorName" type="text" class="form-control input-bl"
+                    placeholder="Operator Name"></td>
+                <td><input formControlName="qualityName" type="text" class="form-control input-bl"
+                    placeholder="Quality Name"></td>
+                <td><input formControlName="managerName" type="text" class="form-control input-bl"
+                    placeholder="Manager Name"></td>
+                <td><input formControlName="securityName" type="text" class="form-control input-bl"
+                    placeholder="Security Name."></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="placeholder clearfix mt-10 pd-0">
+            <div class="form-group pl-10 pt-10 pr-10 pb-5">
+              <label>Remarks</label>
+              <textarea [(ngModel)]="remarks" class="form-control input-bl"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="clearfix mt-10">
+    <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+    <button type="button" class="btn btn-bamul pull-right" (click)="submit()">Submit</button>
+  </div>
+  <ng4-loading-spinner> </ng4-loading-spinner>

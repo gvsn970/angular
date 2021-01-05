@@ -1,0 +1,184 @@
+<h1 class="page-header">Route Sheet List</h1>
+
+   
+<div class="row"  *ngIf="dispatch; else notShow">
+  <div class="col-xs-12 col-sm-12">
+    <div class="placeholder pt-20 mt-0">
+      <h2 class="sub-header hidden">Reports</h2>
+      <div class="table-responsive">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-4">
+           <label>Route Number</label>
+           <input type="text" class="form-control" placeholder="Number"   [(ngModel)]="searchText" (click)="openDialog()" >
+         </div>
+         <!-- <div class="form-group col-md-4">
+           <label>Shift</label>
+           <select class="form-control"  [(ngModel)]="sel" name="sel">
+             <option>select</option>
+             <option value="positionOpt">{{positionOpt.shift}}</option>
+             <option *ngFor="let positionOpt of positionSelect" [ngValue]="positionOpt.shift">{{positionOpt.shift}}</option>
+           </select>
+         </div> -->
+         <div class="form-group col-md-4">
+           <label>Shift</label>
+           <input type="text" class="form-control" placeholder="Shift"   [(ngModel)]="searchText"  >
+         </div>
+         <div class="form-group col-md-4">
+           <label>Date</label>
+           <input type="text" class="form-control" placeholder="Date"  value="{{setDob}}"  disabled='' >
+         </div>
+       </div>
+         
+          
+        
+
+
+        <table class="table">
+          <thead>
+            <tr>             
+           
+              <th>Route Number</th>
+              <th>Shift</th>
+              <th>Shipping Date</th>
+            
+             
+              <!-- <th class='text-center'>Edit</th>
+              <th class='text-center'>View Detail</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of routeLst | dataFiltering: {routeNo: searchText, shift:searchText}; let i=index;">
+              <td><a (click)='redirectTo(i)'>{{i.routeNo}}</a  ></td>
+              
+              <td>{{i.shift}}</td>
+              <td>{{i.reportDate}}</td>
+              <!-- <td class='text-center'><a ><i class="fa fa-search-plus" aria-hidden="true"></i> View More</a></td> -->
+             
+              <!-- <td class='text-center'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</td>
+              <td class='text-center'><i class="fa fa-search-plus" aria-hidden="true"></i> View More</td> -->
+            </tr>
+            
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- <h1 class="page-header">Add New Route Point</h1> -->
+<ng-template #notShow>
+<form >
+ <div class="row">
+   <div class="col-md-12" style="margin-top: 50px;">
+     <div class="placeholder clearfix mt-0">
+       <div class="form-row mt-10">
+
+         <div class="form-group col-md-3 route-sheet" >
+
+           <h2 class="sub-header">Route No:</h2>
+           <h2 class="sub-header"><strong>{{routeNo}}</strong></h2>
+
+         </div>
+
+         <div class="form-group col-md-3 route-sheet">
+           <h2 class="sub-header">Shift: </h2>
+           <h2 class="sub-header"><strong>{{Shift}}</strong> </h2>
+         </div>
+         
+
+         <div class="form-group col-md-3 route-sheet">
+
+           <h2 class="sub-header">Date: </h2>
+           <h2 class="sub-header"><strong>{{parCrates}}</strong> </h2>
+
+         </div>
+         <div class="form-group col-md-3 route-sheet">
+
+           <h2 class="sub-header">Status: </h2>
+           <h2 class="sub-header"><strong>Active</strong> </h2>
+
+         </div>
+         <div class="form-group col-md-3 route-sheet">
+
+           <h2 class="sub-header">Truck No: </h2>
+           <h2 class="sub-header"><strong>1234</strong> </h2>
+
+         </div>
+         <div class="form-group col-md-3 route-sheet">
+
+           <h2 class="sub-header">Driver No: </h2>
+           <h2 class="sub-header"><strong>DR-0623</strong> </h2>
+
+         </div>
+       </div>
+     </div>
+
+
+   </div>
+ </div>
+
+
+
+ <!-- <h1 class="page-header">Route Point List</h1> -->
+
+ <div class="row">
+   <div class="col-xs-12 col-sm-12" style="margin-top: 50px;">
+     <div class="placeholder pt-20 mt-0">
+       <h2 class="sub-header hidden">Reports</h2>
+       <div class="table-responsive">
+         <table class="table">
+           <thead>
+             <tr>
+               <th>Products:</th>
+               <th>UOM</th>
+               <th>Quantity</th>
+               <th>Full Crates</th>
+               <th>Extra Packets</th>
+               <th>Partial Crates</th>
+               <!-- <th>Partial Crates</th> -->
+
+               <!-- <th class='text-center'>Edit</th>
+              <th class='text-center'>View Detail</th> -->
+             </tr>
+           </thead>
+           <tbody>
+
+             <tr *ngFor="let i  of listItem let in =index">
+
+               <td>{{i.item}}</td>
+
+               <td>{{i.uom}}</td>
+               <td>{{i.quantity}}</td>
+
+               <td>{{i.fullCrates}}</td>
+               <td>{{i.extraCrates}}</td>
+               <td>{{i.parCrates}}</td>
+               <!--               
+              <td class='text-center'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</td>
+              <td class='text-center'><i class="fa fa-search-plus" aria-hidden="true"></i> View More</td> -->
+             </tr>
+
+
+
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+ <div class="clearfix mt-10">
+   
+   <!-- <button type="button" class="btn btn-secondary pull-left">Cancel</button> -->
+   <button type="button" class="btn btn-bamul pull-right"   (click)='save()'>Confirm</button>
+ </div>
+</form >
+</ng-template>

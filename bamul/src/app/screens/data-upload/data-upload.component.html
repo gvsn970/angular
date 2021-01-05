@@ -1,0 +1,37 @@
+<h1 class="page-header">Upload Data File</h1>
+<div class="row">
+  <div class="col-md-12"[formGroup]="uploadDataFile" >
+    <div class="placeholder clearfix mt-0">
+      <div class="form-row mt-10">
+        <div class="form-group col-md-3">
+          <label>File Format</label>
+          <select class="form-control"   formControlName='fileFormat'  (click)='fileFormatSelected()'
+          [ngClass]="{ 'is-invalid': submitted && f.fileFormat.errors }">
+            <!-- <option value="CSV">Other</option> -->
+            <!-- <option value="XLS">Excel Sheet</option>
+            <option value="CSV">Comma Seperated</option>
+            <option value="SQL">SQL File</option> -->
+            <option value="">Select  Bank Type</option>
+            <option *ngFor="let fileFormat of  fileFormatList " [ngValue]="fileFormat">{{fileFormat}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3"  *ngIf='file'>
+          <label>Upload</label>
+          <input type="file" class="form-control"formControlName='uploadfile' 
+          [ngClass]="{ 'is-invalid': submitted && f.uploadfile.errors }" (change)="upload($event.target.files);" accept=".xls,.xlsx" />
+        </div>
+        <div class="form-group col-md-12 text-right"><br />
+          <button type="button" class="btn btn-secondary">Reset</button>&nbsp;
+          <button type="button" class="btn btn-primary"  (click)='initiateTransfer()'>Initiate Transfer</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="clearfix mt-10"></div>
+
+
+
+<ng4-loading-spinner>
+</ng4-loading-spinner>

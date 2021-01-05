@@ -1,0 +1,43 @@
+.placeholder {
+    background: #fff;
+    margin-top: 20px;
+    box-shadow: 0 0 5px #e2e2e2;
+    display: table;
+    width: 100%;
+}
+
+.mt-0 {
+    margin-top: 0px !important
+}
+
+.ml-1 {
+    margin-left: 1px;
+}
+
+.pd-20 {
+    padding: 20px;
+}
+
+ul.parent-list>li>label {
+    display: block;
+    margin: 0 5px;
+    padding: 10px 0;
+    color: #91d1ff;
+    border-bottom: 1px dashed #91d1ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+ul.parent-list>li>ul {
+    padding-left: 15px;
+}
+
+ul.parent-list>li {
+    border-bottom: 1px solid #1776a1;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.dashboard-sidebar {
+    margin-top: 10px;
+}

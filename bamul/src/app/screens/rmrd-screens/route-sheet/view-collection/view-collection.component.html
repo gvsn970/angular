@@ -1,0 +1,167 @@
+ <h1 class="page-header">View Collection</h1>
+ <div class="row">
+   <div class="col-xs-8 pr-10">
+     <div class="shift text-center">
+       <span>Shift</span>
+       <strong>Morning</strong>
+     </div>
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <span>Location :  <strong>Anekal Chilling Center - Gate 1</strong></span>
+         <p>
+           Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+         </p>
+       </address>
+     </div>
+   </div>
+   <div class="col-xs-4 pl-0">
+     <div class="placeholder mr-0 mt-0 pd-10">
+       <div class="form-group clearfix mr-0 pd-10 form-inline">
+         <label>Date : &nbsp;&nbsp;&nbsp;</label>
+         <input type="text" class="form-control date-field" [bsValue]="orderdate" bsDatepicker>
+
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder mt-10 clearfix">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-2">
+           <label>Route No.</label>
+           <select class="form-control">
+
+             <option>210</option>
+             <option>212</option>
+             <option>213</option>
+           </select>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Vehicle Number</label>
+           <input type="text" class="form-control input-bl" Value="KA-11-CD3465" readonly>
+         </div>
+         <div class="form-group col-md-4">
+           <label>Society Code & Name</label>
+           <select class="form-control">
+
+             <option>2012 - Venkat Co Operative Society</option>
+             <option>Illedan Society </option>
+             <option>Anekal Chilling Center</option>
+
+           </select>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Accepted Cans</label>
+           <input type="text" class="form-control input-bl" Value=68 readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Quantity (In Liters)</label>
+           <input type="text" class="form-control input-bl" Value=520 readonly>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder pd-10 mt-10">
+       <table class="table inwards">
+         <thead class="v-center">
+           <tr>
+             <th width="120px">Sample No.</th>
+             <th>Milk Type</th>
+             <th class="text-center">No. of Cans</th>
+             <th class="text-center">Weight</th>
+             <th>CLR</th>
+             <th>FAT %</th>
+             <th>SNF %</th>
+             <th class="text-center">Remarks</th>
+           </tr>
+           <tr class="sub-head">
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td><input type="number" min="0" class="form-control input-bl" Value=124 disabled /></td>
+             <td>
+               <select class="form-control" disabled>
+                 <option>Good Milk</option>
+                 <option>COB</option>
+               </select>
+             </td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=12
+                 [attr.disabled]="disabled ? '' : null" /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=460
+                 [attr.disabled]="disabled ? '' : null" /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=13 disabled /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=5.9 disabled /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=4.5 disabled /></td>
+             <td><input type="text" class="form-control input-bl" Value='ok' [attr.disabled]="disabled ? '' : null" />
+             </td>
+           </tr>
+           <tr>
+             <td><input type="number" min="0" class="form-control input-bl" Value=125 disabled /></td>
+             <td>
+               <select class="form-control" disabled>
+                 <option>Good Milk</option>
+                 <option>COB</option>
+               </select>
+             </td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=12
+                 [attr.disabled]="disabled ? '' : null" /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=460
+                 [attr.disabled]="disabled ? '' : null" /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=13 disabled /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=5.9 disabled /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=4.5 disabled /></td>
+             <td><input type="text" class="form-control input-bl" Value='ok' [attr.disabled]="disabled ? '' : null" />
+             </td>
+
+           </tr>
+           <tr>
+             <td><input type="number" min="0" class="form-control input-bl" Value=126 disabled /></td>
+             <td>
+               <select class="form-control" disabled>
+                 <option>Good Milk</option>
+                 <option>COB</option>
+               </select>
+             </td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=12
+                 [attr.disabled]="disabled ? '' : null" /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=460
+                 [attr.disabled]="disabled ? '' : null" /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=13 disabled /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=5.9 disabled /></td>
+             <td><input type="number" min="0" class="form-control input-bl" Value=4.5 disabled /></td>
+             <td><input type="text" class="form-control input-bl" Value='ok' [attr.disabled]="disabled ? '' : null" />
+             </td>
+           </tr>
+
+
+         </tbody>
+         <tfoot>
+           <tr>
+             <th></th>
+             <th></th>
+             <th>Total Cans: <strong>41</strong></th>
+             <th colspan="5"><strong class="pull-left">Total Weight:</strong> <strong class="pull-right">440</strong>
+             </th>
+           </tr>
+         </tfoot>
+       </table>
+     </div>
+   </div>
+ </div>
+ <div class="clearfix mt-10">
+
+ </div>
+ <div class="clearfix mt-10">
+   <button routerLink="../view-route-sheet" routerLinkActive="active" type="button"
+     class="btn btn-secondary pull-left">Back</button>
+   <button (click)='updateMe()' [ngClass]="edit ? 'hidden' : 'show'" type="button"
+     class="btn btn-warning pull-right mr-10">Update</button>
+   <button (click)='allowEdit()' [ngClass]="edit ? 'show' : 'hidden'" type="button"
+     class="btn btn-bamul pull-right mr-10">Edit</button>
+ </div>

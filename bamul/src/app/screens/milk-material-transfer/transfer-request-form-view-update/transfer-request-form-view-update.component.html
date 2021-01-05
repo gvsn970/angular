@@ -1,0 +1,578 @@
+ <h1 class="page-header">Transfer Request Forms</h1>
+ <form [formGroup]="addMoreMnm" novalidate #f="ngForm">
+   <div class="row">
+     <div class="col-xs-8 pr-10">
+       <div class="shift text-center">
+         <span>Shift</span>
+         <strong>Morning</strong>
+       </div>
+       <div class="placeholder mt-0 pd-10">
+         <address>
+           <span>Base Location:<strong *ngIf="this.userDetails">{{this.userDetails.locationName}}</strong></span>
+           <p>
+             Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+           </p>
+         </address>
+       </div>
+     </div>
+
+     <div class="col-xs-4 pl-0">
+       <div class="placeholder mt-0 pd-10">
+         <address>
+           <p>
+             <span>Date : <strong>
+                 <app-date></app-date>
+               </strong></span>
+           </p>
+           <p><span>Time : </span><strong>
+               <app-clock></app-clock>
+             </strong></p>
+         </address>
+       </div>
+     </div>
+   </div>
+
+   <div class="row">
+     <div class="col-md-7">
+       <div class="placeholder pd-5 mt-10">
+
+         <div class='row'>
+           <div class="col-md-12">
+             <div class="mt-10 py-15 clearfix">
+               <div class="form-row mt-10">
+                 <div class="form-group col-md-3">
+                   <label>Requester</label>
+                   <input *ngIf="this.userDetails" type="text" class="form-control input-bl" placeholder="Requester"
+                     value="{{this.userDetails.employeeName}}" disabled>
+                 </div>
+                 <div class="form-group col-md-3">
+                   <label>Department</label>
+                   <select disabled class="form-control input-sm" [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.department.errors?.required }" formControlName='department'>
+                     <option selected value="">Select Department</option>
+                     <option *ngFor="let departmentList of departmentDetails" [value]="departmentList.deptId">
+                       {{departmentList.deptName}}
+                     </option>
+                   </select>
+                 </div>
+                 <div class="form-group col-md-3">
+                   <label>Request Type</label>
+                   <select disabled class="form-control input-sm" (change)="requestTypeChange($event.target.value)"
+                     [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.requestType.errors?.required }" formControlName='requestType'>
+                     <option selected value="">Select Request Type</option>
+                     <option *ngFor="let milkTransferList of milkTransferType" [value]="milkTransferList.transferType">
+                       {{milkTransferList.description}}
+                     </option>
+                   </select>
+                 </div>
+                 <div class="form-group col-md-3">
+                   <label>Oracle Ref Id</label>
+                   <input type="text" class="form-control input-bl" placeholder="Oracle id" [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.sOnumber.errors?.required }" formControlName='sOnumber'
+                     (blur)="getShippingDetails($event.target.value)">
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+       </div>
+     </div>
+     <div class="col-md-5 pl-0">
+       <div class="placeholder pd-5 mt-10">
+         <div class='row'>
+           <div class="col-md-12">
+             <div class="mt-10 py-15 clearfix">
+               <div class="form-row mt-10">
+                 <!-- <div class="form-group col-md-3">
+                   <label>Challan No.</label>
+                   <input type="text" class="form-control input-bl" placeholder="auto Gen" disabled>
+                 </div> -->
+                 <div class="form-group col-md-4">
+                   <label>Date</label>
+                   <!-- <input type="text" class="form-control input-bl date-field"   placeholder="date"
+                     bsDatepicker [bsConfig]="datePickerConfig"> -->
+                   <input type="text" [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.recordCreationDate.errors?.required }" placeholder="Date"
+                     value='{{sysDate}}' class="form-control date-field" bsDatepicker
+                     formControlName="recordCreationDate" [bsConfig]="datePickerConfig">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label>Shift</label>
+                   <select class="form-control input-sm" [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.shift.errors?.required }" formControlName='shift'>
+                     <option value="">Select</option>
+                     <option value="M">Morning</option>
+                     <option value="E">Evening</option>
+                   </select>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label>Status</label>
+                   <input type="text" value="Under Progress" class="form-control input-bl" placeholder="Time" disabled>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+       </div>
+     </div>
+   </div>
+
+   <!-- <div class="row">
+     <div class="col-md-6">
+       <div class="placeholder pd-5 mt-10">
+         <h3 class="subtitle">From Source</h3>
+
+         <div class='row'>
+           <div class="col-md-12">
+             <div class="mt-10 py-15 clearfix">
+               <div class="form-row mt-10">
+                 <div class="form-group col-md-4">
+                   <label>Dairy</label>
+                   <select disabled class="form-control input-sm" formControlName='fromDairy' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.fromDairy.errors?.required }"
+                     (change)="getAllSubInvCodeByOrgId($event.target.value)">
+                     <option selected value="">Select Dairy</option>
+                     <option *ngFor="let sourceDairyList of sourceDairyData | keyvalue"
+                       value="{{sourceDairyList.value.invOrgDesc}}/{{sourceDairyList.value.organizationId}}/{{sourceDairyList.value.orgCode}}">
+                       {{sourceDairyList.value.invOrgDesc}}
+                     </option>
+                   </select>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label>Inventory</label>
+                   <select disabled class="form-control input-sm" formControlName='fromInventory' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.fromInventory.errors?.required }"
+                     (change)="getAllLocationBySubInvCode($event.target.value)">
+                     <option selected value="">Select Inventory</option>
+                     <option *ngFor="let sourceInventoryDataList of sourceInventoryData | keyvalue"
+                       value="{{sourceInventoryDataList.value.subInvDesc}}/{{sourceInventoryDataList.value.subInvCode}}">
+                       {{sourceInventoryDataList.value.subInvDesc}}
+                     </option>
+                   </select>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label>Location</label>
+                   <select disabled class="form-control input-sm" formControlName='fromLocation' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.fromLocation.errors?.required }">
+                     <option selected value="">Select Location</option>
+                     <option *ngFor="let sourceLocationList of sourceLocationData"
+                       value="{{sourceLocationList.locDescription}}/{{sourceLocationList.locatorId}}">
+                       {{sourceLocationList.locDescription}}
+                     </option>
+                   </select>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="col-md-6 pl-0" *ngIf="!salesView">
+       <div class="placeholder pd-5 mt-10">
+         <h3 class="subtitle">To Destination</h3>
+         <div>
+           <div class='row'>
+             <div class="col-md-12">
+               <div class="mt-10 py-15 clearfix">
+                 <div class="form-row mt-10">
+                   <div class="form-group col-md-4">
+                     <label>Dairy</label>
+                     <select class="form-control input-sm" formControlName='toDairy' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.toDairy.errors?.required }"
+                       (change)="getAllSubDestInvCodeByOrgId($event.target.value)">
+                       <option selected value="">Select Dairy</option>
+                       <option *ngFor="let sourceDairyList of sourceDairyData | keyvalue"
+                         value="{{sourceDairyList.value.invOrgDesc}}/{{sourceDairyList.value.organizationId}}/{{sourceDairyList.value.orgCode}}">
+                         {{sourceDairyList.value.invOrgDesc}}
+                       </option>
+                     </select>
+                   </div>
+                   <div class="form-group col-md-4">
+                     <label>Inventory</label>
+                     <select class="form-control input-sm" formControlName='toInventory' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.toInventory.errors?.required }"
+                       (change)="getAllDestLocationBySubInvCode($event.target.value)">
+                       <option selected value="">Select Inventory</option>
+                       <option *ngFor="let destInventoryList of destInventoryData | keyvalue"
+                         value="{{destInventoryList.value.subInvDesc}}/{{destInventoryList.value.subInvCode}}">
+                         {{destInventoryList.value.subInvDesc}}
+                       </option>
+                     </select>
+                   </div>
+                   <div class="form-group col-md-4">
+                     <label>Location</label>
+                     <select class="form-control input-sm" formControlName='toLocation' [ngClass]="{ 'is-invalid':
+                        submitted && addMoreMnm.controls.toLocation.errors?.required }">
+                       <option selected value="">Select Location</option>
+                       <option *ngFor="let destLocationList of destLocationData"
+                         value="{{destLocationList.locDescription}}/{{destLocationList.locatorId}}">
+                         {{destLocationList.locDescription}}
+                       </option>
+                     </select>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div> -->
+   <div class="row">
+     <div class="col-md-4">
+       <div class="placeholder pd-5 mt-10">
+         <h3 class="subtitle">Material Type</h3>
+         <div class='row'>
+           <div class="col-md-12">
+             <div class="mt-10 py-15 clearfix">
+               <div class="form-row">
+                 <div class="col-md-12">
+
+                   <div class="form-group pr-10 pb-5">
+
+                     <select (change)="getMaterilCodeDescription($event.target.value)" class="form-control input-sm" [ngClass]="{ 'is-invalid':
+                         submitted && addMoreMnm.controls.materialType.errors?.required }"
+                       formControlName='materialType'>
+                       <option selected value="">Select Material Type</option>
+                       <option *ngFor="let materialType of materialTypeDetails" value="{{materialType.category}}">
+                          {{materialType.category}}
+                        </option>
+                     </select>
+                   </div>
+
+                 </div>
+                 <!-- <div class="form-group col-md-4">
+                  <label>From Location</label>
+                  <select class="form-control input-sm" formControlName='fromDairy' [ngClass]="{ 'is-invalid':
+                       submitted && addMoreMnm.controls.fromDairy.errors?.required }"
+                    (change)="getAllSubInvCodeByOrgId($event.target.value)">
+                    <option selected value="">Select From Location</option>
+                    <option *ngFor="let sourceDairyList of sourceDairyData | keyvalue"
+                      value="{{sourceDairyList.value.invOrgDesc}}/{{sourceDairyList.value.organizationId}}/{{sourceDairyList.value.orgCode}}">
+                      {{sourceDairyList.value.invOrgDesc}}
+                    </option>
+                  </select>
+                </div> -->
+                 <!-- <div class="form-group col-md-4">
+                  <label>Inventory</label>
+                  <select class="form-control input-sm" formControlName='fromInventory' [ngClass]="{ 'is-invalid':
+                       submitted && addMoreMnm.controls.fromInventory.errors?.required }"
+                    (change)="getAllLocationBySubInvCode($event.target.value)">
+                    <option selected value="">Select Inventory</option>
+                    <option *ngFor="let sourceInventoryDataList of sourceInventoryData | keyvalue"
+                      value="{{sourceInventoryDataList.value.subInvDesc}}/{{sourceInventoryDataList.value.subInvCode}}">
+                      {{sourceInventoryDataList.value.subInvDesc}}
+                    </option>
+                  </select>
+                </div> -->
+                 <!-- <div class="form-group col-md-4">
+                  <label>Location</label>
+                  <select (change)="getSourceLocationVal($event.target.value)" class="form-control input-sm"
+                    formControlName='fromLocation' [ngClass]="{ 'is-invalid':
+                       submitted && addMoreMnm.controls.fromLocation.errors?.required }">
+                    <option selected value="">Select Location</option>
+                    <option *ngFor="let sourceLocationList of sourceLocationData"
+                      value="{{sourceLocationList.locDescription}}/{{sourceLocationList.locatorId}}">
+                      {{sourceLocationList.locDescription}}
+                    </option>
+                  </select>
+                </div> -->
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="col-md-8 pl-0">
+       <div class="placeholder pd-5 mt-10">
+         <h3 class="subtitle">Location</h3>
+         <div>
+           <div class='row'>
+             <div class="col-md-12">
+               <div class="mt-10 py-15 clearfix">
+                 <div class="form-row">
+                   <div class="form-group col-md-6">
+                     <!-- <label>From Location</label> -->
+                     <select class="form-control input-sm" formControlName='fromDairy' [ngClass]="{ 'is-invalid':
+                             submitted && addMoreMnm.controls.fromDairy.errors?.required }"
+                       (change)="getAllSubInvCodeByOrgIdForDropdown($event.target.value)">
+                       <option selected value="">From Location</option>
+                       <option *ngFor="let locationDetail of allLocationDetails"
+                         value="{{locationDetail.locationId}}/{{locationDetail.locationCode}}">
+                         {{locationDetail.locationCode}}
+                       </option>
+                     </select>
+                   </div>
+                   <div class="form-group col-md-6" *ngIf="!salesView">
+                     <!-- <label>To Location</label> -->
+                     <select class="form-control input-sm" formControlName='toDairy' [ngClass]="{ 'is-invalid':
+                       submitted && addMoreMnm.controls.toDairy.errors?.required }"
+                       (change)="getAllSubDestInvCodeByOrgId($event.target.value)">
+                       <option selected value="">To Location</option>
+                       <option *ngFor="let locationDetail of allLocationDetails"
+                         value="{{locationDetail.locationId}}/{{locationDetail.locationCode}}">
+                         {{locationDetail.locationCode}}
+                       </option>
+                     </select>
+                   </div>
+                   <!-- <div class="form-group col-md-4">
+                    <label>Inventory</label>
+                    <select class="form-control input-sm" formControlName='toInventory' [ngClass]="{ 'is-invalid':
+                       submitted && addMoreMnm.controls.toInventory.errors?.required }"
+                      (change)="getAllDestLocationBySubInvCode($event.target.value)">
+                      <option selected value="">Select Inventory</option>
+                      <option *ngFor="let destInventoryList of destInventoryData | keyvalue"
+                        value="{{destInventoryList.value.subInvDesc}}/{{destInventoryList.value.subInvCode}}">
+                        {{destInventoryList.value.subInvDesc}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>Location</label>
+                    <select class="form-control input-sm" formControlName='toLocation' [ngClass]="{ 'is-invalid':
+                       submitted && addMoreMnm.controls.toLocation.errors?.required }">
+                      <option selected value="">Select Location</option>
+                      <option *ngFor="let destLocationList of destLocationData"
+                        value="{{destLocationList.locDescription}}/{{destLocationList.locatorId}}">
+                        {{destLocationList.locDescription}}
+                      </option>
+                    </select>
+                  </div> -->
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="row" *ngIf="salesView">
+     <div class="col-md-12">
+       <div class="placeholder pd-10 mt-10">
+         <table class="table inwards">
+           <thead class="v-center">
+             <tr>
+               <th>Customer Name</th>
+               <th>Shipping Details</th>
+               <th>Account No.</th>
+               <th class="text-center">Contact Name</th>
+               <th class="text-center">Contact Number</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td><input disabled *ngIf="shippingDetails" type="text" class="form-control input-bl"
+                   placeholder="Customer Name" value="{{shippingDetails.partyName}}" formControlName='custName'></td>
+               <td><input disabled *ngIf="shippingDetails" type="text" class="form-control input-bl"
+                   placeholder="Customer Details" value="{{shippingDetails.siteAddress}}" formControlName='custShipTo'>
+               </td>
+               <td><input disabled *ngIf="shippingDetails" type="text" class="form-control input-bl"
+                   placeholder="Account Number" value="{{shippingDetails.accountNumber}}" formControlName='accountNo'>
+               </td>
+               <td><input type="text" class="form-control input-bl" placeholder="Conatct Name"
+                   formControlName='custContactName'>
+               </td>
+               <td><input type="text" class="form-control input-bl" placeholder="Contact No."
+                   formControlName='custContactNo'></td>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+   <!-- <div class="row">
+     <div class="col-md-12">
+       <div class="row">
+         <div class="col-md-4">
+           <div class="placeholder clearfix mt-10 pd-0">
+             <div class="form-group pl-10 pt-10 pr-10 pb-5">
+               <label>Material Type</label>
+               <select class="form-control input-sm">
+                 <option>Select</option>
+                 <option>Milk & Cream</option>
+               </select>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div> -->
+
+   <div class="row">
+     <div class="col-md-12">
+       <div class="placeholder pd-10 mt-10">
+         <table class="table inwards" formArrayName="newIndtLItem">
+           <thead class="v-center">
+             <tr>
+               <th class="w-85">Sr. No.</th>
+               <th class="w-245">Material Code & Description</th>
+               <th>Inventory</th>
+               <th>Location</th>
+               <!-- <th class="text-center">Material Description</th> -->
+               <th class="text-center">UOM</th>
+               <th class="text-center">QTY</th>
+               <th class="text-center" *ngIf="salesView">Seal No.</th>
+               <th>Remarks</th>
+               <th class="w-85">Delete</th>
+             </tr>
+           </thead>
+           <tbody>
+             <!-- <tr>
+               <td>1.</td>
+               <td><input type="text" class="form-control input-bl" placeholder="Material Code"></td>
+               <td><input type="text" class="form-control input-bl" placeholder="Material Desc"></td>
+               <td><input type="text" class="form-control input-bl" placeholder="UOM"></td>
+               <td><input type="text" class="form-control input-bl" placeholder="QTY"></td>
+               <td><input type="text" class="form-control input-bl" placeholder="Remarks"></td>
+             </tr> -->
+             <tr *ngFor="let field  of  addMoreMnm.controls.newIndtLItem.controls;let in=index" [formGroupName]="in">
+               <td><input type="text" class="form-control input-bl" value="{{in+1}}" disabled />
+               </td>
+               <td>
+
+                 <!-- <input [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.materialCode.errors?.required }" formControlName='materialCode'
+                     type="text" class="form-control input-bl" /> -->
+
+                 <select
+                   (change)="getUOMVal($event.target.value,in,addMoreMnm.controls.newIndtLItem.controls,'afterInit')"
+                   class="form-control input-sm" [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.materialCodeDesc.errors?.required }"
+                   formControlName='materialCodeDesc'>
+                   <option selected value="">Select Material Code & Description</option>
+                   <option *ngFor="let requestTypeList of requestTypeData"
+                     value="{{requestTypeList.itemId}}/{{requestTypeList.itemCode}}/{{requestTypeList.itemDescription}}">
+
+                     {{requestTypeList.itemCode}}-{{requestTypeList.itemDescription}}
+                   </option>
+                 </select>
+
+               </td>
+               <td>
+                 <!-- <select class="form-control input-sm" formControlName='fromSubinvCode'
+                   (change)="getAllLocationBySubInvCode($event.target.value,in,addMoreMnm.controls.newIndtLItem.controls,field)">
+                   <option selected value="">Select Inventory</option>
+                   <option *ngFor="let sourceInventoryDataList of sourceInventoryData[in] | keyvalue;let in=index"
+                     value="{{sourceInventoryDataList.value.subinventoryCode}}">
+                     {{sourceInventoryDataList.value.inventoryLocationDescription}}
+                   </option>
+                 </select> -->
+                 <select class="form-control input-sm" formControlName='fromSubinvCode' [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.fromSubinvCode.errors?.required }"
+                   (change)="getAllLocationBySubInvCode($event.target.value,in,addMoreMnm.controls.newIndtLItem.controls,field)">
+                   <option selected value="">Select Inventory</option>
+                   <!-- <option *ngFor="let sourceInventoryDataList of sourceInventoryData[in] | keyvalue;let in=index"
+                     value="{{sourceInventoryDataList.value.subinventoryCode}}">
+                     {{sourceInventoryDataList.value.inventoryLocationDescription}}
+                   </option> -->
+                   <ng-container *ngIf="field.value.dpItemInv">
+                     <option *ngFor="let invList of field.value.dpItemInv"
+                       value="{{invList.subinventoryCode}}/{{invList.inventoryLocationId}}">
+                       {{invList.inventoryLocationDescription}}
+                     </option>
+                   </ng-container>
+                 </select>
+               </td>
+               <td>
+                 <select class="form-control input-sm" formControlName='fromLocDesc' [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.fromLocDesc.errors?.required }">
+
+                   <ng-container *ngIf="field.value.dpItemLoc">
+                     <option selected value="">Select Location</option>
+                     <option *ngFor="let locList of field.value.dpItemLoc" value="{{locList.locationId}}">
+                       {{locList.inventoryLocationDescription}}
+                     </option>
+                   </ng-container>
+                 </select>
+
+               </td>
+               <!-- <td>
+                   <input type="text" [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.materialDesc.errors?.required }" class="form-control input-bl"
+                     placeholder="Material Desc" formControlName='materialDesc'>
+                 </td> -->
+               <td>
+                 <!-- <input disabled [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.Uom.errors?.required }" formControlName='Uom' type="text" min="0"
+                   class="form-control input-bl" placeholder="UOM" onkeypress="return (event.charCode ==
+                   8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode
+                   <= 57" /> -->
+                 <select class="form-control input-sm" name="Uom" formControlName='Uom'
+                   [ngClass]="{ 'is-invalid': submitted && field.controls.Uom.errors}">
+                   <option selected value="">Select UOM</option>
+                   <!-- <option *ngFor="let UOMList of UOMVal" value="{{UOMList.uom}}">
+                     {{UOMList.uom}}
+                   </option> -->
+                   <ng-container *ngIf="field.value.dp">
+                     <option *ngFor="let UOMList of field.value.dp" value="{{UOMList.uom}}">
+                       {{ UOMList.uom}}
+                     </option>
+                   </ng-container>
+                 </select>
+                 <!-- <div *ngIf="submitted && field.controls.total_weight.errors?.required" style='color:red'>Required </div> -->
+               </td>
+               <td><input [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.Qty.errors?.required }" maxlength="6" formControlName='Qty'
+                   type="number" class="form-control input-bl" placeholder="QTY" (keypress)="checkInput($event)">
+                 <!-- <div *ngIf="submitted && field.controls.number_of_cans.errors?.required" style='color:red'>Required </div> -->
+               </td>
+               <td *ngIf="salesView"><input formControlName='sealNumber' type="text" class="form-control
+                        input-bl" placeholder="Seal Number" onkeypress="return (event.charCode ==
+                   8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode
+                   <= 57" [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.sealNumber.errors?.required }" />
+               </td>
+               <td><input formControlName='remarks' type="text" class="form-control input-bl" placeholder="Remarks" />
+               </td>
+               <td class="m4 del-icon">
+                 <i (click)="openModal(DeleteConfirm,in,field)" class="fa fa-trash" aria-hidden="true"></i>
+                 <ng-template #DeleteConfirm>
+                   <div class="modal-body text-center">
+                     <h4>Do you want to confirm Delete?</h4>
+                     <br />
+                     <div class="clearfix">
+                       <button type="button" class="btn btn-primary pull-left" (click)="confirm(in,field)">Yes</button>
+                       <button type="button" class="btn btn-default.pull-right" (click)="decline()">No</button>
+                     </div>
+                   </div>
+                 </ng-template>
+
+               </td>
+             </tr>
+             <tr *ngIf="addMoreMnm.controls.newIndtLItem.controls.length==0" class="example-box cursor-move">
+               <td class="text-center cursor-move" colspan="8"> No Record to display </td>
+             </tr>
+
+           </tbody>
+
+         </table>
+       </div>
+       <div class="clearfix">
+
+         <button class="btn btn-bamul pull-right mt-10" (click)="addMoreItem()">Add More</button>
+       </div>
+     </div>
+   </div>
+
+   <div class="row">
+     <div class="col-md-12">
+       <div class="row">
+         <div class="col-md-12">
+           <div class="placeholder clearfix mt-10 pd-0">
+             <div class="form-group pl-10 pt-10 pr-10 pb-5">
+               <label>Remarks</label>
+               <textarea class="form-control input-bl" formControlName='requiredRemarks' [ngClass]="{ 'is-invalid':
+               submitted && addMoreMnm.controls.requiredRemarks.errors?.required }"></textarea>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </form>
+ <div class="clearfix mt-10">
+   <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+   <button type="button" (click)="postmilkTransferData(f)" class="btn btn-bamul pull-right">Submit</button>
+ </div>

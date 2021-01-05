@@ -1,0 +1,212 @@
+<h1 class="page-header">Sales Order Hold Information(Manager)</h1>
+<div class="row">
+  <div class="col-xs-2 pr-10">
+   <div class="placeholder clearfix mt-0 pd-0">
+     <div class="form-group mr-0 pl-10 pt-10 pr-10 pb-5">
+     
+       <label>Warehouse</label>
+       <select class="form-control input-sm">
+         <option>Select</option>
+         <option>R</option>
+       </select>
+     </div>
+   </div>
+  </div>
+  <div class="col-xs-2 pl-0">
+    <div class="placeholder clearfix mt-0 pd-0">
+      <div class="form-group mr-0 pl-10 pt-10 pr-10 pb-5">
+        <label>Shift</label>
+        <select class="form-control"  [(ngModel)]="searchText" name="sel">
+          <option value="">Select Shift</option>
+       
+          <option *ngFor="let positionOpt of positionSelect" [ngValue]="positionOpt.shift">{{positionOpt.shift}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-2 pl-0">
+   <div class="placeholder clearfix mt-0 pd-0">
+     <div class="form-group mr-0 pl-10 pt-10 pr-10 pb-5">
+       <label>Route No</label>
+       <select class="form-control input-sm">
+         <option>Select</option>
+         <option>R-212</option>
+       </select>
+     </div>
+   </div>
+ </div>
+  <div class="col-xs-3 pl-0">
+   <div class="placeholder clearfix mt-0 pd-0">
+     <div class="form-group mr-0 pl-10 pt-10 pr-10 pb-5">
+       <label>Coustomer Code</label>
+       <select class="form-control input-sm">
+         <option>Select</option>
+         <option>R-212</option>
+       </select>
+     </div>
+   </div>
+ </div>
+ <div class="col-xs-3 pl-0">
+  <div class="placeholder clearfix mt-0 pd-0">
+    <div class="form-group mr-0 pl-10 pt-10 pr-10 pb-5">
+
+ <label>Dispatch Date</label>
+ <input type="text" placeholder="End Date" class="form-control date-field" bsDatepicker  [(ngModel)]="searchText" 
+ [bsConfig]="datePickerConfig"   value="{{systemDate }}"
+ >
+    </div>
+  </div>
+</div>
+
+ 
+  <div class="col-xs-1 pl-0  text-right pb-20">
+    <button type="button" class="btn btn-primary no-border  all  "     [disabled]='disabledcheck'    (click)="openModal(DeleteConfirm,i)">Release  All</button>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder pd-10 mt-10">
+    
+      <table class="table inwards">
+        <thead class="v-center">
+          <tr>
+            
+ <th>
+         <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll"   
+      (change)="selectAll();" >
+
+</th>
+<th>Route Number</th>
+           
+            <th class="text-center">Order Type</th>
+                      <th class="text-center">Order Number</th>
+            <!-- <th class="text-center">Customer Code</th> -->
+            <th class="text-center">Customer Name</th>
+            <th class="text-center">Ship To Adress</th>
+            <th class="text-center">Shift</th>
+            <!-- <th>ware House Name </th> -->
+            <th class="text-center">Customer Balance</th>
+            <th class="text-center">Credit Limit</th>
+            <th class="text-center">Order Amount</th>
+        <th class="text-center">Hold Release Reason</th>
+            <th class="text-center">Action</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr   *ngFor='let i of shippingHeadersList  | dataFiltering: 
+          {shift:searchText}; let in=index;'>
+            
+<td>
+ <div class="form-check">
+     <label class="form-check-label">
+   <input type="checkbox" class="form-check-input"  
+  name="checkAll" 
+  [(ngModel)]="i.selected" (change)="checkIfAllSelected();"
+>
+ </label>
+ </div>
+</td>
+            <td>{{i.routeNumber}}</td>
+            <td>{{i.orderTypeName}} </td>
+            <td>{{i.orderNumber}}</td>
+            <!-- <td>{{i.customerCode}}</td> -->
+            <td>{{i.customerName}}</td>
+            <td>{{i.shipToLocation}}</td>
+            <td>{{i.shift}}</td>
+            <!-- <td>{{i.wareHouseName}}</td> -->
+            <td>{{i.balance}}</td>
+            <td>{{i.creditLimit}}</td>
+            <td>{{i.orderedAmount}}</td>
+            <td>{{i.holdReason}}</td>
+            <td>  <button  type="button" class="btn btn-primary no-border small"  
+              (click)="openModal(DeleteConfirm,i)" 
+                 [disabled]='!i.selected'>Release </button></td>
+          </tr>
+        </tbody>
+        <!-- <tfoot>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th colspan="2"><strong class="pull-left">Total Weight:</strong> <strong class="pull-right">440</strong>
+            </th>
+            <th>
+              <strong>4.5</strong></th>
+            <th><strong>3.5%</strong></th>
+            <th><strong>7.2%</strong></th>
+
+          </tr>
+        </tfoot> -->
+      </table>
+      <ng-template #DeleteConfirm>
+
+        <form [formGroup]="releaseReason" action="">
+        <div class="modal-body text-center model-bg">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="placeholder clearfix pt-20 mt-0  model-bg "   >
+             
+                <div class="form-row mt-10">
+               
+                  <div class="form-group row  col-md-12">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Reason </label>
+                    <div class="col-sm-10">
+                      <select class="form-control input-sm  dropdown"   formControlName='reason' 
+                      [ngClass]="{ 'is-invalid': submitted && f.reason.errors }">
+                        <option    value=''>Select</option>
+                        <option    [ngValue]='reason' *ngFor='let reason of allReleaseReason'>{{reason.releaseReason}}</option>
+                      </select>
+                    </div>
+                  </div>
+                 
+                  <div class="form-group row  col-md-12">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Comments</label>
+                    <div class="col-sm-10">
+                 
+                      <textarea class="form-control" id="exampleFormControlTextarea1"  formControlName='comments'  rows="3"></textarea>
+
+                    </div>
+                  </div>
+                 
+         
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <br />
+          <div class="clearfix">
+            <button type="button" class="btn btn-primary pull-left" (click)="confirm(in,field)"  >Release </button>
+            <button type="button" class="btn btn-default pull-right" (click)="decline()" >Cancel</button>
+          </div>
+        </div>
+      </form>
+      </ng-template>
+    </div>
+    <div class="clearfix">
+      <!-- <div class="mt-10 pull-left mr-10">
+        <div class="panel panel-info">
+          <div class="panel-heading">Total Cans</div>
+          <div class="panel-body">
+            82
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 pull-left">
+        <div class="panel panel-info">
+          <div class="panel-heading">Total Milk</div>
+          <div class="panel-body">
+            440
+          </div>
+        </div>
+      </div> -->
+      <button class="btn btn-bamul pull-right mt-10">OK</button>
+    </div>
+  </div>
+</div>
+<!-- <div class="clearfix mt-10">  <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+  <button type="button" class="btn btn-bamul pull-right">Submit</button>
+</div> -->

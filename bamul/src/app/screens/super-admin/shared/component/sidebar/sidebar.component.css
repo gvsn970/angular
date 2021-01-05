@@ -1,0 +1,18 @@
+.sidebar-menu li a {
+  padding: 15px;
+  display: inline-flex;
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-menu {
+  padding-top: 10px;
+}
+
+.sidebar-menu li a fa {
+  margin-right: 5px;
+}
+
+.sidebar-menu li.active {
+  background: #0072A4;
+}

@@ -1,0 +1,203 @@
+ <h1 class="page-header">Weighing Bridge</h1>
+ <div class="row">
+   <div class="col-xs-7 pr-10">
+     <div class="shift text-center">
+       <span>Shift</span>
+       <strong>Morning</strong>
+     </div>
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <span>Location<strong>Anekal Co-Operative Soc.</strong></span>
+         <p>
+           Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+         </p>
+       </address>
+     </div>
+   </div>
+   <div class="col-xs-3 pl-0">
+     <div class="placeholder clearfix mt-0 pd-0">
+       <div class="form-group mr-0 pl-10 pt-10 pr-10 pb-5">
+         <label>Dispatch Location</label>
+         <select class="form-control input-sm">
+           <option>Select</option>
+           <option>Anekal Chilling Center</option>
+         </select>
+       </div>
+     </div>
+   </div>
+   <div class="col-xs-2 pl-0">
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <p>
+           <span>Date : <strong>
+               <app-date></app-date>
+             </strong></span>
+         </p>
+         <p><span>Time : </span><strong>
+             <app-clock></app-clock>
+           </strong></p>
+       </address>
+     </div>
+   </div>
+ </div>
+
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder pd-10 mt-10">
+       <form>
+         <div class='row'>
+           <div class="col-md-12">
+             <form class="mt-10 py-15 clearfix">
+               <div class="form-row mt-10">
+                 <div class="form-group col-md-3">
+                   <label>Vehicle Number</label>
+                   <input type="text" class="form-control input-bl" placeholder="Vehicle Number">
+                 </div>
+                 <div class="form-group col-md-3">
+                   <label>Driver Name</label>
+                   <input type="text" class="form-control input-bl" placeholder="Driver Name">
+                 </div>
+                 <div class="form-group col-md-3">
+                   <label>Arrival Time</label>
+                   <input type="text" class="form-control input-bl" placeholder="Arrival Time">
+                 </div>
+                 <div class="form-group col-md-3">
+                   <label>Dispatch Time</label>
+                   <input type="text" class="form-control input-bl" placeholder="Leaving Time">
+                 </div>
+               </div>
+               <div class="form-row mt-10">
+                 <div class="form-group col-md-2">
+                   <label>Sending Milk</label>
+                   <input type="text" class="form-control input-bl" placeholder="Qty in Kg">
+                 </div>
+                 <div class=" form-group col-md-2">
+                   <label>Loose Sale</label>
+                   <input type="text" class="form-control input-bl" placeholder="Qty in Kg">
+                 </div>
+                 <div class="form-group col-md-2">
+                   <label>Dipstick Reading</label>
+                   <input type="text" class="form-control input-bl" placeholder="Reading">
+                 </div>
+                 <div class="form-group col-md-2">
+                   <label>CLR</label>
+                   <input type="text" class="form-control input-bl" placeholder="CLR">
+                 </div>
+                 <div class="form-group col-md-2">
+                   <label>FAT %</label>
+                   <input type="text" class="form-control input-bl" placeholder="FAT %">
+                 </div>
+                 <div class="form-group col-md-2">
+                   <label>SNF %</label>
+                   <input type="text" class="form-control input-bl" placeholder="SNF %">
+                 </div>
+               </div>
+               <div class="form-row mt-10">
+
+                 <div class="form-group col-md-12">
+                   <label>Remarks</label>
+                   <input type="text" class="form-control input-bl" placeholder="Remarks">
+                 </div>
+
+               </div>
+
+             </form>
+           </div>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder pd-10 mt-10">
+       <table class="table inwards">
+         <thead class="v-center">
+           <tr>
+             <th width="80px">Society Code.</th>
+             <th width="180px">Society Name</th>
+             <th width="120px" class="text-center">Date</th>
+             <th width="60px" class="text-center">Shift</th>
+             <th width="80px" class="text-center">QTY (Kg)</th>
+             <th width="60px" class="text-center">CLR</th>
+             <th width="60px" class="text-center">FAT %</th>
+             <th width="60px" class="text-center">SNF %</th>
+           </tr>
+
+         </thead>
+         <tbody>
+           <tr>
+             <td>
+               <select class="form-control">
+                 <option>3453</option>
+                 <option>4562</option>
+               </select>
+             </td>
+             <td><select class="form-control">
+                 <option>Anekal Co-Operative</option>
+                 <option>Mathu Co-Operative</option>
+               </select></td>
+             <td>
+               <input type="text" class="form-control input-bl date-field" bsDatepicker />
+             </td>
+             <td>
+               <select class="form-control">
+                 <option>M</option>
+                 <option>E</option>
+               </select>
+             </td>
+             <td>
+               <input type="text" class="form-control input-bl" placeholder="Qty in Kg" />
+             </td>
+             <td>
+               <input type="text" class="form-control input-bl" placeholder="CLR" />
+             </td>
+             <td>
+               <input type="text" class="form-control input-bl" placeholder="FAT %" />
+             </td>
+             <td>
+               <input type="text" class="form-control input-bl" placeholder="SNF %" />
+             </td>
+           </tr>
+         </tbody>
+         <tfoot>
+           <tr>
+             <th></th>
+             <th></th>
+             <th></th>
+             <th colspan="2"><strong class="pull-left">Total Weight:</strong> <strong class="pull-right">440</strong>
+             </th>
+             <th>
+               <strong>4.5</strong></th>
+             <th><strong>3.5%</strong></th>
+             <th><strong>7.2%</strong></th>
+
+           </tr>
+         </tfoot>
+       </table>
+     </div>
+     <div class="clearfix">
+       <!-- <div class="mt-10 pull-left mr-10">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Cans</div>
+           <div class="panel-body">
+             82
+           </div>
+         </div>
+       </div>
+       <div class="mt-10 pull-left">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Milk</div>
+           <div class="panel-body">
+             440
+           </div>
+         </div>
+       </div> -->
+       <button class="btn btn-bamul pull-right mt-10">Add More</button>
+     </div>
+   </div>
+ </div>
+ <div class="clearfix mt-10">
+   <button type="button" class="btn btn-secondary pull-left">Cancel</button>
+   <button type="button" class="btn btn-bamul pull-right">Submit</button>
+ </div>

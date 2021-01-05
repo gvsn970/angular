@@ -1,0 +1,87 @@
+ <h1 class="page-header">Other Sales Order Dispatch List Security</h1>
+
+ <div class="row">
+   <div class="col-xs-8 pr-10">
+    <div class="form-group col-md-10 placeholder mt-0 pd-10">
+      <label>Search</label>
+      <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+    </div>
+
+   </div>
+   <div class="col-xs-4 pl-0">
+     <div class="placeholder mt-0 pd-10">
+      <address>
+        <p>
+          <span>Date : <strong>
+              <app-date></app-date>
+            </strong></span>
+        </p>
+        <p><span>Time : </span><strong>
+          {{time | date: 'hh:mm:ss a' }}
+          </strong></p>
+      </address>
+     </div>
+   </div>
+ </div>
+
+ <!-- <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder mt-10 clearfix">
+       <div class="form-row mt-10">
+         <div class="form-group col-md-2">
+           <label>Total Key-Logs</label>
+           <input type="text" class="form-control input-bl" Value="25" readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Assigned Key-Logs</label>
+           <input type="text" class="form-control input-bl" Value="12" readonly>
+         </div>
+         <div class="form-group col-md-2">
+           <label>Remaining Key-Logs</label>
+           <input type="text" class="form-control input-bl" Value="13" readonly>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div> -->
+
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder pd-10 mt-10">
+       <table class="table inwards table-striped">
+         <thead class="v-center">
+           <tr>
+             <th  style="width:80px ">Sr No.</th>
+             <th style='width:160px'>Order No.</th>
+             <th class="text-center"style='width:100px'>Order Type</th>
+             <th class="text-center"  style='width:300px'>Customer Name</th>
+        
+             <th class="text-center"style='width:80px'>Action</th>
+           </tr>
+           <tr class="sub-head">
+           </tr>
+         </thead>
+         <tbody>
+           <tr   *ngFor='let i of filterList  | LockFilter: search let in=index'>
+          
+             <td>{{in+1}}</td>
+             <td>{{i.orderNumber}}</td>
+             <td >{{i.orderType}}</td>
+
+             <td>{{i.customerName}}</td>
+         
+             <td ><a  (click)='redirect(i)'
+                 class="text-center btn-sm btn-bamul">View</a>
+             </td>
+           </tr>
+          
+
+         </tbody>
+       </table>
+     </div>
+   </div>
+ </div>
+
+ <ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

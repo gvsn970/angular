@@ -1,0 +1,250 @@
+<h1 class="page-header">Milk Transfer Dispatch</h1>
+<div class="row d-flex-align-center">
+  <div class="col-xs-6 pr-10 d-flex">
+    <div class="placeholder mt-0 pd-15 d-flex-align-center flex1-space">
+      <address>
+        <span>Location <br /><strong>Annkel Chilling Center</strong></span>
+      </address>
+    </div>
+  </div>
+  <!-- <div class="col-xs-2 pl-0">
+    <div class="placeholder mt-0 pd-10">
+      <div class="form-group mb-0">
+        <label>Department</label>
+        <select class="form-control">
+          <option value="1">Systems</option>
+          <option value="2">Finance</option>
+          <option value="3">CallDesk</option>
+        </select>
+      </div>
+    </div>
+  </div> -->
+  <div class="col-xs-2 pl-0">
+    <div class="placeholder mt-0 clearfix pd-10">
+      <div class="form-group mr-0 mb-0">
+        <label>DC No</label>
+        <input type="text" [(ngModel)]="dcNumber" (keyup)="getMilkTransferByChallanNo()" class="form-control input-bl" value="" />
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-2 pl-0">
+    <div class="placeholder mt-0 clearfix pd-10">
+      <div class="form-group mr-0 mb-0">
+        <label>Status</label>
+        <select [(ngModel)]="status" class="form-control">
+          <option value="N">New</option>
+          <option value="1">Loading</option>
+          <option value="3">IN-Transit</option>
+          <option value="3">Completed</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-2 pl-0">
+    <div class="placeholder mt-0 pd-15">
+      <address>
+        <p class="receipt-details">
+          <span class="flex1-space">Date : <strong>
+              <app-date></app-date>
+            </strong></span>
+
+        </p>
+        <p class="receipt-details">
+          <span class="flex1-space">Time : <strong>
+              <app-clock></app-clock>
+            </strong>
+          </span>
+
+        </p>
+      </address>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder mt-10 clearfix">
+      <div class="form-row mt-10">
+
+        <div class="form-group col-md-2">
+          <label>Route Number</label>
+          <input [(ngModel)]="routeNumber" type="text" class="form-control input-bl" placeholder="Route Number" disabled>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Vehicle Number</label>
+          <input [(ngModel)]="vehicleNumber" type="text" class="form-control input-bl" placeholder="Vehicle Number" disabled>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Driver Name</label>
+          <input [(ngModel)]="driverNumber" type="text" class="form-control input-bl" placeholder="Driver Name" disabled>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Back Seal No.</label>
+          <input [(ngModel)]="backSealNumber" type="text" class="form-control input-bl" placeholder="Back Seal no.">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-10">
+  <div class="col-md-12">
+      <form [formGroup]="CreateMilkDispatchLineItem" novalidate #f="ngForm" novalidate>
+          <div class="placeholder pd-10 mt-0">
+              <table class="table inwards" formArrayName="newIndtLItem">
+                <thead class="v-center">
+                  <tr>
+                    <th width="120px">Sr. No.</th>
+                    <th width="120px">Silo No.</th>
+                    <th width="160px">Item</th>
+                    <th width="120px" class="text-center">Acidity</th>
+                    <th width="120px" class="text-center">Seal No.</th>
+                    <th class="text-center">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field  of  CreateMilkDispatchLineItem.controls.newIndtLItem.controls;let in=index" [formGroupName]="in">
+                    <td><input formControlName='serial_number' type="text" class="form-control input-bl" /></td>
+                    <td><input [ngClass]="{ 'is-invalid':
+                      submitted && field.controls.selo_number.errors?.required }" formControlName='selo_number' type="number" class="form-control input-bl" />
+                      <!-- <div *ngIf="submitted && field.controls.selo_number.errors?.required" style='color:red'>Required </div> -->
+                    </td>
+                    <td><select formControlName='item' class="form-control input-bl" [ngClass]="{ 'is-invalid':
+                      submitted && field.controls.item.errors?.required }">
+                        <option *ngFor="let item of items;let i=index" value="{{i}}">{{item.itemDescription}}</option>
+                      </select>
+                      <!-- <div *ngIf="submitted && field.controls.item.errors?.required" style='color:red'>Required </div> -->
+                    </td>
+                    <td><input [ngClass]="{ 'is-invalid':
+                      submitted && field.controls.acidity.errors?.required }" formControlName='acidity' type="number" min="0" class="form-control input-bl" />
+                      <!-- <div *ngIf="submitted && field.controls.acidity.errors?.required" style='color:red'>Required </div> -->
+                    </td>
+                    <td><input [ngClass]="{ 'is-invalid':
+                      submitted && field.controls.seal_number.errors?.required }" formControlName='seal_number' type="number" class="form-control input-bl" />
+                      <!-- <div *ngIf="submitted && field.controls.seal_number.errors?.required" style='color:red'>Required </div> -->
+                    </td>
+                    <td><input formControlName='remark' type="text" class="form-control input-bl" /></td>
+                  </tr>
+                </tbody>
+                <!-- <tfoot>
+                  <tr>
+        
+                    <th colspan="2" class="bg-info text-normal">Avg FAT : <strong>4.5%</strong></th>
+                    <th colspan="2" class="bg-warning text-normal">Avg SNF : <strong>12%</strong></th>
+                    <th colspan="2" class="bg-success">Avg CLR : <strong>6.4</strong></th>
+                  </tr>
+                </tfoot> -->
+              </table>
+            </div>
+      </form>
+    <div class="clearfix">
+      <!-- <div class="mt-10 pull-left mr-10">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Cans</div>
+           <div class="panel-body">
+             82
+           </div>
+         </div>
+       </div>
+       <div class="mt-10 pull-left">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Milk</div>
+           <div class="panel-body">
+             440
+           </div>
+         </div>
+       </div> -->
+      <label class="pull-left mt-10 pd-10 text-warning">Max 3 Records can be added per DC</label>
+      <button class="btn btn-bamul pull-right mt-10" (click)="addItemRow()">Add More</button>
+    </div>
+  </div>
+</div>
+<div class="clearfix">
+  <h4 class="text-info pd-10">Extra Items</h4>
+  <div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="CreateMilkDispatchExtraLineItem" novalidate #fa="ngForm" novalidate>
+            <div class="placeholder pd-10 mt-0">
+                <table class="table inwards" formArrayName="newIndtLItem">
+                  <thead class="v-center">
+                    <tr>
+                      <th width="120px">Sr. No.</th>
+                      <th width="160px">Item</th>
+                      <th width="120px" class="text-center">Total Weight</th>
+                      <th width="120px" class="text-center">No. of Cans</th>
+                      <th class="text-center">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let field  of  CreateMilkDispatchExtraLineItem.controls.newIndtLItem.controls;let in=index" [formGroupName]="in">
+                      <td><input formControlName='serial_number' type="text" class="form-control input-bl" /></td>
+                      <td><select [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.item.errors?.required }" formControlName='item' class="form-control input-bl">
+                          <option *ngFor="let item of extraItems;let i=index" value="{{i}}">{{item.itemDescription}}</option>
+                        </select>
+                        <!-- <div *ngIf="submitted && field.controls.item.errors?.required" style='color:red'>Required </div> -->
+                      </td>
+                      <td><input [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.total_weight.errors?.required }" formControlName='total_weight' type="number" min="0" class="form-control input-bl" />
+                        <!-- <div *ngIf="submitted && field.controls.total_weight.errors?.required" style='color:red'>Required </div> -->
+                      </td>
+                      <td><input [ngClass]="{ 'is-invalid':
+                        submitted && field.controls.number_of_cans.errors?.required }" formControlName='number_of_cans' type="number" class="form-control input-bl" />
+                        <!-- <div *ngIf="submitted && field.controls.number_of_cans.errors?.required" style='color:red'>Required </div> -->
+                      </td>
+                      <td><input formControlName='remark' type="text" class="form-control input-bl" /></td>
+        
+        
+                    </tr>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+        
+                    <th colspan="2" class="bg-info text-normal">Avg FAT : <strong>4.5%</strong></th>
+                    <th colspan="2" class="bg-warning text-normal">Avg SNF : <strong>12%</strong></th>
+                    <th colspan="2" class="bg-success">Avg CLR : <strong>6.4</strong></th>
+                  </tr>
+                </tfoot> -->
+                </table>
+              </div>
+        </form>
+      
+      <div class="clearfix">
+        <!-- <div class="mt-10 pull-left mr-10">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Cans</div>
+           <div class="panel-body">
+             82
+           </div>
+         </div>
+       </div>
+       <div class="mt-10 pull-left">
+         <div class="panel panel-info">
+           <div class="panel-heading">Total Milk</div>
+           <div class="panel-body">
+             440
+           </div>
+         </div>
+       </div> -->
+        <button class="btn btn-bamul pull-right mt-10" (click)="addExtraItemRow()">Add More</button>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix mt-10">
+
+
+    <!-- <div class="row">
+      <div class="col-xs-12">
+        <div class="placeholder pd-10 mt-10">
+          <label>Remarks</label>
+          <textarea class="form-control input-bl" placeholder="Remarks"></textarea>
+        </div>
+      </div>
+
+    </div> -->
+    <div class="clearfix mt-10">
+      <button type="button" class="btn btn-secondary pull-left cancel-button">Cancel</button>
+      <button type="button" (click)="postCollectionData(f,fa)" class="btn btn-bamul pull-right">Save & Next</button>
+      <button type="button" (click)="postCollectionData(f,fa)" class="btn btn-bamul pull-right mr-10">Save</button>
+    </div>

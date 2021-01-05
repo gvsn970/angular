@@ -1,0 +1,137 @@
+ <h1 class="page-header">Dashboard</h1>
+
+ <div class="row">
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Today Orders</h5>
+       <span class="card-value"></span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Today Total Orders Amount</h5>
+       <span class="card-value"><i class="fa fa-inr" aria-hidden="true"></i>{{orderAmount}}</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Total Credit Limit</h5>
+       <span *ngIf="customerBillingDetails" class="card-value"><i class="fa fa-inr" aria-hidden="true"></i> {{customerBillingDetails.creditLimit}}</span>
+     </div>
+   </div>
+   <div class="col-xs-6 col-sm-3">
+     <div class="cards">
+       <h5 class="card-title">Payable Amount</h5>
+       <span *ngIf="customerBillingDetails" class="card-value">
+         <i class="fa fa-inr" aria-hidden="true"></i>{{customerBillingDetails.balance}} 
+       </span>
+     </div>
+   </div>
+ </div>
+ <br />
+ <h1 class="page-header">Today Orders</h1>
+
+ <div class="row">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder">
+       <!-- <h2 class="sub-header">Today Orders</h2> -->
+       <div class="table-responsive">
+         <table class="table">
+           <thead>
+             <tr>
+               <th>Sr. No.</th>
+               <th>#Order No.</th>
+               <th>Start Date</th>
+               <th>End Date</th>
+               <th>Shift</th>
+
+               <th>Status</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr
+               *ngFor='let i of masterIndentByCustomerId  | paginate: { itemsPerPage: 5, currentPage: p } let in =index'>
+               <td>{{in+1}}</td>
+               <td>45832</td>
+
+               <td>{{i.mstrIndSechedule.mIndentCreateDate  }}</td>
+               <td>{{i.mstrIndSechedule.mIndentEndDate}}</td>
+               <td>{{i.mstrIndSechedule.mIndentShift}}</td>
+
+               <td><span class="text-active"><strong>{{i.status}}</strong></span></td>
+             </tr>
+
+
+
+           </tbody>
+         </table>
+         <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="row hidden">
+   <div class="col-xs-12 col-sm-12">
+     <div class="placeholder">
+       <h2 class="sub-header">Today Purchase Orders</h2>
+       <div class="table-responsive">
+         <table class="table">
+           <thead>
+             <tr>
+               <th>Sr. No.</th>
+               <th>#Order No.</th>
+               <th>Start Date</th>
+               <th>End Date</th>
+               <th>Total Order Value</th>
+               <th>Received Value</th>
+               <th>Remaining Value</th>
+               <th>Status</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>1</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="text-success"><strong>Running</strong></span></td>
+             </tr>
+             <tr>
+               <td>2</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="success">Running</span></td>
+             </tr>
+             <tr>
+               <td>3</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="text-warning"><strong>Delayed</strong></span></td>
+             </tr>
+             <tr>
+               <td>4</td>
+               <td>45832</td>
+               <td>12/05/2019</td>
+               <td>25/05/2019</td>
+               <td>12000</td>
+               <td>4000</td>
+               <td>8000</td>
+               <td><span class="success">Running</span></td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+ </div>

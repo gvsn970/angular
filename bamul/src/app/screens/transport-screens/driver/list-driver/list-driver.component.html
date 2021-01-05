@@ -1,0 +1,64 @@
+<h1 class="page-header">Drivers List</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="placeholder clearfix mt-0">
+      <div class="form-row mt-10">
+        <div class="form-group col-md-3">
+          <label>Search</label>
+          <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix mt-10"></div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12">
+    <div class="placeholder pt-20 mt-0">
+      <h2 class="sub-header hidden">Reports</h2>
+      <div *ngIf="drivers" class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Sr. No.</th>
+              <th>Driver Name</th>
+              <th>Licence Type</th>
+              <th>Department</th>
+              <th>Transportor</th>
+              <!-- <th>Contract End Date</th> -->
+              <th>Status</th>
+              <th class='text-center'>Edit</th>
+              <!-- <th class='text-center'>View Detail</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor='let driver of drivers.drivers | paginate: { itemsPerPage: 10, currentPage: p, totalItems: drivers?.totalRecords } let in =index'>
+              <td>{{in + 1}}</td>
+              <td>{{driver.driverName}}</td>
+              <td>{{driver.licenceType}}</td>
+              <td>
+                <span *ngIf="driver.driverAssignments[0]!==undefined">{{driver.driverAssignments[0].department}}</span>
+              </td>
+              <td> <span
+                  *ngIf="driver.driverAssignments[0]!==undefined">{{driver.driverAssignments[0].vendorName}}</span></td>
+              <!-- <td></td> -->
+              <td>{{driver.status}}</td>
+              <td class='text-center'><a (click)='redirectTo(driver)'><i class="fa fa-pencil-square-o"
+                    aria-hidden="true"></i> Edit</a></td>
+              <!-- <td class='text-center'><a (click)='redirectToView(driver)'><i class="fa fa-search-plus"
+                    aria-hidden="true"></i> View More</a></td> -->
+            </tr>
+            <tr *ngIf="drivers.drivers.length==0">
+              <td class="text-center" colspan="9">No Record Found</td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="pagechange($event)"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

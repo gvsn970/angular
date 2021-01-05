@@ -1,0 +1,124 @@
+<h1 class="page-header">Lab Results</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="placeholder clearfix pt-20 mt-0">
+            <div class="form-row mt-10">
+                <div class="form-group col-md-3">
+                    <label>Date</label>
+                    <input (bsValueChange)="onValueChange($event)" [(ngModel)]="filterDate" type="text" class="form-control date-field" placeholder="Date" bsDatepicker>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Shift </label>
+                    <select [(ngModel)]="filterShift" class="form-control">
+                        <option value="M">Morning</option>
+                        <option value="E">Evening</option>
+                      </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Receipt Source Code</label>
+                    <select [(ngModel)]="receiptCode" class="form-control">
+                    <option  [selected]="receiptCode=='RMRD DOC 1'" value="RMRD DOC 1">RMRD Doc 1</option>
+                    <option  value="RMRD DOC 2">RMRD Doc 2</option>
+                    <option  value="RMRD DOC 3">RMRD Doc 3</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Route No </label>
+                    <input [(ngModel)]="filterRoute" type="text" class="form-control" placeholder="Enter route">
+                </div>
+            </div>
+            <!-- <div class="form-row mt-10"> -->
+
+            <div class="form-group col-md-3 text-right"><br />
+                <button (click)="reset()" type="button" class="btn btn-secondary">Reset</button>&nbsp;
+                <button (click)="filterData()" type="button" class="btn btn-primary">Apply Filters</button>
+            </div>
+
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="placeholder pt-20 mt-10">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped v-middle">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Shift</th>
+                            <th>Route No.</th>
+                            <th>Sample No.</th>
+                            <th>CLR</th>
+                            <th>FAT%</th>
+                            <th>SNF%</th>
+                            <th *ngIf="(userRole ==='130010' || userRole ==='130011')" class='text-center'>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let shippingheader of filteredShippingheaderList | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+                            <tr *ngFor="let labdetails of shippingheader.mshippingLines;let k = index">
+                                <ng-container *ngIf="labdetails.approvalStatus=='Approved' && shippingheader.approvalStatus !='Approved'">
+                                    <td>{{shippingheader.shippedDate}}</td>
+                                    <td>{{shippingheader.shift}}</td>
+                                    <td>{{shippingheader.freightCarrierCode}}</td>
+                                    <td>{{labdetails.sampleNum}}</td>
+                                    <td>
+                                        {{labdetails.clrAccepted}}
+                                    </td>
+                                    <td class='text-center'>
+                                        {{labdetails.fatAccepted}}
+                                    </td>
+                                    <td>{{labdetails.snfAccepted}}</td>
+                                    <td *ngIf="(userRole ==='130010' || userRole ==='130011') && labdetails.approvalStatus =='Approved'" class='text-center'>
+                                        <button type="button" (click)="openModal(issue, shippingheader , k)" class="btn-sm btn-danger no-border">Re-Test
+                              </button>
+                                    </td>
+                                </ng-container>
+                                <ng-template #issue>
+                                    <div class="modal-body" data-backdrop="static" data-keyboard="false">
+                                        <h4 class="text-left mb-20">Re-Test Details</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="placeholder clearfix pt-20 mt-0">
+                                                    <div class="form-row mt-10">
+                                                        <div class="form-group col-md-4">
+                                                            <label>CLR</label>
+                                                            <input [(ngModel)]="retestClr" appTwoDigitDecimaNumber [allowedDecimal]="2" (focusout)="updateData(shippingheader , k)" type="number" class="form-control input-bl" placeholder="CLR">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label>FAT</label>
+                                                            <input [(ngModel)]="retestFat" appTwoDigitDecimaNumber [allowedDecimal]="1" (focusout)="updateData(shippingheader , k)" type="number" class="form-control input-bl" placeholder="FAT">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label>SNF</label>
+                                                            <input [(ngModel)]="retestSnf" type="number" disabled class="form-control input-bl" placeholder="SNF">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <br />
+                                        <label>Remarks</label>
+                                        <fieldset>
+                                            <textarea [(ngModel)]="previousValues" class="form-control full-width" style="resize: none;" readonly="readonly" cols="50" rows="4"></textarea><br/>
+                                            <textarea [(ngModel)]="labdetails.comments" class="form-control full-width" rows=5 style="resize: none;"></textarea>
+                                        </fieldset>
+                                        <div class="clearfix">
+                                            <button type="button" class="btn btn-primary  pull-left" (click)="sendTestValues(shippingheader , k)">Submit</button>
+                                            <button type="button" class="btn btn-default pull-right" (click)="cancel()">Cancel</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

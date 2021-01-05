@@ -1,0 +1,21 @@
+<accordion class="dashboard-sidebar">
+  <accordion-group [isOpen]="isFirstOpen" heading="Call Desk" class="order btn-icon">
+    <ul>
+      <li>
+        <a routerLink="temp-indents" routerLinkActive="active">
+          <fa name="cog"></fa> Update Indent
+        </a>
+      </li>
+      <li>
+        <a routerLink="onhand-quantity" routerLinkActive="active">
+          <fa name="cog"></fa> On Hand Quantity
+        </a>
+      </li>
+      <!-- <li>
+        <a routerLink="create-indent-for-cust-by-emp" routerLinkActive="active">
+          <fa name="cog"></fa> Create Indent for Customer
+        </a>
+      </li> -->
+    </ul>
+  </accordion-group>
+</accordion>

@@ -1,0 +1,531 @@
+<!-- <app-header class="hide-search"></app-header> -->
+<div id="scroll-top">
+  <div class="row">
+    <div class="col-md-4">
+      <button routerLink='../ci-calldesk' class="btn btn-primary pull-left mt-15 mr-2 btn-pad">CI Call Desk</button>
+      <button routerLink='../onhand-quantity' class="btn btn-primary pull-left mt-15 mr-2 btn-pad">OnHand
+        Quantity</button>
+      <button *ngIf='billingDtls&&updateDisabled&&isRetailer' routerLink="../create-indent-for-cust-by-emp/{{custId}}"
+        routerLinkActive="active" class="btn btn-primary pull-left mt-15">Create Indent</button>
+    </div>
+    <div class="col-md-4">
+      <h3 class="text-center">Call Desk</h3>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="placeholder pd-5">
+            <div class="row flex flex-center">
+                <div class="col-md-2 flex-child flex-col flex-left">
+                    <strong>Customer No</strong><br />
+                    <input name='orderID' id='orderID' tabIndex="0" value="" type="text" class="form-control input-sm" (keydown.enter)="getCustomerDetails($event);" id="customerNumberSel" />
+                    <!-- (change)="getCustomerDetails($event);" -->
+                </div>
+                <div class="col-md-3 flex-child">
+                    <strong>Customer Name <br /></strong>
+                    <input disabled name='partyname' id='partyname' tabIndex="0" value="{{billingDetails ?billingDetails.partyName : ''}}" type="text" class="form-control input-sm" />
+                    <!-- <strong *ngIf="billingDetails">{{billingDetails.partyName}}</strong>
+          <strong *ngIf="!billingDetails">-</strong> -->
+
+                </div>
+
+                <div class="col-md-2 flex-child">
+                    <strong>Customer Type <br /></strong>
+                    <input disabled name='custtype' id='custtype' value="{{billingDetails ? billingDetails.customerClassCode : ''}}" type="text" class="form-control input-sm" />
+                    <!-- <strong
+            *ngIf="billingDetails">{{billingDetails.customerClassCode}}</strong> -->
+
+                </div>
+
+                <div class="col-md-3 flex-child">
+                    <strong>Ship to Address <br /></strong><strong class="break-word">
+
+            <!-- <select id="shippingDetails" class="form-control">
+            <option selected value="{{shippingDetails.siteAddress}}">{{shippingDetails.siteAddress}}
+            </option>
+          </select> -->
+
+            <select class="form-control input-sm" (change)="getIndentListBySiteUseId($event.target.value)">
+              <option *ngIf="!shippingDetails">Select Shipping Address</option>
+              <option *ngFor="let shippingDetailsList of shippingDetails"
+                value="{{shippingDetailsList.siteUseId}}/{{shippingDetailsList.siteWarehouseName}}/{{shippingDetailsList.salesRepName}}/{{shippingDetailsList.siteWareHouseId}}">
+                {{shippingDetailsList.siteAddress}}
+              </option>
+            </select>
+
+            <!-- {{shippingDetails.siteAddress}} -->
+          </strong>
+
+                </div>
+                <div class="col-md-2 flex-child">
+                    <!-- <span>Balance: <br />
+        <input name='Balance' id='C_Balance' value="" type="text" class="form-control input-sm" disabled />
+      </span> -->
+                    <strong>Available Balance <br /></strong>
+                    <input disabled name='balance' id='balance' value="{{billingDetails ? billingDetails.balance : ''}}" type="text" class="form-control input-sm" />
+                    <!-- <strong *ngIf="billingDetails">{{billingDetails.balance}}</strong> -->
+
+                </div>
+                <!--Code committed due to unavailable clarity <div class="col-md-2 flex-child">
+              <span>Available Balance: <br /><strong>8615.78</strong></span>
+            </div> -->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+  <div class="only-for-retailer" *ngIf="isRetailer">
+
+    <div class="row">
+      <div class="col-md-12">
+          <div class="placeholder pd-5">
+              <div class="row flex flex-center">
+                  <div class="col-md-1 flex-child flex-col flex-left">
+                      <strong>Indent No</strong><br />
+                      <!-- <input name='orderID' id='orderID' type="text" class="form-control input-sm"
+              (keyup)="getCustomerDetails($event);" /> -->
+                      <!-- <select class="form-control transparent-control" id='userrole' name='role'>
+              <option value='customer'>1001</option>
+              <option value='security'>1002</option>
+              <option value='so-op'>1003</option>
+              <option value='driver'>1004</option>
+            </select> -->
+                      <input disabled name='orderno' id='orderno' value="{{customerDetails ? customerDetails.headerId : 'NA'}}" type="text" class="form-control input-sm" />
+                      <!-- <div *ngIf="customerDetails">
+                          <span *ngIf="customerDetails.headerId!=null">{{customerDetails.headerId}}</span>
+                          <span *ngIf="customerDetails.headerId==null">NA</span>
+                      </div> -->
+                  </div>
+                  <!-- <div class="col-md-2 flex-child">
+                      <span>Order Type<br />
+          <strong *ngIf="orderTypeDetails">{{orderTypeDetails.orderTypeName}}</strong>
+        </span>
+                  </div> -->
+                  <div class="col-md-1 flex-child order-date-width">
+                      <strong>Indent Date<br /></strong>
+                      <input disabled name='orderdate' id='orderdate' value="{{bookingDate}}" type="text" class="form-control input-sm" />
+                      <!-- <strong *ngIf="customerDetails">{{bookingDate}}</strong> -->
+
+                  </div>
+                  <div class="col-md-2 flex-child">
+                      <strong>Delivery Date<br /></strong>
+                      <input disabled name='deliverydate' id='deliverydate' value="{{deliveryDate}}" type="text" class="form-control input-sm" />
+                      <!-- <strong *ngIf="customerDetails">{{deliveryDate}}</strong> -->
+
+                  </div>
+                  <div class="col-md-1 flex-child">
+                      <strong>Shift <br /></strong>
+                      <input disabled name='shift' id='shift' value="{{shift}}" type="text" class="form-control input-sm" />
+
+                  </div>
+                  <div class="col-md-1 flex-child">
+                      <strong>CRTS <br /></strong>
+                      <!-- <strong>{{sumCrates}}</strong> -->
+                      <input disabled name='crates' id='crates' value="{{sumCrates}}" type="text" class="form-control input-sm" />
+                  </div>
+                  <div class="col-md-1 flex-child flex-right">
+                      <strong class='text-right'>Status<br /></strong>
+                      <input disabled name='status' id='status' value="{{status}}" type="text" class="form-control input-sm" />
+                      <!-- <strong *ngIf="customerDetails">{{status}}</strong> -->
+                  </div>
+                  <div class="col-md-5 flex-child flex-right">
+                      <form [formGroup]="filterForm">
+                          <div class="row flex flex-center">
+                              <div class="col-md-4 flex-child flex-col flex-left">
+                                  <strong>Order Type <br /></strong><strong class="break-word"></strong>
+                                  <select (change)="setOrderTypeId($event)" formControlName="orderTypeId" class="form-control input-sm">
+                          <option *ngFor="let orders of orderTypeDetailsList"
+                            value="{{orders.orderTypeId}}">
+                            {{orders.orderTypeName}}
+                          </option>
+                        </select>
+                              </div>
+                              <div class="col-md-4 flex-child flex-col flex-left">
+                                  <strong>Route Number <br /></strong><strong class="break-word"></strong>
+                                  <select (click)="setSequenceNumber($event.target.value)" formControlName="routeNumber" class="form-control input-sm">
+                          <option *ngFor="let route of routeList"
+                            value="{{route.routeNumber}}">
+                            {{route.routeNumber}}
+                          </option>
+                        </select>
+                              </div>
+                              <div class="col-md-4 flex-child flex-col flex-left">
+                                  <strong>Seq #<br /></strong>
+                                  <input disabled name='sequence' id='sequence' value="{{sequence}}" type="text" class="form-control input-sm" />
+                                  <!-- <strong class="break-word">{{sequence?sequence: customerDetails.seq}}</strong> -->
+
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+
+
+
+          </div>
+
+          <!-- <div class="row">
+              <div class="col-md-12">
+                  <div class="placeholder pd-5">
+                      <form [formGroup]="filterForm">
+                          <div class="row flex flex-center">
+                              <div class="col-md-2 flex-child flex-col flex-left">
+                                  <span>Order Type <br /><strong class="break-word"></strong></span>
+                                  <select (change)="setOrderTypeId($event)" formControlName="orderTypeId" class="form-control input-sm">
+                                <option *ngFor="let orders of orderTypeDetailsList"
+                                  value="{{orders.orderTypeId}}">
+                                  {{orders.orderTypeName}}
+                                </option>
+                              </select>
+                              </div>
+                              <div class="col-md-2 flex-child flex-col flex-left">
+                                  <span>Route Number <br /><strong class="break-word"></strong></span>
+                                  <select (change)="setSequenceNumber($event.target.value)" formControlName="routeNumber" class="form-control input-sm">
+                                <option *ngFor="let route of routeList"
+                                  value="{{route.routeNumber}}">
+                                  {{route.routeNumber}}
+                                </option>
+                              </select>
+                              </div>
+                              <div class="col-md-2 flex-child flex-col flex-left">
+                                  <span *ngIf="customerDetails">Sequence<br /><strong class="break-word">{{sequence?sequence: customerDetails.seq}}</strong></span>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div> -->
+      </div>
+  </div>
+
+
+
+
+
+    <!--Temporary Indent form-->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="placeholder mt-10">
+          <table class="no-scroll">
+            <thead>
+              <tr>
+                <th><label>Product Code</label></th>
+                <th><label>PPC</label></th>
+                <th><label>Crates</label></th>
+                <th><label>Packets</label></th>
+                <th><label>Desc</label></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let panelLeftVal of panelLeft ;let i = index">
+                <td><label>{{panelLeftVal.itemCode}}</label></td>
+                <td><input type="number" placeholder="NPC" name='No-Per-Crate' class='per-crate'
+                    value="{{panelLeftVal.unitsPerCrates}}" min="0" disabled>
+                </td>
+
+                <!-- Code committed due to unavailable clarity -->
+                <ng-container *ngIf="allInputs==true">
+                  <td>
+                    <input [disabled]="panelLeftVal.sellingUOM=='PKT'" type="number" placeholder="Crates" maxlength="3"
+                      name='Crates' class='crates' [(ngModel)]="panelLeftVal.crates"
+                      (blur)="onChangeOfQuantity(panelLeftVal)" tabIndex="{{panelLeftVal.tabIndexCrates}}" min="0"
+                      (keypress)="checkInput($event)" (focus)="$event.target.select()">
+                  </td>
+
+                  <!-- <td  *ngIf="panelLeftVal.uomToOrder!='CRA'"><input type="number" placeholder="Crates" maxlength="3"
+                  name='Crates' class='crates ' [(ngModel)]="panelLeftVal.crates" disabled>
+              </td> -->
+
+                </ng-container>
+                <ng-container *ngIf="allInputs==false">
+                  <td><input type="number" placeholder="Crates" maxlength="3" name='Crates' class='crates '
+                      [(ngModel)]="panelLeftVal.crates" disabled>
+                  </td>
+                </ng-container>
+
+                <!-- <td>
+              <input id="test" type="number" placeholder="Crates" maxlength="3" name='Crates' class='crates'
+                [(ngModel)]="panelLeftVal.crates" min="0" (blur)="descCalc(panelLeftVal)"
+                tabIndex="{{panelLeftVal.tabIndexCrates}}" *ngIf="allInputs==true" onkeypress="return (event.charCode ==
+                8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+
+              <input type="number" placeholder="Crates" maxlength="3" name='Crates' class='crates'
+                [(ngModel)]="panelLeftVal.crates" min="0" (blur)="descCalc(panelLeftVal)"
+                tabIndex="{{panelLeftVal.tabIndexCrates}}" disabled *ngIf="allInputs==false" onkeypress="return
+                (event.charCode ==
+                8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+            </td> -->
+
+                <!-- Code committed due to unavailable clarity -->
+                <ng-container *ngIf="allInputs==true">
+                  <td><input [disabled]="panelLeftVal.sellingUOM!='PKT'" type="number" placeholder="Qty/Pkts"
+                      maxlength="3" name='Qty' class='qty-pkts' [(ngModel)]="panelLeftVal.qty"
+                      (blur)="onChangeOfQuantity(panelLeftVal)" tabIndex="{{panelLeftVal.tabIndexPackets}}" min="0"
+                      (keypress)="checkInput($event)" (focus)="$event.target.select()" id="pkt-{{i}}">
+                  </td>
+
+                  <!-- <td *ngIf="panelLeftVal.uomToOrder!='PKT'"><input type="number" placeholder="Qty/Pkts" maxlength="3"
+                  name='Qty' class='qty-pkts ' [(ngModel)]="panelLeftVal.qty" disabled></td> -->
+
+                </ng-container>
+
+                <ng-container *ngIf="allInputs==false">
+                  <td><input type="number" placeholder="Qty/Pkts" maxlength="3" name='Qty' class='qty-pkts '
+                      [(ngModel)]="panelLeftVal.qty" disabled></td>
+                </ng-container>
+                <!-- <td>
+              <input type="number" placeholder="Qty/Pkts" maxlength="3" name='Qty' min="0" class='qty-pkts'
+                [(ngModel)]="panelLeftVal.qty" (blur)="descCalc(panelLeftVal)"
+                tabIndex="{{panelLeftVal.tabIndexPackets}}" *ngIf="allInputs==true" onkeypress="return (event.charCode
+                ==
+                8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+
+              <input type="number" placeholder="Qty/Pkts" maxlength="3" name='Qty' min="0" class='qty-pkts'
+                [(ngModel)]="panelLeftVal.qty" (blur)="descCalc(panelLeftVal)"
+                tabIndex="{{panelLeftVal.tabIndexPackets}}" disabled *ngIf="allInputs==false" onkeypress="return
+                (event.charCode ==
+                8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+            </td> -->
+
+
+
+                <td class="col-desc">
+                  <!-- <span class='small'>{{panelLeftVal.crates}} Crates
+                <span *ngIf="panelLeftVal.plusIcon"> + </span>
+                <span *ngIf="!panelLeftVal.plusIcon"> / </span>
+                {{panelLeftVal.qty}}
+                Packets
+              </span> -->
+                  <span class='small' *ngIf="panelLeftVal.uomOrderQuantityToSend!='BOX'">{{panelLeftVal.orderQuantity}}
+                    {{panelLeftVal.uomOrderQuantityToSend}}<span *ngIf="panelLeftVal.orderQuantity>1">S</span>
+                  </span>
+                  <span class='small' *ngIf="panelLeftVal.uomOrderQuantityToSend=='BOX'">{{panelLeftVal.orderQuantity}}
+                    {{panelLeftVal.uomOrderQuantityToSend}}<span *ngIf="panelLeftVal.orderQuantity>1">ES</span>
+                  </span>
+                  <!-- {{panelLeftVal.priceItem}} -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="placeholder mt-10">
+          <table class="can-scroll">
+            <thead>
+              <tr>
+                <th><label>Product Code</label></th>
+                <th><label>PPC</label></th>
+                <th><label>Crates</label></th>
+                <th><label>Packets</label></th>
+                <th><label>Desc</label></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let panelRightVal of panelRight;let i = index">
+                <td><label>{{panelRightVal.itemCode}}</label></td>
+                <td><input type="number" placeholder="NPC" name='No-Per-Crate' value="{{panelRightVal.unitsPerCrates}}"
+                    class='per-crate' disabled>
+                </td>
+
+                <!--Code committed due to unavailable clarity <td><input type="number" placeholder="Crates" name='crates-{{i}}' class='crates' value=""
+                        [(ngModel)]="panelRightVal.crates" (blur)="descCalc(panelRightVal)">
+                    </td> -->
+                <ng-container *ngIf="allInputs==true">
+                  <td><input [disabled]="panelRightVal.sellingUOM=='PKT'" type="number" placeholder="Crates"
+                      maxlength="4" name='crates-{{i}}' class='crates' value="" [(ngModel)]="panelRightVal.crates"
+                      (blur)="onChangeOfQuantity(panelRightVal)" tabIndex="{{panelRightVal.tabIndexCrates}}" min="0"
+                      (keypress)="checkInput($event)" (focus)="$event.target.select()">
+                  </td>
+
+                  <!-- <td *ngIf="panelRightVal.cratesAllowed=='NO'"><input type="number" placeholder="Crates"
+                  name='crates-{{i}}' class='crates' value="" [(ngModel)]="panelRightVal.crates" disabled>
+              </td> -->
+
+                </ng-container>
+                <ng-container *ngIf="allInputs==false">
+                  <td><input type="number" placeholder="Crates" name='crates-{{i}}' class='crates' value=""
+                      [(ngModel)]="panelRightVal.crates" disabled>
+                  </td>
+                </ng-container>
+                <!-- <td>
+              <input type="number" placeholder="Crates" name='crates-{{i}}' class='crates' value=""
+                [(ngModel)]="panelRightVal.crates" (blur)="descCalc(panelRightVal)"
+                tabIndex="{{panelRightVal.tabIndexCrates}}" *ngIf="allInputs==true">
+
+              <input type="number" placeholder="Crates" name='crates-{{i}}' class='crates' value=""
+                [(ngModel)]="panelRightVal.crates" (blur)="descCalc(panelRightVal)"
+                tabIndex="{{panelRightVal.tabIndexCrates}}" disabled *ngIf="allInputs==false">
+            </td> -->
+
+
+                <!--Code committed due to unavailable clarity -->
+                <ng-container *ngIf="allInputs==true">
+                  <td><input [disabled]="panelRightVal.sellingUOM!='PKT'" type="number" placeholder="Qty/Pkts"
+                      name='qty-{{i}}' class='qty-pkts' [(ngModel)]="panelRightVal.qty"
+                      (blur)="onChangeOfQuantity(panelRightVal)" tabIndex="{{panelRightVal.tabIndexPackets}}" min="0"
+                      (keypress)="checkInput($event)" (focus)="$event.target.select()">
+                  </td>
+
+                  <!-- <td *ngIf="panelRightVal.packetsAllowed=='NO'">
+                <input type="number" placeholder="Qty/Pkts" name='qty-{{i}}' class='qty-pkts'
+                  [(ngModel)]="panelRightVal.qty" (blur)="descCalc(panelRightVal)" disabled>
+                </td> -->
+
+                </ng-container>
+                <ng-container *ngIf="allInputs==false">
+                  <td>
+                    <input type="number" placeholder="Qty/Pkts" name='qty-{{i}}' class='qty-pkts'
+                      [(ngModel)]="panelRightVal.qty" (blur)="onChangeOfQuantity(panelRightVal)" disabled></td>
+                </ng-container>
+                <!-- <td>
+              <input type="number" placeholder="Qty/Pkts" name='qty-{{i}}' class='qty-pkts'
+                [(ngModel)]="panelRightVal.qty" (blur)="descCalc(panelRightVal)"
+                tabIndex="{{panelRightVal.tabIndexPackets}}" *ngIf="allInputs==true">
+
+              <input type="number" placeholder="Qty/Pkts" name='qty-{{i}}' class='qty-pkts'
+                [(ngModel)]="panelRightVal.qty" (blur)="descCalc(panelRightVal)"
+                tabIndex="{{panelRightVal.tabIndexPackets}}" disabled *ngIf="allInputs==false">
+            </td> -->
+
+                <!-- {{panelRightVal.updatedcrates}} {{panelRightVal.updatedqty}}-->
+                <td class="col-desc">
+                  <!-- <span class='small'>{{panelRightVal.crates}}
+                Crates
+                <span *ngIf="panelRightVal.plusIcon"> + </span>
+                <span *ngIf="!panelRightVal.plusIcon"> / </span>
+                {{panelRightVal.qty}}
+                Packets</span> -->
+
+                  <span class='small'
+                    *ngIf="panelRightVal.uomOrderQuantityToSend!='BOX'">{{panelRightVal.orderQuantity}}
+                    {{panelRightVal.uomOrderQuantityToSend}}<span *ngIf="panelRightVal.orderQuantity>1">S</span>
+                  </span>
+                  <span class='small'
+                    *ngIf="panelRightVal.uomOrderQuantityToSend=='BOX'">{{panelRightVal.orderQuantity}}
+                    {{panelRightVal.uomOrderQuantityToSend}}<span *ngIf="panelRightVal.orderQuantity>1">ES</span>
+                  </span>
+                  <!-- {{panelRightVal.priceItem}} -->
+                </td>
+
+                <!-- <td *ngIf="panelRightVal.updatedcrates===NaN"><span class='small'>0
+                        Crates
+                        <span *ngIf="panelRightVal.plusIcon"> + </span>
+                        <span *ngIf="!panelRightVal.plusIcon"> / </span>
+                        0
+                        Packets</span>
+                    </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="clearfix mt-10">
+      <button type="button" [disabled]="updateDisabled" class="btn btn-danger pull-left"
+        (click)="openModal(ConfirmCan)">Cancel Indent</button>
+      <ng-template #ConfirmCan>
+        <div class="modal-body text-center">
+          <h5>Do you want to Cancel the order?</h5>
+          <br />
+          <div class="clearfix">
+            <button type="button" class="btn btn-secondary pull-right cancel-btn  ml-10" (click)="decline()">No</button>
+            <button type="button" class="btn btn-bamul pull-right" (click)="confirm()">Yes</button>
+          </div>
+        </div>
+      </ng-template>
+      <!-- <button type="button" class="btn btn-bamul pull-right" (click)="updateData()">Update</button> -->
+
+      <button type="button" [disabled]="updateDisabled" class="btn btn-bamul pull-right"
+        (click)="updateData()">Update</button>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="placeholder mt-10">
+
+          <h5 class='Sub-heading pl-14'><strong>Shipment Details:</strong></h5>
+
+
+          <div class="row flex flex-center">
+            <!-- <div class="col-md-5 flex-child flex-col flex-left">
+              <div class="col-md-6"><strong>Route No :</strong></div>
+              <div class="col-md-6 pl-0 pr-0" *ngIf="customerDetails">{{customerDetails.route}}</div><br />
+            </div> -->
+            <div class="col-md-12 flex-child flex-col flex-left">
+              <div class="col-md-4"><strong>Shipping From :</strong></div>
+              <div class="col-md-8 pl-0 pr-0">{{siteWarehouseName}}</div><br />
+              <div class="col-md-4"><strong>Route Inspector :</strong></div>
+              <div class="col-md-8 pl-0 pr-0">{{salesRepName}}</div>
+            </div>
+          </div>
+
+
+          <!-- <span *ngIf="shippingDetails">
+                <p>Cust Name - {{shippingDetails.customerName}}</p>
+                <p>Cust No.- {{shippingDetails.customerNumber}}</p>
+              </span> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="placeholder mt-10">
+          <h5 class='pl-14 Sub-heading'><strong>Billing Details:</strong></h5>
+          <!-- <span *ngIf="billingDetails">
+                <p>Cust Name - {{billingDetails.customerName}}</p>
+                <p>Cust No.- {{billingDetails.customerNumber}}</p>
+              </span> -->
+          <!-- Value Total
+              Tax Value
+              Round off
+              Total Value -->
+
+
+          <!-- <div class="col-md-3"><strong>Value Total :</strong></div>
+      <div class="col-md-3">{{valueTotal | number : '1.2-2'}}</div><br />
+      <div class="col-md-3"><strong>Tax Value :</strong></div>
+      <div class="col-md-3">{{taxPercentage}}</div><br />
+      <div class="col-md-3"><strong>Round off :</strong></div>
+      <div class="col-md-8">{{roundOff}}</div><br />
+      <hr class="mt-5 mb-5" />
+      <div class="col-md-4"><strong>Total Value :</strong></div>
+      <div class="col-md-8">{{valueTotal-roundOff | number : '1.2-2'}}</div><br /> -->
+
+
+
+          <div class="row flex flex-center">
+            <div class="col-md-5 flex-child flex-col flex-left pl-30 pr-0">
+              <div class="col-md-6 pl-0 pr-0"><strong>Value Total:</strong></div>
+              <div class="col-md-6">{{valueTotal | number : '1.2-2'}}</div><br />
+              <div class="col-md-6 pl-0 pr-0"><strong>Tax Value :</strong></div>
+              <div class="col-md-6">{{taxPercentage| number : '1.2-2'}}</div>
+            </div>
+            <div class="col-md-7 flex-child flex-col flex-left">
+              <div class="col-md-5 pl-0 pr-0"><strong>Round off:</strong></div>
+              <div class="col-md-7">{{roundOff}}</div><br />
+              <div class="col-md-5 pl-0 pr-0"><strong>Total Value:</strong></div>
+              <div class="col-md-7">{{totalIndentVal | number : '1.0-0'}}</div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row mt-10" *ngIf="!isRetailer">
+    <div class="col-md-12">
+      <div class="bg-warning pd-5 pb-10">
+        <h4 class="text-center text-danger">Customer Type is CI / This Customer is not available as Retailer.</h4>
+        <h4 class="text-center text-danger pb-10">Please visit <a routerLink='../ci-calldesk'>CI Call Desk</a> for CI
+          Customers</h4>
+      </div>
+    </div>
+  </div>
+  <!--Temporary Indent form ends here-->
+</div>

@@ -1,0 +1,36 @@
+.ng-autocomplete {
+  width: 100%;
+}
+
+.d-block {
+  display: block;
+}
+
+.error-validate {
+  font-size: 10px;
+  color: red;
+}
+
+.ml-10 {
+  margin-left: 20px;
+}
+
+.pt-10 {
+  padding-top: 10px;
+}
+
+.pl-10 {
+  padding-left: 10px;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.pr-10 {
+  padding-right: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}

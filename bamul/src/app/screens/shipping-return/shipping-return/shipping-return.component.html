@@ -1,0 +1,107 @@
+<!-- <h2 class="blink_me sub-header"><strong>Shipping Return </strong> </h2> -->
+<h1 class="page-header">Crates Return</h1>
+<div class="row" *ngIf="dispatch; else notShow">
+  <div class="col-xs-12 col-sm-12">
+    <div class="placeholder pt-20 mt-0">
+      <h2 class="sub-header hidden">Reports</h2>
+      <div class="table-responsive">
+        <div class="form-row mt-10">
+          <div class="form-group col-md-4">
+            <label>search</label>
+            <input type="text" (keyup)="globalSearch($event.target.value)" class="form-control" placeholder="Search">
+          </div>
+          <div class="form-group col-md-4">
+            <label>Date</label>
+            <input type="text" placeholder="Start Date" class="form-control date-field" bsDatepicker
+            [bsConfig]="datePickerConfig" [(ngModel)]='todayDate'      (ngModelChange)="dateChange();"
+           >
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Route Number</th>
+              <th>Shift</th>
+              <th>Shipping Date</th>
+              <th>Total Crates</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of filterList  
+            | LockFilter: search    ">
+              <td><a (click)="openModal(DeleteConfirm,i)">{{i.routeNo}}</a></td>
+              <td>{{i.shift}}</td>
+              <td>{{i.reportDate}}</td>
+              <td>{{i.totalCrates}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #DeleteConfirm>
+          <div class="modal-body text-center model-bg">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="placeholder mt-10 clearfix">
+                  <div class="form-row mt-12">
+                    <div class="form-group col-md-3">
+                      <label>Route No</label>
+                      <input type="text" class="form-control input-bl" value="{{  routesheetList.routeNo}}" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label>Shift</label>
+                      <input type="text" class="form-control input-bl" value="{{ routesheetList.shift}}" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label>Date</label>
+                      <input type="text" class="form-control input-bl" value="{{ routesheetList.reportDate}}" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label>Total Crates</label>
+                      <input type="text" class="form-control input-bl" value="{{ routesheetList.totalCrates}}" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="placeholder clearfix pt-20 mt-0  model-bg ">
+                  <div class="form-row mt-12">
+                    <div class="form-group row  col-md-6">
+                      <label for="inputPassword" class="col-sm-4 col-form-label"> Returned Crates </label>
+                      <div class="col-sm-8">
+                        <input type="number" (keyup)="calculateDifference(routesheetList.totalCrates)" class="form-control input-bl" name="dispRemark" [(ngModel)]="returnCrates">
+                      </div>
+                    </div>
+                    <div class="form-group row  col-md-6">
+                        <label for="inputPassword" class="col-sm-4 col-form-label"> Difference </label>
+                        <div class="col-sm-8">
+                          <input type="number" readonly class="form-control input-bl" name="dispRemark" [(ngModel)]="difference">
+                        </div>
+                      </div>
+                    <div class="form-group row  col-md-12">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Remarks</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="dispRemark"
+                          [(ngModel)]="dispRemark" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="clearfix">
+              <button type="button" class="btn btn-primary pull-left" (click)="confirm(in,field)">Submit </button>
+              <button type="button" class="btn btn-default pull-right" (click)="decline()">Cancel</button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

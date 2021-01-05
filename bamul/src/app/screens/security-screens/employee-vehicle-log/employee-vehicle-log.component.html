@@ -1,0 +1,143 @@
+<h1 class="page-header">Employee Vehicle Log</h1>
+<form [formGroup]="EmpDeatils">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+
+            <div class="placeholder pt-20 mt-10">
+                <!-- <h2 class="sub-header hidden">Reports</h2> -->
+                <div class="table-responsive">
+                    <div class="form-row mt-10">
+                        <div class="form-group col-md-2" style="margin-left: 8px;">
+                            <label>Employee Number</label>
+                            <input type="text" class="form-control" formControlName="empNo"
+                                (keydown.enter)="validateTextLength($event)" value="" placeholder="Employee Number" maxlength="6"
+                                (keypress)="numberOnly($event)"
+                                [ngClass]="{ 'is-invalid': submitted && f.empNo.errors }" />
+
+                        </div>
+                        <div class="form-row mt-10">
+                            <div class="form-group col-md-3" style="margin-left: 8px;">
+                                <label>Name</label>
+                                <input type="text" value="{{empLogs?.fullName}}" class="form-control"
+                                    placeholder="Employee Name" disabled=''>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Mobile Number</label>
+                                <input type="text" class="form-control" placeholder="Mobile" disabled=''>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2 pull-right">
+                            <address>
+                                <p>
+                                    <span>Date : <strong>
+                                            <app-date></app-date>
+                                        </strong></span>
+                                </p>
+                                <p><span>Time : </span><strong>
+
+                                        {{time | date: 'hh:mm:ss a' }}
+                                    </strong>
+                                </p>
+                            </address>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<h3 class="page-header">Vehicle Details</h3>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+
+        <div class="placeholder pt-20 mt-10">
+            <!-- <h2 class="sub-header hidden">Reports</h2> -->
+            <div class="table-responsive">
+
+                <div class="form-row mt-10">
+                    <div class="form-group col-md-3">
+                        <label>Registration Number</label>
+                        <input type="text" class="form-control" placeholder="Registration Number " disabled=''
+                            value="{{empLogs?.registrationNumber}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Dirving licence
+                        </label>
+                        <input type="text" class="form-control" placeholder="Licence Number " disabled=''>
+                    </div>
+                    <!-- <div class="form-group col-md-4">
+                    <label>Department
+                    </label>
+                    <input type="text" class="form-control" placeholder="Department
+                    " disabled=''>
+                </div> -->
+
+
+
+                
+                    <div class="form-group col-md-3">
+                        <label> Make</label>
+                        <input type="text" class="form-control" placeholder="Make " disabled=''
+                            value="{{empLogs?.make}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label> Model </label>
+                        <input type="text" class="form-control" placeholder="Model" disabled=''
+                            value="{{empLogs?.model}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Vehicle Model Year</label>
+                        <input type="text" class="form-control" placeholder="Model Year" disabled=''
+                            value="{{empLogs?.modelYear}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Vehicle Type</label>
+                        <input type="text" class="form-control" placeholder="Vehicle Type" disabled=''
+                            value="{{empLogs?.vehicleType}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Fuel Type</label>
+                        <input type="text" class="form-control" placeholder="Fuel Type" disabled=''
+                            value="{{empLogs?.fuelType}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label> CC Engine capacity</label>
+                        <input type="text" class="form-control" placeholder="Engine" disabled=''
+                            value="{{empLogs?.engineCapacityInCC}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label> Insurance Number</label>
+                        <input type="text" class="form-control" placeholder="Insurance" disabled=''>
+                    </div>
+                    <!-- <div class="form-group col-md-4">
+                <label>Vehicle Expire date</label>
+                <input type="text" class="form-control" placeholder="Date" disabled=''>
+            </div> -->
+                    <div class="form-group col-md-3">
+                        <label>Start Date</label>
+                        <input type="text" class="form-control" placeholder="Date" disabled=''
+                            value="{{empLogs?.effectiveStartDate}}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>End Date</label>
+                        <input type="text" class="form-control" placeholder="Date" disabled=''
+                            value="{{empLogs?.effectiveEndDate}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-bamul pull-left" style="margin-top: 10px ;   margin-left: 13px;">Cancel</button>
+    <button type="button" [disabled]="createEmployeeVeh" class="btn btn-bamul pull-right" style="margin-top: 10px ;   margin-right: 13px;"
+        (click)='createEmployeeVehicleLog()'>Confirm</button>
+</div>
+
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

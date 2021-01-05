@@ -1,0 +1,196 @@
+address,
+address p {
+  line-height: 25px !important;
+  margin-bottom: 0;
+}
+
+table {
+  border: 1px solid #ccc;
+  margin-bottom: 0px;
+}
+
+.ml-10 {
+  margin-left: 20px;
+}
+
+.pt-10 {
+  padding-top: 10px;
+}
+
+.pl-10 {
+  padding-left: 10px;
+}
+
+th {
+  border: 0 !important;
+  vertical-align: middle !important;
+  border-right: 1px solid #ccc !important;
+}
+
+td {
+  /* border-right: 1px solid #ccc !important; */
+  vertical-align: middle !important;
+}
+
+tr>th:last-child,
+tr>td:last-child {
+  border-right: 0 !important;
+}
+
+tr.sub-head th {
+  background: #f3f3f8;
+}
+
+.stime {
+  width: 150px;
+}
+
+.cans {
+  width: 80px;
+}
+
+.route-no {
+  width: 60px;
+}
+
+.cans {
+  width: 80px !important;
+}
+
+.actions {
+  width: 240px;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.pr-10 {
+  padding-right: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.shift {
+  position: absolute;
+  right: 10px;
+  width: 80px;
+  background: #0099de;
+  top: 0;
+  height: 100%;
+  text-align: center;
+  border-radius: 0 4px 4px 0;
+  color: #fff;
+}
+
+.shift span {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #b6e7fc;
+  margin-bottom: 4px;
+}
+
+.shift strong {
+  text-transform: unset;
+}
+
+tfoot {
+  border-top: 1px solid #ccc;
+  background: #f0f0f7;
+  text-align: right;
+}
+
+tfoot th {
+  text-align: right;
+  padding-right: 10px !important;
+}
+
+tfoot th strong {
+  /* font-size: 22px; */
+  display: inline-flex;
+  position: relative;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+button.accept-weight {
+  background: #FF5722;
+  color: #fff;
+  position: absolute;
+  font-size: 28px;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border: 0;
+  border-radius: 0 3px 0 0;
+  padding: 0px 15px;
+  line-height: 100%;
+}
+
+button.accept-weight:hover,
+button.accept-weight:focus,
+button.accept-weight:active {
+  background: #e24b1b;
+  outline: none;
+}
+
+.relative {
+  position: relative;
+}
+
+label.weight-bowl {
+  display: block;
+  font-size: 24px;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0px 0px 4px #000;
+}
+
+.error-validate {
+  font-size: 10px;
+  color: red;
+}
+
+.green {
+  color: green !important;
+}
+
+.ng-autocomplete {
+  width: 100%;
+}
+
+.d-block {
+  display: block;
+}
+
+
+
+/* 
+.inward-actions>.btn-primary {
+  position: absolute;
+  left: 21px;
+  top: 7px;
+}
+
+.inward-actions {
+  position: relative;
+}
+
+.inward-actions>.btn-warning {
+  position: absolute;
+  left: 91px;
+  top: 7px;
+} 
+
+.inward-actions>.btn-danger {
+  position: absolute;
+  left: 166px;
+  top: 7px;
+}
+
+*/

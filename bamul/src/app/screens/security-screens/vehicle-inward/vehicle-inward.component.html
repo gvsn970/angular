@@ -1,0 +1,578 @@
+<div class="security-global">
+    <div class="sidebar-security">
+        <form [formGroup]="filterForm">
+            <div class="filters">
+                <label>Route Type</label>
+                <div class="radio" *ngFor="let route of routeType">
+                    <label><input [ngClass]="{ 'is-invalid':ff.routeType.errors && (ff.routeType.touched ||submited)}" (change)="selectRouteType(route.value)" formControlName="routeType" type="radio" value="{{route.value}}">{{route.value}}</label>
+                </div>
+            </div>
+            <div class="filters">
+                <label>Status</label>
+                <div class="radio" *ngFor="let status of tripeStatus">
+                    <label><input [ngClass]="{ 'is-invalid':ff.status.errors && (ff.status.touched ||submited)}" formControlName="status" type="radio" value="{{status.value}}">{{status.value}}</label>
+                </div>
+            </div>
+
+            <div class="filters">
+                <label>Vehicle Types</label>
+                <div class="radio" *ngFor="let vehicle of vehicleType">
+                    <label><input [ngClass]="{ 'is-invalid':ff.vehicleType.errors && (ff.vehicleType.touched ||submited)}" formControlName="vehicleType" type="radio" value="{{vehicle.value}}">{{vehicle.value}}</label>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <div class="filtered-security-content">
+        <h1 class="page-header">Vehicle Inward</h1>
+        <div class="row">
+            <div class="col-xs-8 pr-10">
+                <div class="shift text-center">
+                    <span>Shift</span>
+                    <strong *ngIf="currHour < 14">Morning</strong>
+                    <strong *ngIf="currHour >= 14">Evening</strong>
+                </div>
+                <div class="placeholder mt-0 pd-10">
+                    <address>
+              <span>Location : <strong>{{userData.locationName}}</strong></span>
+              <p>
+                Address : <strong></strong>
+              </p>
+            </address>
+                </div>
+            </div>
+            <div class="col-xs-4 pl-0">
+                <div class="placeholder mt-0 pd-10">
+                    <address>
+              <p>
+                <span>Date : <strong>
+                    <app-date></app-date>
+                  </strong></span>
+              </p>
+              <p><span>Time : </span><strong>
+                  <app-clock></app-clock>
+                </strong></p>
+            </address>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="placeholder mt-10 clearfix">
+                    <form [formGroup]="searchForm">
+                        <div class="form-row mt-10">
+
+                            <div class="form-group col-md-2">
+                                <label>Route No.</label>
+
+                                <!-- <select [ngClass]="{ 'is-invalid':sf.routeNumber.errors && (sf.routeNumber.touched ||submited)}" class="form-control input-sm" formControlName="routeNumber">
+                    <option value='null' selected>Select</option>
+                    <option *ngFor="let route of allRoutes" value="{{route.routeNumber}}">{{route.routeNumber}}
+                    </option>
+                  </select> -->
+                  <div class="ng-autocomplete w-100">
+                        <ng-autocomplete formControlName="routeNumber" [data]="allRoutes" [searchKeyword]="routeListkeyword"
+                            (selected)='selectRouteEvent($event)' (inputChanged)='onChangeSearchRoute($event)'
+                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateDriver"
+                            [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid':sf.routeNumber.errors && (sf.routeNumber.touched ||submited)}">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplateDriver let-item>
+                            <a>
+                                <span [innerHTML]="item.routeNumber"></span>
+                            </a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div>No Record Found</div>
+                        </ng-template>
+                    </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Dispatch from</label>
+                                <select [ngClass]="{ 'is-invalid':sf.dispatchFrom.errors && (sf.dispatchFrom.touched ||submited)}" formControlName="dispatchFrom" class="form-control input-bl">
+                    <option value='null' selected>Select</option>
+                    <option *ngFor="let location of locationList" value="{{location.locationId}}">{{location.description}}</option>
+                  </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Shift</label>
+                                <select [ngClass]="{ 'is-invalid':sf.shift.errors && (sf.shift.touched ||submited)}" formControlName="shift" class="form-control input-bl">
+                    <option value='null' selected>Select</option>
+                    <option *ngFor="let sh of shift" value="{{sh.value}}">{{sh.key}}</option>
+                  </select>
+                            </div>
+
+                            <div class="form-group col-md-2 pt-5">
+                                <button (click)="search()" type="button" class="mt-10 pull-right btn btn-bamul input-bl">Search</button>
+                            </div>
+                            <div class="form-group col-md-2 pt-5">
+                                <button (click)="reload()" type="button" class="mt-10 pull-right btn btn-bamul input-bl">Reload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Route No.</th>
+                                <th>Vehicle No.</th>
+                                <th class="text-center">EST Arrival Time</th>
+                                <th class="text-center">ACC Arrival Time</th>
+                                <!-- <th class="text-center">Accepted Time</th> -->
+
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <div *ngFor="let shippingheader of routeDetail | paginate: { itemsPerPage: 10, currentPage: p };let i = index"> -->
+                            <th class="display-content" *ngFor="let route of routeDetail.transDeliverySetIn | paginate: { itemsPerPage: 4, currentPage: p,totalItems: routeDetail?.totalRecords };let i = index">
+                                <tr>
+                                    <td>{{route.routeNumber}}</td>
+                                    <td>{{route.vehicleNumber}}</td>
+                                    <td class="text-center">{{route.estimatedEndTime}}</td>
+                                    <td class=" text-center">{{route.actualEndTime}}</td>
+                                    <!-- <td class="text-center"> - </td> -->
+
+                                    <td class="text-center">{{route.routeStatus}}</td>
+                                    <td class="text-center">
+                                        <!-- <button (click)="changeStatus('New',route.tripTransactionId)" *ngIf="route.routeStatus=='New'" class="btn btn-sm btn-bamul">Start Trip</button> -->
+                                        <button (click)="changeStatus('Running',route.tripTransactionId,route.actualEndTime)" *ngIf="route.routeStatus=='Running'" class="btn btn-sm btn-bamul">Arrived</button>
+                                        <button (click)="changeStatus('Complete',route.tripTransactionId,route.actualEndTime)" *ngIf="route.routeStatus=='Arrived'" class="btn btn-sm btn-bamul">Complete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="two_col text-center"><a class="link-button" (click)="openModal(VechicleDetails,i,'vehicle')"><strong>Vechicle Details</strong></a>
+                                    </td>
+                                    <td colspan="1" class="two_col text-center"><a (click)="openModal(RouteDetails,i,'route')" class="link-button"><strong>Route Details</strong></a>
+                                    </td>
+                                    <td colspan="1" class="two_col text-center"><a (click)="openModal(ShipmentDetails,i,'shipment')" class="link-button"><strong>Shipment Details</strong></a>
+                                    </td>
+                                    <td colspan="1" class="two_col text-center"><a (click)="openModal(SealDetails,i,'seal')" class="link-button"><strong>Seal Details</strong></a>
+                                    </td>
+                                    <td colspan="1" class="two_col text-center"><a (click)="openModal(TripDetails,i,'tripe')" class="link-button"><strong>Trip Points</strong></a>
+                                    </td>
+                                </tr>
+                            </th>
+                        </tbody>
+                    </table>
+                    <pagination-controls class="doNotPrint" (pageChange)="pagechange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template #VechicleDetails class="input-bl">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Vehicle Details</h4>
+                <div class="placeholder pd-10 mt-10">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Vehicle #</th>
+                                <th>Vehicle Type</th>
+                                <th class="text-center">Capacity</th>
+                                <th class="text-center">Model Year</th>
+                                <th class="text-center">Insurance Validity</th>
+                                <th class="text-center">Fitness validity</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td *ngIf="vehicleDetail">{{vehicleDetail.vehicleRegNumber}}</td>
+                                <td *ngIf="vehicleDetail" class="text-center">{{vehicleDetail.vehicleType}}</td>
+                                <td *ngIf="vehicleDetail" class="text-center">{{vehicleDetail.capacity}}</td>
+                                <td *ngIf="vehicleDetail" class="text-center">{{vehicleDetail.modelYear}}</td>
+                                <td class="text-center">
+                                    <div *ngIf="vechicleInsurance">{{vechicleInsurance.docValidateTo}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="vechicleInsurance">{{vechicleInsurance.docValidateTo}}</div>
+                                </td>
+                                <td *ngIf="vehicleDetail" class="text-center">
+                                    <strong class="text-success">{{vehicleDetail.status}}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Driver Name</th>
+                                <th>Licence No</th>
+                                <th class="text-center">Validity Date</th>
+                                <th class="text-center">Contact No.</th>
+
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td *ngIf="driverDetail">{{driverDetail.driverName}}</td>
+                                <td *ngIf="driverDetail" class="text-center">{{driverDetail.licenceNumber}}</td>
+
+                                <td *ngIf="driverDetail" class="text-center">{{driverDetail.licenceExpDate}}</td>
+                                <td *ngIf="driverDetail" class="text-center">{{driverDetail.mobileNumber}}</td>
+                                <td *ngIf="driverDetail" class="text-center">
+                                    <strong class="text-success">{{driverDetail.status}}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row  mt-10">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Transportor Name</th>
+                                <th>Contact Name</th>
+                                <th class="text-center">City</th>
+                                <th class="text-center">Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div *ngIf="transporterDetails">{{transporterDetails.vendorName}} </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="transporterDetails">{{transporterDetails.vendorSiteCode}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="transporterDetails">{{transporterDetails.city}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <strong class="text-success"><div *ngIf="transporterDetails">{{transporterDetails.addressLine1}}</div></strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #RouteDetails>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Route Details - Route No. {{route.routeNumber}}</h4>
+                <div class="placeholder pd-10 mt-10">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Route #</th>
+                                <th>Truck Number</th>
+                                <th class="text-center">Start Location</th>
+                                <th class="text-center">End Location</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{route.routeNumber}}</td>
+                                <td class="text-center">{{route.vehicleNumber}}</td>
+                                <td class="text-center">{{route.startLocation}}</td>
+                                <td class="text-center">{{route.endLocation}}</td>
+                                <td class="text-center">
+                                    <strong class="text-success">{{route.routeStatus}}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Shift</th>
+                                <th>EST Start Time</th>
+                                <th class="text-center">EST End Time</th>
+                                <th class="text-center">Acutal Start Time</th>
+                                <th class="text-center">Acutal End Time</th>
+                                <th class="text-center"> Acutal Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{route.routeShift}}</td>
+                                <td class="text-center">{{route.estimatedStartTime}}</td>
+                                <td class="text-center">{{route.estimatedEndTime}}</td>
+                                <td class="text-center">{{route.actualStartTime}}</td>
+                                <td class="text-center">{{route.actualEndTime}}</td>
+                                <td class="text-center">{{route.actualTotalQuantity}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #ShipmentDetails>
+            <div class="row">
+                <div class="col-md-12" *ngIf="routesheetList">
+                    <h4 class="pd-10 mt-10"> Shipping </h4>
+                    <div class="placeholder pd-10 mt-10">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="placeholder mt-10 clearfix">
+                                        <div class="form-row mt-10">
+                                            <div class="form-group col-md-3">
+                                                <label>Route No</label>
+                                                <input type="text" class="form-control input-bl" placeholder="route number" value="{{routesheetList.routeNo}}" readonly>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Shift</label>
+                                                <input type="text" class="form-control input-bl" placeholder="shift" value="{{routesheetList.shift}}" readonly>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Date</label>
+                                                <input type="text" class="form-control input-bl" placeholder="date" value="{{routesheetList.reportDate}}" readonly>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Total Crates</label>
+                                                <input type="text" class="form-control input-bl" placeholder="total crates" value="{{routesheetList.totalCrates}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="placeholder pt-20 mt-0">
+                                        <h2 class="sub-header hidden">Reports</h2>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Products</th>
+                                                        <th>Quantity</th>
+                                                        <th>UOM</th>
+                                                        <th>Full Crates</th>
+                                                        <th>Extra Packets</th>
+                                                        <th>Partial Crates</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let i  of routesheetList.disShipLine let in =index">
+                                                        <td>{{i.item}}</td>
+                                                        <td>{{i.quantity}}</td>
+                                                        <td>{{i.uom}}</td>
+                                                        <td>{{i.fullCrates}}</td>
+                                                        <td>{{i.extraCrates}}</td>
+                                                        <td>{{i.parCrates}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="routesheetList.length==0">
+                                                            <td colspan="6" class="text-center"><strong>No Record Found</strong></td>
+                                                        </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="form-row  reamrks">
+                                                <div class=" col-sm-12">
+                                                    <label>Remarks</label>
+                                                    <textarea class="form-control" name="dispRemark" [(ngModel)]="shipRemark" id="exampleFormControlTextarea1" rows="1"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix mt-10">
+                                <ng-template #DeleteConfirm>
+                                    <div class="modal-body text-center">
+                                        <h4>Do you want to confirm shipping?</h4>
+                                        <br />
+                                        <div class="clearfix">
+                                            <button type="button" class="btn btn-primary pull-yes" (click)="confirm(in,field)">Yes</button>
+                                            <button type="button" class="btn btn-default pull-no" (click)="decline()">No</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <button type="button" [disabled]="routesheetList.length==0" class="btn btn-bamul shipping-confirm" (click)="openConfirmModel(DeleteConfirm,in,field)"> Ship
+                                Confirm</button>
+                            </div>
+                        </form>
+                        <!-- <table class="table inwards table-striped">
+                            <thead class="v-center">
+                                <tr>
+                                    <th>Route No.</th>
+                                    <th>Shift</th>
+                                    <th>Random Check</th>
+                                    <th class="text-center">Total Crates</th>
+                                    <th class="text-center">Empty Crates</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.routeNumber}}</div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.routeShift}}</div>
+                                    </td>
+                                    <td class="text-center"><strong class="text-success"><div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.randomChecked}}</div></strong></td>
+                                    <td class="text-center">
+                                        <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.totalCrates}}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.returnCrates}}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.remarks}}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-10">
+                <div class="col-md-12" *ngIf="milkAndMaterialShipmentDatail">
+                    <h4 class="pd-10 mt-10"> Shipment Details - Milk & Material Transfer </h4>
+                    <div class="placeholder pd-10 mt-10">
+                        <table class="table inwards table-striped">
+                            <thead class="v-center">
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Type</th>
+                                    <th class="text-center">Net Weight</th>
+                                    <th>Extra Items</th>
+                                    <th class="text-center">Remarks</th>
+    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.requestType}}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.itemDescription}}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.recvNetWeight}}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="milkAndMaterialShipmentDatail"> - </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.securityRemarks}}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    
+        </ng-template>
+    <ng-template #SealDetails>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Seal Details - Tanker No. KA11DA0983</h4>
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th *ngFor="let seal of sealDetail" class="text-center">
+                                    <div *ngIf="seal.compertment=='COMP1'">
+                                        Seal 1
+                                    </div>
+                                    <div *ngIf="seal.compertment=='COMP2'">
+                                        Seal 2
+                                    </div>
+                                    <div *ngIf="seal.compertment=='COMP3'">
+                                        Seal 3
+                                    </div>
+                                    <div *ngIf="seal.compertment=='COMP-BACK'">
+                                        Back Seal
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td *ngFor="let seal of sealDetail" [ngClass]="{ 'bg-danger':seal.sealApprove!='Y'}" class="text-center bg-success"><strong [ngClass]="{ 'text-danger':seal.sealApprove!='Y'}" class="text-success">{{seal.sealRemarks}}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #TripDetails>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Tripe Points </h4>
+                <div class="placeholder pd-10 mt-10" style="height:300px;overflow:scroll">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th class="text-center" width="50px">
+                                    S.No
+                                </th>
+                                <th class="text-center" width="400px">
+                                    Point Name
+                                </th>
+                                <th class="text-center">
+                                    Est Qty
+                                </th>
+                                <th class="text-center">
+                                    Acc Qty
+                                </th>
+                                <th class="text-center">
+                                    Dispatch Time
+                                </th>
+                                <th class="text-center">
+                                    No of KM
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="tripeList.length==0">
+                                <td colspan="6" class="text-center"><strong>No Record Found</strong></td>
+                            </tr>
+                            <tr *ngFor="let tripe of tripeList;let i = index">
+                                <td class="text-center"><strong>{{tripe.routePointSequenceNo}}</strong></td>
+                                <td class=""><strong>{{tripe.routePointName}}</strong></td>
+                                <td class="text-center"><strong>{{tripe.estimatedquantity}}</strong></td>
+                                <td class="text-center"><strong>{{tripe.actualQuantity}} </strong></td>
+                                <td class="text-center"><strong>{{tripe.expectedArrivalTime}}</strong></td>
+                                <td class="text-center"><strong><div *ngIf="tripe.distanceInKm!=null">{{tripe.distanceInKm}} KM</div></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+<ng4-loading-spinner [threshold]="0" [timeout]="60000" [zIndex]="100000"> </ng4-loading-spinner>

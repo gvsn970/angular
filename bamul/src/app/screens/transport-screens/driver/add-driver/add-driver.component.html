@@ -1,0 +1,415 @@
+<h1 class="page-header">Add New Driver</h1>
+<div>
+
+  <hr />
+  <tabset #staticTabs>
+    <tab heading=" Driver">
+      <form [formGroup]="Driver">
+        <div class="row">
+          <span class="required_label">Required Fields ( <b>*</b> )</span>
+          <div class="col-md-12">
+            <div class="placeholder clearfix pd-10 mt-0">
+              <div class="form-row clearfix mt-10">
+                <div class="form-group col-md-4 required">
+
+                  <label>Driver Name</label>
+                  <input (keyup)="toUpper($event.target.value)" type="text" class="form-control input-bl"
+                    placeholder="Driver Name" formControlName='driverName' maxlength="30"
+                    onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                    [ngClass]="{ 'is-invalid': submitted && f.driverName.errors ||f.driverName.touched && f.driverName.errors }">
+
+                </div>
+
+                <div class="form-group col-md-2  required">
+                  <label>Date of Birth </label>
+                  <input type="text" class="form-control date-field" placeholder="DOB"
+                    formControlName='driverDateofBirth' bsDatepicker [maxDate]="maxDate"
+                    onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                    [ngClass]="{ 'is-invalid': submitted && f.driverDateofBirth.errors ||f.driverDateofBirth.touched && f.driverDateofBirth.errors }">
+
+                </div>
+                <div class="form-group col-md-2   required">
+                  <label>Gender</label>
+                  <select class="form-control input-bl" formControlName="gender"
+                    [ngClass]="{ 'is-invalid': submitted && f.gender.errors ||f.gender.touched && f.gender.errors }">
+                    <option value="">Select</option>
+                    <option [ngValue]='gender.value' *ngFor='let gender of genderList'>{{gender.value}}</option>
+
+                  </select>
+
+                </div>
+
+                <div class="form-group col-md-2  required">
+                  <label>Mobile No.</label>
+                  <input type="text" class="form-control input-bl" placeholder="Mobile No"
+                    formControlName='mobileNumber' maxlength="10" (keypress)="numberOnly($event)"
+                    [ngClass]="{ 'is-invalid': submitted && f.mobileNumber.errors ||f.mobileNumber.touched && f.mobileNumber.errors }">
+
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Status</label>
+
+                  <select class="form-control" formControlName="status"
+                    [ngClass]="{ 'is-invalid': submitted && f.status.errors ||f.status.touched && f.status.errors }">
+
+                    <option [ngValue]='status.value' *ngFor='let status  of  validateSatusList'>{{status.value}}
+                    </option>
+
+                  </select>
+
+
+                </div>
+
+              </div>
+              <div class="form-row clearfix mt-10">
+                <div class="form-group col-md-6">
+                  <label>Address</label>
+                  <input type="text" class="form-control input-bl" placeholder="Address" formControlName="address"
+                    [ngClass]="{ 'is-invalid': submitted && f.address.errors ||f.address.touched && f.address.errors }">
+
+
+                </div>
+                <div class="form-group col-md-2">
+                  <label>City</label>
+                  <input type="text" class="form-control input-bl" placeholder="City" formControlName='city'
+                    [ngClass]="{ 'is-invalid': submitted && f.city.errors ||f.city.touched && f.city.errors }">
+                </div>
+                <div class="form-group col-md-2">
+                  <label>State</label>
+                  <select class="form-control" formControlName="state"
+                    [ngClass]="{ 'is-invalid': submitted && f.state.errors ||f.state.touched && f.state.errors }">
+                    <option value="">Select</option>
+                    <option *ngFor="let registrationState of allStCodeList " [ngValue]='registrationState'>
+                      {{registrationState}}</option>
+                  </select>
+
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Country</label>
+                  <select class="form-control">
+                    <option value="">India</option>
+                  </select>
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+            <div class="placeholder clearfix pd-10 mt-10">
+              <div class="form-row mt-10">
+                <div class="form-group col-md-4  required">
+                  <label>Licence No</label>
+                  <input type="text" class="form-control input-bl" placeholder="Licence No"
+                    formControlName="licenceNumber" maxlength="20" appUpperCase
+                    [ngClass]="{ 'is-invalid': submitted && f.licenceNumber.errors ||f.licenceNumber.touched && f.licenceNumber.errors }">
+
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Licence Expiry Date</label>
+                  <input type="text" class="form-control date-field" placeholder="Licence Expiry Date" bsDatepicker
+                    onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                    formControlName="licenceExpDate" [bsConfig]="datePickerConfig"
+                    [ngClass]="{ 'is-invalid': submitted && f.licenceExpDate.errors ||f.licenceExpDate.touched && f.licenceExpDate.errors }">
+
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Licence Type</label>
+                  <select class="form-control" formControlName="licenceType"
+                    [ngClass]="{ 'is-invalid': submitted && f.licenceType.errors ||f.licenceType.touched && f.licenceType.errors }">
+                    <option value="">Select</option>
+
+                    <option [ngValue]='licenceType.value' *ngFor='let licenceType  of licenceTypeList'>
+                      {{licenceType.value}}</option>
+                  </select>
+
+                </div>
+              </div>
+
+              <div class="form-row mt-10">
+                <div class="form-group col-md-4">
+                  <label> Nominee Name</label>
+                  <input type="text" class="form-control input-bl" placeholder=" Nominee  Name"
+                    formControlName="nomineeName"
+                    onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                    [ngClass]="{ 'is-invalid': submitted && f.nomineeName.errors ||f.nomineeName.touched && f.nomineeName.errors }">
+
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Nominee DOB</label>
+                  <input type="text" class="form-control date-field" placeholder="Nominee DOB" bsDatepicker
+                    formControlName="nomineeDateoFBirth" [maxDate]="maxDate"
+                    onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                    [ngClass]="{ 'is-invalid': submitted && f.nomineeDateoFBirth.errors ||f.nomineeDateoFBirth.touched && f.nomineeDateoFBirth.errors }">
+
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Nominee Relation</label>
+                  <select class="form-control" formControlName="nomineeRelation"
+                    [ngClass]="{ 'is-invalid': submitted && f.nomineeRelation.errors ||f.nomineeRelation.touched && f.nomineeRelation.errors }">
+                    <option value="">Select</option>
+                    <option [ngValue]='nomineeRelation.value' *ngFor='let nomineeRelation of nomineeList'>
+                      {{nomineeRelation.value}}</option>
+                  </select>
+
+
+                </div>
+              </div>
+
+              <div class="form-row mt-10">
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix mt-10">
+          <button type="button" class="btn btn-secondary pull-left cancel-btn">Cancel</button>
+          <button type="button" (click)='Create()' class="btn btn-bamul pull-right">Save & Next</button>
+        </div>
+      </form>
+    </tab>
+    <tab heading="Assignment">
+      <form [formGroup]="DriverAssignments">
+        <div class="placeholder clearfix pd-10 mt-0">
+          <div class="form-row mt-10">
+            <div class="form-group col-md-3">
+              <label>Transporter</label>
+              <!-- <input type="text" class="form-control input-bl" (keypress)="numberOnly($event)" maxlength="20"
+                placeholder="Transporter" formControlName="vendorId"
+                [ngClass]="{ 'is-invalid': submittedassignment && g.vendorId.errors ||g.vendorId.touched && g.vendorId.errors }"> -->
+              <div>
+                <ng-autocomplete formControlName="vendorId" maxlength="12" placeholder="Registration Number"
+                  [data]="vehicleItemList" [searchKeyword]="vehicleListkeyword" (selected)='selectEvent($event)'
+                  (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                  [itemTemplate]="itemTemplateVehicle" [notFoundTemplate]="notFoundTemplate"
+                  [ngClass]="{ 'is-invalid':
+                    (vehicleAvailable==false) || (submitted && DriverAssignments.controls.vendorId.errors?.required) }">
+                </ng-autocomplete>
+                <ng-template #itemTemplateVehicle let-item>
+                  <a [innerHTML]="item.vendorName"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                  <div>No Record Found</div>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Department</label>
+              <select class="form-control input-bl" placeholder="Department" formControlName="department"
+                [ngClass]="{ 'is-invalid': submittedassignment && g.department.errors ||g.department.touched && g.department.errors }">
+                <option value="">Select</option>
+                <option [ngValue]="department.deptName" *ngFor="let department of departments">{{department.deptName}}
+                </option>
+
+              </select>
+
+
+            </div>
+            <!-- <div class="form-group col-md-2">
+              <label>Start Date</label>
+              <input type="text" class="form-control date-field" placeholder="Start Date" bsDatepicker
+                formControlName="startDate"
+                onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                [bsConfig]="datePickerConfig"
+                [ngClass]="{ 'is-invalid': submittedassignment && g.startDate.errors ||g.startDate.touched && g.startDate.errors }">
+
+            </div>
+            <div class="form-group col-md-2">
+              <label>End Date</label>
+              <input type="text" class="form-control date-field" placeholder="End Date" bsDatepicker
+                onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                formControlName="endDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [minDate]='minDate'
+                [ngClass]="{ 'is-invalid': submittedassignment && g.endDate.errors ||g.endDate.touched && g.endDate.errors }">
+
+
+            </div> -->
+            <!-- <div class="form-group col-md-2">
+            <label>Status</label>
+            <select class="form-control">
+              <option>Select</option>
+              <option>Active</option>
+              <option>Inactive</option>
+              <option>Draft</option>
+            </select>
+          </div> -->
+          </div>
+        </div>
+        <div class="clearfix mt-10">
+          <button type="button" class="btn btn-secondary pull-left cancel-btn">Cancel</button>
+          <button type="button" (click)='diverAssign()' [disabled]="driverassignmentButton"
+            class="btn btn-bamul pull-right">Save & Next</button>
+        </div>
+      </form>
+    </tab>
+    <tab heading="Documents ">
+      <div class="placeholder clearfix pd-10 mt-0">
+        <form [formGroup]="Driverdocuments">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="w-50">Sr. No.</th>
+                  <th>Document Type</th>
+                  <th>Doc No </th>
+                  <!-- <th>Transportor</th> -->
+                  <th>Description</th>
+                  <th>Valid From</th>
+                  <th>Valid To</th>
+                  <th class='text-center w-200'>Action</th>
+                  <!-- <th class='text-center'>View Detail</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let control of  Driverdocuments.get('users').controls; let i=index" [formGroup]="control">
+                  <td>{{i+1}}</td>
+                  <td>
+                    <select type="text" class="form-control input-bl" formControlName="documentType"
+                      [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentType.errors }">
+                      <option value="">Select</option>
+                      <option *ngFor="let documentType of   documentTypeList" [ngValue]='documentType.value'>
+                        {{documentType.value}}</option>
+
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" class="form-control input-bl" placeholder="No" (keypress)="numberOnly($event)"
+                      formControlName="documentNumber" maxlength="20"
+                      [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentNumber.errors }">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control input-bl" placeholder="Desc."
+                      formControlName="documentProviderName"
+                      [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentProviderName.errors }">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control input-bl date-field" placeholder="From"
+                      formControlName="docStartDate" bsDatepicker [bsConfig]="datePickerConfig"
+                      [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docStartDate.errors }">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control input-bl date-field" placeholder="To"
+                      formControlName="docEndDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                      [minDate]='minDate'
+                      [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docEndDate.errors }">
+                  </td>
+                  <!-- <td>
+                        <input type="file" class="custom-file-input" formControlName='fileUpload'
+                        [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                        (change)="upload($event.target.files,i,control)">
+                      </td> -->
+                  <td>
+
+                    <!-- <div class="file-upload">
+                          <input type="file" class="custom-file-input" formControlName='fileUpload'
+                            [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                            (change)="upload($event.target.files,i,control)">
+                        </div> -->
+
+                    <div class="image-upload d-inline-block">
+                      <label for="file-input-{{i+1}}">
+                        <img src="../../../../../../assets/img/file-upload.png" />
+                      </label>
+                      <!-- <input id="file-input-{{i+1}}" type="file" class="custom-file-input"
+                            formControlName='fileUpload'
+                            [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                            (change)="upload($event.target.files,i,control)"> -->
+                      <input id="file-input-{{i+1}}" type="file" class="custom-file-input" formControlName='fileUpload'
+                        [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                        (change)="upload($event.target.files,i,control)">
+                    </div>
+
+                    <div class="d-inline-block ">
+                      <button (click)='remove(i,control)' type="button"
+                        class="btn-sm btn-danger no-border">Delete</button>
+                    </div>
+
+                    <div class="d-inline-block ">
+                      <button (click)='saveDoc(i,control)' [disabled]="control.value.saveDocument" type="button"
+                        class="  btn btn-bamul btn-sm btn-vehicle-save">Save</button>
+                    </div>
+                  </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+          <!-- <div class="form-row clearfix mt-10"
+            *ngFor="let control of  Driverdocuments.get('users').controls; let i=index" [formGroup]="control">
+            <div class="form-group col-md-2  required">
+              <label>Document Type</label>
+              <select type="text" class="form-control input-bl" formControlName="documentType"
+                [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentType.errors }">
+                <option value="">Select</option>
+                <option *ngFor="let documentType of   documentTypeList" [ngValue]='documentType.value'>
+                  {{documentType.value}}</option>
+              </select>
+
+
+            </div>
+            <div class="form-group col-md-2  required">
+              <label>Doc No</label>
+              <input type="text" class="form-control input-bl" placeholder="No" formControlName="documentNumber"
+                maxlength="20" (keypress)="numberOnly($event)"
+                [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentNumber.errors }">
+
+            </div>
+            <div class="form-group col-md-2  required">
+              <label> Provider Name</label>
+              <input type="text" class="form-control input-bl" placeholder="Desc."
+                formControlName="documentProviderName"
+                [ngClass]="{ 'is-invalid': submittedDoc && control.controls.documentProviderName.errors }">
+
+            </div>
+            <div class="form-group col-md-2  required">
+              <label>Valid From</label>
+              <input type="text" class="form-control input-bl date-field" placeholder="From"
+                formControlName="docStartDate" bsDatepicker [bsConfig]="datePickerConfig"
+                [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docStartDate.errors }">
+
+            </div>
+            <div class="form-group col-md-2  required">
+              <label>Valid To</label>
+              <input type="text" class="form-control input-bl date-field" placeholder="To" formControlName="docEndDate"
+                bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [minDate]='minDate'
+                [ngClass]="{ 'is-invalid': submittedDoc && control.controls.docEndDate.errors }">
+
+            </div>
+
+            <div class="col-md-1  file-upload">
+              <input type="file" class="custom-file-input" formControlName='fileUpload'
+                [ngClass]="{ 'is-invalid': submittedDoc && control.controls.fileUpload.errors }"
+                (change)="upload($event.target.files,i,control)">
+            </div>
+            <div class="col-md-1  delete ">
+              <button (click)='remove(i)' type="button" class="btn-sm btn-danger no-border">Delete</button>
+            </div>
+
+            <div class="col-md-1  save ">
+              <button (click)='saveDoc(i,control)' style="padding: 3px 14px;" [disabled]="control.value.saveDocument"
+                type="button" class="  btn btn-bamul btn-sm ">Save</button>
+            </div>
+          </div> -->
+          <div class="clearfix pl-15">
+            <!-- <a class="pull-left" ><u  >Add New Document</u></a> -->
+            <button type="button" [disabled]="addNewRow" (click)="addDriverDoc()" class="btn btn-bamul pull-right">Add
+              New Document</button>
+          </div>
+
+        </form>
+      </div>
+    </tab>
+  </tabset>
+</div>
+<ngx-spinner size="medium" type="ball-clip-rotate-pulse">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

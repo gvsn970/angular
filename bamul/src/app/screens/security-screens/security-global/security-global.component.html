@@ -1,0 +1,595 @@
+<div class="security-global">
+    <div class="sidebar-security">
+        <form [formGroup]="filterForm">
+            <div class="filters">
+                <label>Route Type</label>
+                <div class="radio" *ngFor="let route of routeType">
+                    <label><input [ngClass]="{ 'is-invalid':ff.routeType.errors && (ff.routeType.touched ||submited)}"
+                (change)="selectRouteType(route.value)" formControlName="routeType" type="radio"
+                value="{{route.value}}">{{route.value}}</label>
+                </div>
+            </div>
+            <div class="filters">
+                <label>Status</label>
+                <div class="radio" *ngFor="let status of tripeStatus">
+                    <label><input [ngClass]="{ 'is-invalid':ff.status.errors && (ff.status.touched ||submited)}"
+                formControlName="status" type="radio" value="{{status.value}}">{{status.value}}</label>
+                </div>
+            </div>
+            <!-- <div class="filters">
+               <label>Departure Time</label>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">Before 6 AM</label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">6 AM to 12 PM </label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">12 PM to 6 PM</label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">After 6 PM</label>
+               </div>
+             </div>
+             <div class="filters">
+               <label>Arrival Time</label>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">Before 6 AM</label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">6 AM to 12 PM </label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">12 PM to 6 PM</label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">After 6 PM</label>
+               </div>
+             </div>
+             <div class="filters">
+               <label>Route Types</label>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">BMC Route</label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">CC Milk Transfer </label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">P&I Route</label>
+               </div>
+               <div class="checkbox">
+                 <label><input type="checkbox" value="">Milk Dispatch</label>
+               </div>
+             </div> -->
+            <div class="filters">
+                <label>Vehicle Types</label>
+                <div class="radio" *ngFor="let vehicle of vehicleType">
+                    <label><input [ngClass]="{ 'is-invalid':ff.vehicleType.errors && (ff.vehicleType.touched ||submited)}"
+                formControlName="vehicleType" type="radio" value="{{vehicle.value}}">{{vehicle.value}}</label>
+                </div>
+                <!-- <div class="radio">
+                 <label><input [ngClass]="{ 'is-invalid':ff.vehicleType.errors && (ff.vehicleType.touched ||submited)}" formControlName="vehicleType" type="radio" value="trucks">Trucks</label>
+               </div> -->
+            </div>
+
+        </form>
+    </div>
+    <div class="filtered-security-content">
+        <h1 class="page-header">Security Global</h1>
+        <div class="row">
+            <div class="col-xs-8 pr-10">
+                <div class="shift text-center">
+                    <span>Shift</span>
+                    <strong *ngIf="currHour < 14">Morning</strong>
+                    <strong *ngIf="currHour >= 14">Evening</strong>
+                </div>
+                <div class="placeholder mt-0 pd-10">
+                    <address>
+              <span>Location : <strong>{{userData.locationName}}</strong></span>
+              <p>
+                Address : <strong></strong>
+              </p>
+            </address>
+                </div>
+            </div>
+            <div class="col-xs-4 pl-0">
+                <div class="placeholder mt-0 pd-10">
+                    <address>
+              <p>
+                <span>Date : <strong>
+                    <app-date></app-date>
+                  </strong></span>
+              </p>
+              <p><span>Time : </span><strong>
+                  <app-clock></app-clock>
+                </strong></p>
+            </address>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="placeholder mt-10 clearfix">
+                    <form [formGroup]="searchForm">
+                        <div class="form-row mt-10">
+                            <!-- <div class="form-group col-md-2">
+                  <label>Route Type </label>
+                  <select [ngClass]="{ 'is-invalid':sf.routeType.errors && (sf.routeType.touched ||submited)}"
+                    (change)="selectRouteType($event.target.value)" formControlName="routeType"
+                    class="form-control input-bl">
+                    <option value='' selected>Select</option>
+                    <option value="BMC">BMC</option>
+                    <option value="Dispatch">Dispatch</option>
+                    <option value="PI">PI</option>
+                    <option value="CC">CC</option>
+                  </select>
+                </div> -->
+                            <div class="form-group col-md-2">
+                                <label>Route No.</label>
+                                <!-- <input formControlName="routeNumber" type="text" class="form-control input-bl" Value="6"> -->
+                                <select [ngClass]="{ 'is-invalid':sf.routeNumber.errors && (sf.routeNumber.touched ||submited)}" class="form-control input-sm" formControlName="routeNumber">
+                    <option value='null' selected>Select</option>
+                    <option *ngFor="let route of allRoutes" value="{{route.routeNumber}}">{{route.routeNumber}}
+                    </option>
+                  </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Dispatch from</label>
+                                <select [ngClass]="{ 'is-invalid':sf.dispatchFrom.errors && (sf.dispatchFrom.touched ||submited)}" formControlName="dispatchFrom" class="form-control input-bl">
+                    <option value='null' selected>Select</option>
+                    <option *ngFor="let location of locationList" value="{{location.locationId}}">{{location.description}}
+                    </option>
+                  </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Dispatch To</label>
+                                <select [ngClass]="{ 'is-invalid':sf.dispatchTo.errors && (sf.dispatchTo.touched ||submited)}" formControlName="dispatchTo" class="form-control input-bl">
+                    <option value='null' selected>Select</option>
+                    <option *ngFor="let location of locationList" value="{{location.locationId}}">{{location.description}}
+                    </option>
+                  </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Shift</label>
+                                <select [ngClass]="{ 'is-invalid':sf.shift.errors && (sf.shift.touched ||submited)}" formControlName="shift" class="form-control input-bl">
+                    <option value='null' selected>Select</option>
+                    <option *ngFor="let sh of shift" value="{{sh.key}}">{{sh.key}}</option>
+                  </select>
+                            </div>
+                            <!-- <div class="form-group col-md-2">
+                  <label>Status</label>
+                  <select [ngClass]="{ 'is-invalid':sf.status.errors && (sf.status.touched ||submited)}"
+                    formControlName="status" class="form-control input-bl">
+                    <option value='' selected>Select</option>
+                    <option>In Transit</option>
+                    <option>Arrived</option>
+                  </select>
+                </div> -->
+                            <div class="form-group col-md-2 pt-5">
+                                <button (click)="search()" type="button" class="mt-10 pull-right btn btn-bamul input-bl">Search</button>
+                            </div>
+                            <div class="form-group col-md-2 pt-5">
+                                <button (click)="reload()" type="button" class="mt-10 pull-right btn btn-bamul input-bl">Reload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Route No.</th>
+                                <th>Vehicle No.</th>
+                                <th class="text-center">ACC Dispatch Time</th>
+                                <th class="text-center">ACC Arrival Time</th>
+                                <th class="text-center">Accepted Time</th>
+                                <th class="text-center">EST Arrival Time</th>
+                                <th class="text-center">EST Dispatch Time</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <div *ngFor="let shippingheader of routeDetail | paginate: { itemsPerPage: 10, currentPage: p };let i = index"> -->
+                            <th class="display-content" *ngFor="let route of routeDetail | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+                                <tr>
+                                    <td>{{route.routeNumber}}</td>
+                                    <td>{{route.vehicleNumber}}</td>
+                                    <td class=" text-center">{{route.actualStartTime}}</td>
+                                    <td class="text-center">{{route.actualEndTime}}</td>
+                                    <td class="text-center"> - </td>
+                                    <td class="text-center">{{route.estimatedStartTime}}</td>
+                                    <td class="text-center">{{route.estimatedEndTime}}</td>
+                                    <td class="text-center">{{route.routeStatus}}</td>
+                                    <td class="text-center">
+                                        <button (click)="changeStatus('Running',route.tripTransactionId)" *ngIf="route.routeStatus=='Running'" class="btn btn-sm btn-bamul">Arrived</button>
+                                        <button (click)="changeStatus('Complete',route.tripTransactionId)" *ngIf="route.routeStatus=='Arrived'" class="btn btn-sm btn-bamul">Complete</button>
+                                        <button (click)="changeStatus('New',route.tripTransactionId)" *ngIf="route.routeStatus=='New' || route.routeStatus=='Schedule'" class="btn btn-sm btn-bamul">Start Trip</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="two_col text-center"><a class="link-button" (click)="openModal(VechicleDetails,i,'vehicle')"><strong>Vechicle Details</strong></a>
+                                    </td>
+                                    <td colspan="2" class="two_col text-center"><a (click)="openModal(RouteDetails,i,'route')" class="link-button"><strong>Route Details</strong></a>
+                                    </td>
+                                    <td colspan="2" class="two_col text-center"><a (click)="openModal(ShipmentDetails,i,'shipment')" class="link-button"><strong>Shipment Details</strong></a>
+                                    </td>
+                                    <td colspan="2" class="two_col text-center"><a (click)="openModal(SealDetails,i,'seal')" class="link-button"><strong>Seal Details</strong></a>
+                                    </td>
+                                    <td colspan="1" class="two_col text-center"><a (click)="openModal(TripDetails,i,'tripe')" class="link-button"><strong>Trip Details</strong></a>
+                                    </td>
+                                </tr>
+                            </th>
+                        </tbody>
+                    </table>
+                    <pagination-controls class="doNotPrint" (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template #VechicleDetails class="input-bl">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Vehicle Details - Route No. 201</h4>
+                <div class="placeholder pd-10 mt-10">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Vehicle #</th>
+                                <th>Vehicle Type</th>
+                                <th class="text-center">Capacity</th>
+                                <th class="text-center">Model Year</th>
+                                <th class="text-center">Insurance Validity</th>
+                                <th class="text-center">Fitness validity</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="vehicleDetail">
+                                <td>
+                                    <div *ngIf="vehicleDetail">{{vehicleDetail.vehicleRegNumber}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="vehicleDetail">{{vehicleDetail.vehicleType}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="vehicleDetail">{{vehicleDetail.capacity}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="vehicleDetail">{{vehicleDetail.modelYear}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="vechicleInsurance">{{vechicleInsurance.docValidateTo}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="vechicleInsurance">{{vechicleInsurance.docValidateTo}}</div>
+                                </td>
+                                <td *ngIf="vehicleDetail" class="text-center">
+                                    <strong class="text-success">{{vehicleDetail.status}}</strong>
+                                </td>
+                            </tr>
+                            <tr *ngIf="!vehicleDetail">
+                                <td class="text-center" colspan="7">No Record Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Driver Name</th>
+                                <th>Licence No</th>
+                                <th class="text-center">Validity Date</th>
+                                <th class="text-center">Contact No.</th>
+
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="driverDetail">
+                                <td *ngIf="driverDetail">{{driverDetail.driverName}}</td>
+                                <td *ngIf="driverDetail" class="text-center">{{driverDetail.licenceNumber}}</td>
+
+                                <td *ngIf="driverDetail" class="text-center">{{driverDetail.licenceExpDate}}</td>
+                                <td *ngIf="driverDetail" class="text-center">{{driverDetail.mobileNumber}}</td>
+                                <td *ngIf="driverDetail" class="text-center">
+                                    <strong class="text-success">{{driverDetail.status}}</strong>
+                                </td>
+                            </tr>
+                            <tr *ngIf="!driverDetail">
+                                <td class="text-center" colspan="5">No Record Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row  mt-10">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Transportor Name</th>
+                                <th>Contact Name</th>
+                                <th class="text-center">Contact No.</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="supplierData">
+                                <td>
+                                    <div *ngIf="supplierData">{{supplierData.vendorName}} </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="supplierData">{{supplierData.contactName}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="supplierData">{{supplierData.vendorNum}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <strong class="text-success"><div *ngIf="supplierData">{{supplierData.status}}</div></strong>
+                                </td>
+                            </tr>
+                            <tr *ngIf="!supplierData">
+                                <td class="text-center" colspan="4">No Record Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #RouteDetails>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Route Details - Route No. {{route.routeNumber}}</h4>
+                <div class="placeholder pd-10 mt-10">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Route #</th>
+                                <th>Truck Number</th>
+                                <th class="text-center">Start Location</th>
+                                <th class="text-center">End Location</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{route.routeNumber}}</td>
+                                <td class="text-center">{{route.vehicleNumber}}</td>
+                                <td class="text-center">{{route.startLocationName}}</td>
+                                <td class="text-center">{{route.endLocationName}}</td>
+                                <td class="text-center">
+                                    <strong class="text-success">{{route.routeStatus}}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Shift</th>
+                                <th>EST Start Time</th>
+                                <th class="text-center">EST End Time</th>
+                                <th class="text-center">Acutal Start Time</th>
+                                <th class="text-center">Acutal End Time</th>
+                                <th class="text-center"> Acutal Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{route.routeShift}}</td>
+                                <td class="text-center">{{route.estimatedStartTime}}</td>
+                                <td class="text-center">{{route.estimatedEndTime}}</td>
+                                <td class="text-center">07:20:00</td>
+                                <td class="text-center">09:50:00</td>
+                                <td class="text-center">{{route.vehicleCapInKg}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #ShipmentDetails>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Shipment Details - Sales Order Dispatch - Route Sheet {{salesOrderShipmentDatail.routeId}}</h4>
+                <div class="placeholder pd-10 mt-10">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Route No.</th>
+                                <th>Shift</th>
+                                <th>Random Check</th>
+                                <th class="text-center">Total Crates</th>
+                                <th class="text-center">Empty Crates</th>
+                                <th class="text-center">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.routeNumber}}</div>
+                                </td>
+                                <td>
+                                    <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.routeShift}}</div>
+                                </td>
+                                <td class="text-center"><strong class="text-success"><div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.randomChecked}}</div></strong></td>
+                                <td class="text-center">
+                                    <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.totalCrates}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.returnCrates}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="salesOrderShipmentDatail">{{salesOrderShipmentDatail.remarks}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Shipment Details - Milk & Material Transfer - {{milkAndMaterialShipmentDatail.deliveryChallanNo}}</h4>
+                <div class="placeholder pd-10 mt-10">
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th>Material</th>
+                                <th>Type</th>
+                                <th class="text-center">Net Weight</th>
+                                <th>Extra Items</th>
+                                <th class="text-center">Remarks</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.requestType}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.itemDescription}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.recvNetWeight}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="milkAndMaterialShipmentDatail"> - </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="milkAndMaterialShipmentDatail">{{milkAndMaterialShipmentDatail.securityRemarks}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+    <ng-template #SealDetails>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Seal Details - Tanker No. KA11DA0983</h4>
+                <div class="placeholder pd-10 mt-10">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th *ngFor="let seal of sealDetail" class="text-center">
+                                    <div *ngIf="seal.compertment=='COMP1'">
+                                        Seal 1
+                                    </div>
+                                    <div *ngIf="seal.compertment=='COMP2'">
+                                        Seal 2
+                                    </div>
+                                    <div *ngIf="seal.compertment=='COMP3'">
+                                        Seal 3
+                                    </div>
+                                    <div *ngIf="seal.compertment=='COMP-BACK'">
+                                        Back Seal
+                                    </div>
+                                </th>
+                                <!-- <th>Seal 2</th>
+                  <th class="text-center">Seal 3</th>
+                  <th class="text-center">Back Seal</th>
+                  <th class="text-center">Extra Items</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td *ngFor="let seal of sealDetail" [ngClass]="{ 'bg-danger':seal.sealApprove!='Y'}" class="text-center bg-success"><strong [ngClass]="{ 'text-danger':seal.sealApprove!='Y'}" class="text-success">{{seal.sealRemarks}}</strong></td>
+                                <!-- <td class="text-center bg-success"><strong class="text-success">Valid</strong></td>
+                  <td class="text-center bg-danger"><strong class="text-danger">Broken</strong></td>
+                  <td class="text-center bg-success"><strong class="text-success">Valid</strong></td>
+                  <td class="text-center bg-success"><strong class="text-success">Valid</strong></td>
+                  <td class="text-center bg-success">
+                    <strong class="text-success">Available</strong>
+                  </td> -->
+                            </tr>
+                            <tr *ngIf="sealDetail.length==0">
+                                <td class="text-center" colspan="4">No Record Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #TripDetails>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="pd-10 mt-10"> Trip Details </h4>
+                <div class="placeholder pd-10 mt-10" style="height:300px;overflow:scroll">
+
+                    <table class="table inwards table-striped">
+                        <thead class="v-center">
+                            <tr>
+                                <th class="text-center">
+                                    S.No
+                                </th>
+                                <th class="text-center">
+                                    Point Name
+                                </th>
+                                <th class="text-center">
+                                    Est Qty
+                                </th>
+                                <th class="text-center">
+                                    Acc Qty
+                                </th>
+                                <th class="text-center">
+                                    Dispatch Time
+                                </th>
+                                <th class="text-center">
+                                    No of KM
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="tripeList.length==0">
+                                <td colspan="6" class="text-center"><strong>No Record Found</strong></td>
+                            </tr>
+                            <tr *ngFor="let tripe of tripeList;let i = index">
+                                <td class="text-center"><strong>{{tripe.routePointSequenceNo}}</strong></td>
+                                <td class="text-center"><strong>{{tripe.routePointName}}</strong></td>
+                                <td class="text-center"><strong>{{tripe.estimatedquantity}} kg</strong></td>
+                                <td class="text-center"><strong>{{tripe.actualQuantity}} Kg</strong></td>
+                                <td class="text-center"><strong>{{tripe.expectedArrivalTime}} PM</strong></td>
+                                <td class="text-center"><strong>{{tripe.distanceInKm}} KM</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner>

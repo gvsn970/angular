@@ -1,0 +1,112 @@
+ <h1 class="page-header">List Milk Transfer Security</h1>
+ <div class="row">
+   <div class="col-xs-8 pr-10">
+     <div class="shift text-center">
+       <span>Shift</span>
+       <strong>Morning</strong>
+     </div>
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <span>Location : <strong>Anekal Chilling Center - Gate 1</strong></span>
+         <p>
+           Address : <strong>8-2-341/A, Prasanth Nagar, Bengalore 500987</strong>
+         </p>
+       </address>
+     </div>
+   </div>
+   <div class="col-xs-4 pl-0">
+     <div class="placeholder mt-0 pd-10">
+       <address>
+         <p>
+           <span>Date : <strong>
+               <app-date></app-date>
+             </strong></span>
+         </p>
+         <p><span>Time : </span><strong>
+             <app-clock></app-clock>
+           </strong></p>
+       </address>
+     </div>
+   </div>
+ </div>
+
+ <div class="row">
+   <div class="col-md-12">
+     <div class="placeholder pd-10 mt-10">
+       <table class="table inwards">
+         <thead class="v-center">
+           <tr>
+             <th rowspan="2">DC Number</th>
+             <th rowspan="2">Route No</th>
+             <th rowspan="2">Vehicle No</th>
+             <th rowspan="2" class="text-center">Driver Name</th>
+             <th colspan="2" class="text-center">Schedule Date & Time</th>
+             <th rowspan="2" class="text-center">Action</th>
+
+           </tr>
+           <tr class="sub-head">
+             <th class="text-center">Inward Loading</th>
+             <th class="text-center">Outward Loading</th>
+           </tr>
+         </thead>
+
+         <tbody>
+
+           <tr>
+             <td>DC - 003</td>
+             <td>RT - 453</td>
+             <td>KA11-TA-9849</td>
+             <td class="text-center">Ashok Lal</td>
+             <td class="text-center">12/02/20 12:30:33</td>
+             <td class="time text-center">
+               12/02/20 14:30:33
+             </td>
+             <td class="text-center inward-actions">
+               <button routerLink="../milk-transfer" type="button" class="btn-sm btn-success">View & Update</button>
+             </td>
+           </tr>
+           <tr>
+             <td>DC - 004</td>
+             <td>RT - 453</td>
+             <td>KA11-TA-9849</td>
+             <td class="text-center">Ashok Lal</td>
+             <td class="text-center">12/02/20 12:30:33</td>
+             <td class="time text-center">
+               12/02/20 14:30:33
+             </td>
+             <td class="text-center inward-actions">
+               <button routerLink="../milk-transfer" type="button" class="btn-sm btn-success">View & Update</button>
+             </td>
+           </tr>
+           <tr>
+             <td>DC - 005</td>
+             <td>RT - 453</td>
+             <td>KA11-TA-9849</td>
+             <td class="text-center">Ashok Lal</td>
+             <td class="text-center">12/02/20 12:30:33</td>
+             <td class="time text-center">
+               12/02/20 14:30:33
+             </td>
+             <td class="text-center inward-actions">
+               <button routerLink="../milk-transfer" type="button" class="btn-sm btn-success">View & Update</button>
+             </td>
+           </tr>
+           <tr>
+             <td>DC - 006</td>
+             <td>RT - 453</td>
+             <td>KA11-TA-9849</td>
+             <td class="text-center">Ashok Lal</td>
+             <td class="text-center">12/02/20 12:30:33</td>
+             <td class="time text-center">
+               12/02/20 14:30:33
+             </td>
+             <td class="text-center inward-actions">
+               <button routerLink="../milk-transfer" type="button" class="btn-sm btn-success">View & Update</button>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+     </div>
+   </div>
+ </div>

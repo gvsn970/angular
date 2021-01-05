@@ -1,0 +1,26 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+  <!-- <accordion-group routerLink="dashboard" routerLinkActive="active" [isDisabled]="true" heading="Dashboard" class="dashboard btn-icon">
+    </accordion-group> -->
+  <accordion-group [isOpen]="true" heading="Dispatch" class="indent btn-icon">
+    <ul (click)='orderDispatch()'>
+      <li>
+        <a routerLinkActive="active">
+          <fa name="cog"></fa> Order Dispatch
+        </a>
+      </li>
+    </ul>
+  </accordion-group>
+
+  <accordion-group heading="Other Sales Order" class="indent btn-icon">
+    <ul>
+      <li>
+        <a routerLink="other-sales-order-dispatch-list" routerLinkActive="active">
+          <fa name="cog"></fa> Other Sales Order List
+        </a>
+      </li>
+    </ul>
+  </accordion-group>
+
+</accordion>
+<button (click)='logout()' class="btn btn-primary logout">Logout
+</button>

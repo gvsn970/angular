@@ -1,0 +1,214 @@
+<accordion class="dashboard-sidebar" [closeOthers]="true" isAnimated="true">
+    <accordion-group [isOpen]="true" heading="Raw Milk Dispatch" class="btn-icon">
+        <ul>
+            <li>
+                <a routerLink="inward-vehicle" routerLinkActive="active">
+                    <fa name="cog"></fa> Invard Vehicles
+                </a>
+            </li>
+            <li>
+                <a routerLink="milk-cans-confirmation" routerLinkActive="active">
+                    <fa name="cog"></fa> Milk cans confirmation
+                </a>
+            </li>
+            <li class="hidden">
+                <a routerLink="list-inward-vehicle" routerLinkActive="active">
+                    <fa name="cog"></fa> List All Entry
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Shipping" class="btn-icon">
+        <ul>
+            <li>
+                <a (click)='orderShipping()' routerLinkActive="active">
+                    <fa name="cog"></fa> Order Shipping
+                </a>
+            </li>
+            <li>
+                <a routerLink="shipping-returns" routerLinkActive="active">
+                    <fa name="cog"></fa> Shipping Returns
+                </a>
+            </li>
+            <!-- <li class="hidden"><a routerLink="list-inward-vehicle" routerLinkActive="active">
+              <fa name="cog"></fa> List All Entry
+            </a>
+          </li> -->
+        </ul>
+    </accordion-group>
+    <!-- <accordion-group heading="Random Check" class="btn-icon">
+        <ul>
+
+            <li>
+                <a routerLink="ramdom-check" routerLinkActive="active">
+                    <fa name="cog"></fa> Random Check
+                </a>
+            </li>
+            <li>
+                <a (click)='randomCheckShipping()' routerLinkActive="active">
+                    <fa name="cog"></fa> Random Check Shipping
+                </a>
+            </li>
+
+        </ul>
+    </accordion-group> -->
+    <accordion-group heading="Employee Vehicle Log" class="transport btn-icon">
+        <ul>
+            <li>
+                <a routerLink="employee-vehicle-log" routerLinkActive="active">
+                    <fa name="cog"></fa> Employee Vehicle Log
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Other Sales Order" class="transport btn-icon">
+        <ul>
+            <li>
+                <a routerLink="other-sales-order-security" routerLinkActive="active">
+                    <fa name="cog"></fa> Other Sales Order List
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+
+    <accordion-group heading="Security" class="security btn-icon">
+        <ul class="parent-list">
+            <li>
+                <label>Security</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/vehicle-inward">
+                            <fa name="cog"></fa> Inward Vehicle
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active">
+                        <a routerLink="security/vehicle-outward">
+                            <fa name="cog"></fa> Outward Vehicle
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="parent-list">
+            <li>
+                <label>GLobal Security</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/security-global">
+                            <fa name="cog"></fa> Security Global
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active">
+                        <a routerLink="security/global-inward">
+                            <fa name="cog"></fa> Global Inward
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/global-outward">
+                            <fa name="cog"></fa> Global Outward
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- <li>
+                <label>Milk-Collection</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/inward-vehicle">
+                            <fa name="cog"></fa> Inward Vehicles
+                        </a>
+                    </li>
+
+                    <li>
+                        <a routerLink="security/list-inward-vehicle" routerLinkActive="active">
+                            <fa name="cog"></fa> List Inwards
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Milk Tranfer</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/milk-transfer">
+                            <fa name="cog"></fa> Milk Transfer
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-milk-transfer">
+                            <fa name="cog"></fa> List Milk Transfer
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>GatePass</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/create-gatepass">
+                            <fa name="cog"></fa> Gatepass
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-gatepass">
+                            <fa name="cog"></fa> List All Gatepass
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+            <!-- <li>
+                <label>Visitors</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/visitor-register">
+                            <fa name="cog"></fa> Add A Visitor
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-visitor-register">
+                            <fa name="cog"></fa> List All Visitors
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>Key Log</label>
+                <ul>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/create-new-keylog">
+                            <fa name="cog"></fa> Create Keylog
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-keylogs">
+                            <fa name="cog"></fa> List Keylogs
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active">
+                        <a routerLink="security/key-register">
+                            <fa name="cog"></fa> Keylog Register
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="security/list-key-register">
+                            <fa name="cog"></fa> List Keylog Register
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+        </ul>
+
+    </accordion-group>
+    <accordion-group heading="Contact" class="contact btn-icon">
+        <ul>
+            <li>
+                <a routerLink="contact" routerLinkActive="active">
+                    <fa name="cog"></fa> See Contact Details
+                </a>
+            </li>
+        </ul>
+    </accordion-group>
+</accordion>
